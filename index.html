@@ -107,6 +107,34 @@
   .nav-cta:hover{background:var(--trace); color:#04140f; box-shadow:0 0 20px rgba(53,240,192,.4);}
   .burger{display:none; background:none; border:none; color:var(--text); font-size:1.5rem; cursor:pointer;}
 
+  /* LANGUAGE SWITCHER */
+  .lang-switch{
+    display:flex; align-items:center; gap:2px;
+    border:1px solid var(--line); border-radius:3px; padding:3px; margin-right:6px;
+  }
+  .lang-switch svg{flex-shrink:0; margin:0 4px 0 6px;}
+  .lang-btn{
+    font-family:'JetBrains Mono', monospace; font-size:0.74rem; letter-spacing:0.03em;
+    color:var(--text-dim); background:none; border:none; padding:6px 9px; border-radius:2px;
+    cursor:pointer; transition:all .2s;
+  }
+  .lang-btn:hover{color:var(--trace);}
+  .lang-btn.active{background:var(--trace); color:#04140f; font-weight:700;}
+
+  /* RTL (Arabic) */
+  html[dir="rtl"] body{direction:rtl;}
+  html[dir="rtl"] .eyebrow::before{margin-left:0;}
+  html[dir="rtl"] .hero p.lead, html[dir="rtl"] .section-head p{text-align:right;}
+  html[dir="rtl"] .why-mark{order:2;}
+  html[dir="rtl"] .cdrow .k{width:110px;}
+  html[dir="rtl"] .pstep{border-right:none; border-left:1px solid var(--line);}
+  html[dir="rtl"] .pstep:last-child{border-left:none;}
+  html[dir="rtl"] .chip::before, html[dir="rtl"] .chip::after{left:auto; right:24px;}
+  html[dir="rtl"] .wa-float{right:auto; left:22px;}
+  html[dir="rtl"] body, html[dir="rtl"] h1, html[dir="rtl"] h2, html[dir="rtl"] h3, html[dir="rtl"] h4, html[dir="rtl"] h5{
+    font-family:'Inter','Space Grotesk',sans-serif;
+  }
+
   /* HERO */
   .hero{
     position:relative; z-index:1;
@@ -174,8 +202,57 @@
   @keyframes flow{ to{ stroke-dashoffset:-160; } }
   .pcb-node{fill:var(--bg); stroke:var(--trace); stroke-width:1.5;}
   .pcb-node.amber{stroke:var(--amber);}
+  .pcb-node.pulse{animation:node-pulse 2s ease-in-out infinite;}
+  @keyframes node-pulse{
+    0%,100%{r:5; filter:drop-shadow(0 0 0 var(--trace));}
+    50%{r:6.5; filter:drop-shadow(0 0 6px var(--trace));}
+  }
   .pcb-chip{fill:var(--bg-panel); stroke:var(--line); stroke-width:1;}
+  .pcb-chip.glow{animation:chip-glow 3s ease-in-out infinite;}
+  @keyframes chip-glow{
+    0%,100%{stroke:var(--line);}
+    50%{stroke:var(--trace); filter:drop-shadow(0 0 4px var(--trace));}
+  }
   .pcb-label{font-family:'JetBrains Mono', monospace; fill:var(--text-dim); font-size:7px; letter-spacing:0.05em;}
+  .pulse-dot{fill:var(--trace); filter:drop-shadow(0 0 4px var(--trace));}
+
+  /* Scan-line sweep overlay */
+  .scan-overlay{
+    position:fixed; inset:0; z-index:2; pointer-events:none; overflow:hidden;
+  }
+  .scan-overlay::before{
+    content:''; position:absolute; left:0; right:0; height:140px;
+    background:linear-gradient(to bottom, transparent, rgba(53,240,192,0.05) 45%, rgba(53,240,192,0.09) 50%, rgba(53,240,192,0.05) 55%, transparent);
+    animation:scan-sweep 9s linear infinite;
+  }
+  @keyframes scan-sweep{
+    0%{ top:-140px; }
+    100%{ top:100vh; }
+  }
+
+  /* Scroll reveal */
+  .reveal{opacity:0; transform:translateY(22px); transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in-view{opacity:1; transform:translateY(0);}
+
+  /* Chip hover glow with trace-draw corner */
+  .chip{ transition:background .25s, box-shadow .3s, transform .3s; }
+  .chip:hover{
+    box-shadow: inset 0 0 0 1px var(--trace-dim), 0 0 24px -6px rgba(53,240,192,.35);
+    transform:translateY(-3px);
+  }
+  .chip .tagline{position:relative;}
+  .chip .tagline::after{
+    content:''; display:inline-block; width:6px; height:6px; border-radius:50%;
+    background:var(--trace); margin-left:6px; box-shadow:0 0 6px var(--trace);
+    animation:node-pulse 1.6s ease-in-out infinite;
+  }
+
+  .pstep{transition:background .25s;}
+  .pstep:hover{background:rgba(53,240,192,0.035);}
+  .pstep .pnum{position:relative;}
+  .pstep .pnum::before{
+    content:''; position:absolute; left:-14px; top:50%; width:8px; height:1px; background:var(--trace-dim);
+  }
 
   /* SECTIONS */
   section{position:relative; z-index:1; padding:100px 0;}
@@ -327,6 +404,7 @@
 <body>
 
 <div class="circuit-bg"></div>
+<div class="scan-overlay"></div>
 
 <header>
   <nav>
@@ -346,12 +424,23 @@
       <span class="mr">MR</span>&nbsp;ROBOT
     </div>
     <ul>
-      <li><a href="#services">Services</a></li>
-      <li><a href="#process">Méthode</a></li>
-      <li><a href="#why">Pourquoi nous</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href="#services" data-i18n="nav.services">Services</a></li>
+      <li><a href="#process" data-i18n="nav.process">Méthode</a></li>
+      <li><a href="#why" data-i18n="nav.why">Pourquoi nous</a></li>
+      <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
     </ul>
-    <a href="#contact" class="nav-cta">Demander un devis</a>
+    <div style="display:flex; align-items:center; gap:14px;">
+      <div class="lang-switch">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#7f95a6" stroke-width="1.6" aria-hidden="true">
+          <circle cx="12" cy="12" r="9"/>
+          <path d="M3 12h18M12 3a14 14 0 0 1 0 18 14 14 0 0 1 0-18z"/>
+        </svg>
+        <button class="lang-btn active" data-lang="fr" onclick="setLang('fr')">FR</button>
+        <button class="lang-btn" data-lang="ar" onclick="setLang('ar')">AR</button>
+        <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+      </div>
+      <a href="#contact" class="nav-cta" data-i18n="nav.cta">Demander un devis</a>
+    </div>
   </nav>
 </header>
 
@@ -362,17 +451,17 @@
     <div class="wrap">
       <div class="hero-grid">
         <div>
-          <span class="eyebrow">Électronique · Informatique · Réseaux</span>
-          <h1>On répare, on câble, on <span class="accent">sécurise</span> votre installation.</h1>
-          <p class="lead">Mr Robot, c'est la maintenance électronique et informatique pensée comme un circuit bien conçu : chaque composant à sa place, chaque connexion testée. Installations caméras, réseaux, dépannage — sur site, rapidement.</p>
+          <span class="eyebrow" data-i18n="hero.eyebrow">Électronique · Informatique · Réseaux</span>
+          <h1 data-i18n-html="hero.h1">On répare, on câble, on <span class="accent">sécurise</span> votre installation.</h1>
+          <p class="lead" data-i18n="hero.lead">Diagnostic clair, réparation rapide, installation propre. Sur site.</p>
           <div class="hero-actions">
-            <a href="#contact" class="btn-primary">Demander une intervention</a>
-            <a href="#services" class="btn-ghost">Voir les services</a>
+            <a href="#contact" class="btn-primary" data-i18n="hero.cta1">Demander une intervention</a>
+            <a href="#services" class="btn-ghost" data-i18n="hero.cta2">Voir les services</a>
           </div>
           <div class="hero-stats">
-            <div class="hstat"><span class="num">10+</span><span class="lbl">Ans d'expérience</span></div>
-            <div class="hstat"><span class="num">24/7</span><span class="lbl">Support urgence</span></div>
-            <div class="hstat"><span class="num">100%</span><span class="lbl">Diagnostic sur site</span></div>
+            <div class="hstat"><span class="num">10+</span><span class="lbl" data-i18n="hero.stat1">Ans d'expérience</span></div>
+            <div class="hstat"><span class="num">24/7</span><span class="lbl" data-i18n="hero.stat2">Support urgence</span></div>
+            <div class="hstat"><span class="num">100%</span><span class="lbl" data-i18n="hero.stat3">Diagnostic sur site</span></div>
             <div class="hstat"><span class="num">Oran</span><span class="lbl">Cité Lotfi</span></div>
           </div>
         </div>
@@ -393,23 +482,37 @@
             <path class="pcb-trace live" d="M150 20 V70"/>
 
             <!-- central chip -->
-            <rect class="pcb-chip" x="110" y="110" width="80" height="80" rx="3"/>
+            <rect class="pcb-chip glow" x="110" y="110" width="80" height="80" rx="3"/>
             <text class="pcb-label" x="150" y="154" text-anchor="middle">MR-ROBOT</text>
 
+            <!-- traveling signal pulses -->
+            <circle class="pulse-dot" r="2.6">
+              <animateMotion dur="2.6s" repeatCount="indefinite" path="M20 150 H90 L110 130 H190"/>
+            </circle>
+            <circle class="pulse-dot" r="2.6">
+              <animateMotion dur="2.2s" repeatCount="indefinite" path="M20 60 H60 V150"/>
+            </circle>
+            <circle class="pulse-dot" r="2.6">
+              <animateMotion dur="3s" repeatCount="indefinite" path="M280 240 H210 L190 220 V150"/>
+            </circle>
+            <circle class="pulse-dot" r="2.6">
+              <animateMotion dur="2s" repeatCount="indefinite" path="M150 20 V70"/>
+            </circle>
+
             <!-- nodes representing services -->
-            <circle class="pcb-node" cx="20" cy="150" r="5"/>
+            <circle class="pcb-node pulse" cx="20" cy="150" r="5"/>
             <text class="pcb-label" x="14" y="170">RÉSEAU</text>
 
-            <circle class="pcb-node" cx="20" cy="60" r="5"/>
+            <circle class="pcb-node pulse" cx="20" cy="60" r="5"/>
             <text class="pcb-label" x="14" y="45">PC</text>
 
-            <circle class="pcb-node amber" cx="280" cy="240" r="5"/>
+            <circle class="pcb-node amber pulse" cx="280" cy="240" r="5"/>
             <text class="pcb-label" x="230" y="262">CAMÉRA</text>
 
-            <circle class="pcb-node" cx="280" cy="90" r="5"/>
+            <circle class="pcb-node pulse" cx="280" cy="90" r="5"/>
             <text class="pcb-label" x="238" y="75">MAINT.</text>
 
-            <circle class="pcb-node" cx="150" cy="20" r="5"/>
+            <circle class="pcb-node pulse" cx="150" cy="20" r="5"/>
             <text class="pcb-label" x="126" y="14">ÉLEC.</text>
 
             <circle class="pcb-node" cx="150" cy="280" r="5"/>
@@ -424,46 +527,46 @@
   <section id="services">
     <div class="wrap">
       <div class="section-head">
-        <span class="section-tag">// Nos services</span>
-        <h2>Une équipe, tous les câbles.</h2>
-        <p>De la carte mère au switch réseau, en passant par la caméra sur le portail — on couvre l'installation, la maintenance et le conseil, avec le même niveau d'exigence.</p>
+        <span class="section-tag" data-i18n="services.tag">// Nos services</span>
+        <h2 data-i18n="services.h2">Une équipe, tous les câbles.</h2>
+        <p data-i18n="services.lead">Toutes les compétences techniques, au même endroit.</p>
       </div>
 
       <div class="services-grid">
-        <div class="chip">
-          <span class="chip-index">01 · ÉLECTRONIQUE</span>
-          <h3>Réparation &amp; maintenance électronique</h3>
-          <p>Diagnostic de pannes, remplacement de composants, réparation de cartes électroniques et d'appareils grand public ou professionnels.</p>
+        <div class="chip reveal">
+          <span class="chip-index" data-i18n="svc1.index">01 · ÉLECTRONIQUE</span>
+          <h3 data-i18n="svc1.title">Réparation &amp; maintenance électronique</h3>
+          <p data-i18n="svc1.desc">Diagnostic et réparation de cartes électroniques.</p>
           <div class="tagline">→ signal_check() OK</div>
         </div>
-        <div class="chip">
-          <span class="chip-index">02 · INFORMATIQUE</span>
-          <h3>Dépannage &amp; entretien informatique</h3>
-          <p>Nettoyage, mise à niveau, installation logicielle, récupération de données, optimisation des performances pour PC et postes de travail.</p>
+        <div class="chip reveal">
+          <span class="chip-index" data-i18n="svc2.index">02 · INFORMATIQUE</span>
+          <h3 data-i18n="svc2.title">Dépannage &amp; entretien informatique</h3>
+          <p data-i18n="svc2.desc">Nettoyage, mise à niveau, dépannage PC.</p>
           <div class="tagline">→ system_status() OK</div>
         </div>
-        <div class="chip">
-          <span class="chip-index">03 · RÉSEAUX</span>
-          <h3>Installation &amp; configuration réseau</h3>
-          <p>Câblage, Wi-Fi, routeurs, switchs, mise en place de réseaux domestiques et professionnels fiables et sécurisés.</p>
+        <div class="chip reveal">
+          <span class="chip-index" data-i18n="svc3.index">03 · RÉSEAUX</span>
+          <h3 data-i18n="svc3.title">Installation &amp; configuration réseau</h3>
+          <p data-i18n="svc3.desc">Câblage, Wi-Fi, routeurs, réseaux sécurisés.</p>
           <div class="tagline">→ network_link() OK</div>
         </div>
-        <div class="chip">
-          <span class="chip-index">04 · VIDÉOSURVEILLANCE</span>
-          <h3>Installation de caméras</h3>
-          <p>Étude du site, pose de caméras intérieures/extérieures, configuration à distance et paramétrage des alertes.</p>
+        <div class="chip reveal">
+          <span class="chip-index" data-i18n="svc4.index">04 · VIDÉOSURVEILLANCE</span>
+          <h3 data-i18n="svc4.title">Installation de caméras</h3>
+          <p data-i18n="svc4.desc">Pose et configuration de caméras.</p>
           <div class="tagline">→ camera_feed() OK</div>
         </div>
-        <div class="chip">
-          <span class="chip-index">05 · PROGRAMMATION</span>
-          <h3>Programmation &amp; automatismes</h3>
-          <p>Développement de petits systèmes embarqués, scripts d'automatisation et intégration de microcontrôleurs (Arduino, ESP32...).</p>
+        <div class="chip reveal">
+          <span class="chip-index" data-i18n="svc5.index">05 · PROGRAMMATION</span>
+          <h3 data-i18n="svc5.title">Programmation &amp; automatismes</h3>
+          <p data-i18n="svc5.desc">Scripts et automatismes (Arduino, ESP32).</p>
           <div class="tagline">→ code_compile() OK</div>
         </div>
-        <div class="chip">
-          <span class="chip-index">06 · CONSEIL</span>
-          <h3>Conseil technique</h3>
-          <p>Audit de votre installation existante, recommandations d'équipement et accompagnement dans vos projets techniques.</p>
+        <div class="chip reveal">
+          <span class="chip-index" data-i18n="svc6.index">06 · CONSEIL</span>
+          <h3 data-i18n="svc6.title">Conseil technique</h3>
+          <p data-i18n="svc6.desc">Audit et recommandations techniques.</p>
           <div class="tagline">→ advisory_mode() OK</div>
         </div>
       </div>
@@ -474,29 +577,29 @@
   <section id="process">
     <div class="wrap">
       <div class="section-head">
-        <span class="section-tag">// Méthode</span>
-        <h2>Comment se déroule une intervention</h2>
+        <span class="section-tag" data-i18n="process.tag">// Méthode</span>
+        <h2 data-i18n="process.h2">Comment se déroule une intervention</h2>
       </div>
       <div class="process">
-        <div class="pstep">
+        <div class="pstep reveal">
           <span class="pnum">01</span>
-          <h4>Prise de contact</h4>
-          <p>Vous décrivez le besoin par téléphone, message ou formulaire.</p>
+          <h4 data-i18n="step1.title">Prise de contact</h4>
+          <p data-i18n="step1.desc">Décrivez votre besoin.</p>
         </div>
-        <div class="pstep">
+        <div class="pstep reveal">
           <span class="pnum">02</span>
-          <h4>Diagnostic</h4>
-          <p>Analyse sur site ou à distance pour identifier la cause exacte.</p>
+          <h4 data-i18n="step2.title">Diagnostic</h4>
+          <p data-i18n="step2.desc">Analyse sur site ou à distance.</p>
         </div>
-        <div class="pstep">
+        <div class="pstep reveal">
           <span class="pnum">03</span>
-          <h4>Intervention</h4>
-          <p>Réparation, installation ou configuration, avec matériel adapté.</p>
+          <h4 data-i18n="step3.title">Intervention</h4>
+          <p data-i18n="step3.desc">Réparation ou installation rapide.</p>
         </div>
-        <div class="pstep">
+        <div class="pstep reveal">
           <span class="pnum">04</span>
-          <h4>Suivi</h4>
-          <p>Tests finaux, explication claire et disponibilité après passage.</p>
+          <h4 data-i18n="step4.title">Suivi</h4>
+          <p data-i18n="step4.desc">Tests et suivi après passage.</p>
         </div>
       </div>
     </div>
@@ -506,49 +609,49 @@
   <section id="why">
     <div class="wrap">
       <div class="section-head">
-        <span class="section-tag">// Pourquoi Mr Robot</span>
-        <h2>La technique, sans jargon inutile</h2>
+        <span class="section-tag" data-i18n="why.tag">// Pourquoi Mr Robot</span>
+        <h2 data-i18n="why.h2">La technique, sans jargon inutile</h2>
       </div>
       <div class="why-grid">
         <ul class="why-list">
           <li>
             <span class="why-mark">▸</span>
             <div>
-              <h5>Expertise transversale</h5>
-              <p>Électronique, informatique et réseaux gérés par la même équipe, pour éviter les allers-retours entre prestataires.</p>
+              <h5 data-i18n="why1.title">Expertise transversale</h5>
+              <p data-i18n="why1.desc">Une seule équipe pour tout gérer.</p>
             </div>
           </li>
           <li>
             <span class="why-mark">▸</span>
             <div>
-              <h5>Diagnostic honnête</h5>
-              <p>On vous explique la panne réelle avant toute intervention, avec un devis clair.</p>
+              <h5 data-i18n="why2.title">Diagnostic honnête</h5>
+              <p data-i18n="why2.desc">Devis clair avant intervention.</p>
             </div>
           </li>
           <li>
             <span class="why-mark">▸</span>
             <div>
-              <h5>Matériel fiable</h5>
-              <p>Composants et équipements sélectionnés pour leur durabilité, pas pour le prix le plus bas.</p>
+              <h5 data-i18n="why3.title">Matériel fiable</h5>
+              <p data-i18n="why3.desc">Choisi pour durer, pas pour le prix.</p>
             </div>
           </li>
           <li>
             <span class="why-mark">▸</span>
             <div>
-              <h5>Réactivité</h5>
-              <p>Interventions rapides, avec suivi après installation pour garantir que tout reste fonctionnel.</p>
+              <h5 data-i18n="why4.title">Réactivité</h5>
+              <p data-i18n="why4.desc">Intervention rapide, suivi assuré.</p>
             </div>
           </li>
         </ul>
 
         <div class="why-panel">
           <div><span class="term-dim">$</span> <span class="term-line">mr-robot --status</span></div>
-          <div>&gt; électronique&nbsp;&nbsp;&nbsp;&nbsp; [ OK ]</div>
-          <div>&gt; informatique&nbsp;&nbsp;&nbsp; [ OK ]</div>
-          <div>&gt; réseaux&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [ OK ]</div>
-          <div>&gt; caméras&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [ OK ]</div>
-          <div>&gt; conseil&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [ OK ]</div>
-          <div style="margin-top:14px;"><span class="term-dim">$</span> <span class="term-line">en attente de votre demande</span><span class="cursor"></span></div>
+          <div data-i18n="why.t1">&gt; électronique&nbsp;&nbsp;&nbsp;&nbsp; [ OK ]</div>
+          <div data-i18n="why.t2">&gt; informatique&nbsp;&nbsp;&nbsp; [ OK ]</div>
+          <div data-i18n="why.t3">&gt; réseaux&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [ OK ]</div>
+          <div data-i18n="why.t4">&gt; caméras&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [ OK ]</div>
+          <div data-i18n="why.t5">&gt; conseil&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [ OK ]</div>
+          <div style="margin-top:14px;"><span class="term-dim">$</span> <span class="term-line" data-i18n="why.waiting">en attente de votre demande</span><span class="cursor"></span></div>
         </div>
       </div>
     </div>
@@ -559,57 +662,46 @@
     <div class="wrap">
       <div class="contact-wrap">
         <div class="contact-info">
-          <h3>Parlons de votre installation</h3>
-          <p>Décrivez votre besoin — panne, nouvelle installation, ou simple conseil — et nous revenons vers vous rapidement pour planifier une intervention.</p>
+          <h3 data-i18n="contact.h3">Parlons de votre installation</h3>
+          <p data-i18n="contact.lead">Décrivez votre besoin, on vous répond vite.</p>
           <div class="contact-detail">
-            <div class="cdrow"><span class="k">Téléphone</span><span class="v"><a href="tel:+213797202579">0797 20 25 79</a></span></div>
-            <div class="cdrow"><span class="k">WhatsApp</span><span class="v"><a href="https://wa.me/213797202579" target="_blank" rel="noopener">0797 20 25 79</a></span></div>
-            <div class="cdrow"><span class="k">Email</span><span class="v"><a href="mailto:yassinedella@gmail.com">yassinedella@gmail.com</a></span></div>
-            <div class="cdrow"><span class="k">Adresse</span><span class="v">Cité Lotfi, Oran</span></div>
-            <div class="cdrow"><span class="k">Horaires</span><span class="v">Lun–Sam, 8h–19h · urgences 24/7</span></div>
+            <div class="cdrow"><span class="k" data-i18n="contact.phone">Téléphone</span><span class="v"><a href="tel:+213797202579">0797 20 25 79</a></span></div>
+            <div class="cdrow"><span class="k">WhatsApp</span><span class="v"><a href="https://api.whatsapp.com/send?phone=213797202579&amp;text=Bonjour%20Mr%20Robot%2C%20je%20souhaite%20avoir%20plus%20d%27informations%20sur%20vos%20services." onclick="return openWhatsAppDirect(event)">0797 20 25 79</a></span></div>
+            <div class="cdrow"><span class="k" data-i18n="contact.email">Email</span><span class="v"><a href="mailto:yassinedella@gmail.com">yassinedella@gmail.com</a></span></div>
+            <div class="cdrow"><span class="k" data-i18n="contact.address">Adresse</span><span class="v">Cité Lotfi, Oran</span></div>
+            <div class="cdrow"><span class="k" data-i18n="contact.hours">Horaires</span><span class="v" data-i18n="contact.hoursval">Lun–Sam, 8h–19h · urgences 24/7</span></div>
           </div>
-          <a href="https://wa.me/213797202579" target="_blank" rel="noopener" class="btn-primary" style="display:inline-flex; align-items:center; gap:10px; margin-top:8px;">
+          <a href="https://api.whatsapp.com/send?phone=213797202579&amp;text=Bonjour%20Mr%20Robot%2C%20je%20souhaite%20avoir%20plus%20d%27informations%20sur%20vos%20services." onclick="return openWhatsAppDirect(event)" class="btn-primary" style="display:inline-flex; align-items:center; gap:10px; margin-top:8px;" data-i18n="contact.waBtn">
             Écrire sur WhatsApp
           </a>
         </div>
 
         <form id="contact-form" onsubmit="sendToWhatsApp(event)">
           <div class="field">
-            <label for="name">Nom</label>
-            <input id="name" type="text" placeholder="Votre nom" required>
+            <label for="name" data-i18n="form.name">Nom</label>
+            <input id="name" type="text" placeholder="Votre nom" required data-i18n-placeholder="form.namePh">
           </div>
           <div class="field">
-            <label for="phone">Téléphone</label>
-            <input id="phone" type="tel" placeholder="Votre numéro">
+            <label for="phone" data-i18n="form.phone">Téléphone</label>
+            <input id="phone" type="tel" placeholder="Votre numéro" data-i18n-placeholder="form.phonePh">
           </div>
           <div class="field">
-            <label for="service">Type de besoin</label>
+            <label for="service" data-i18n="form.service">Type de besoin</label>
             <select id="service">
-              <option>Réparation électronique</option>
-              <option>Dépannage informatique</option>
-              <option>Installation réseau</option>
-              <option>Installation caméra</option>
-              <option>Programmation / automatisme</option>
-              <option>Conseil technique</option>
+              <option data-i18n="svc1.title">Réparation électronique</option>
+              <option data-i18n="svc2.title">Dépannage informatique</option>
+              <option data-i18n="svc3.short">Installation réseau</option>
+              <option data-i18n="svc4.title">Installation caméra</option>
+              <option data-i18n="svc5.short">Programmation / automatisme</option>
+              <option data-i18n="svc6.title">Conseil technique</option>
             </select>
           </div>
           <div class="field">
-            <label for="msg">Décrivez votre besoin</label>
-            <textarea id="msg" placeholder="Ex : PC qui ne s'allume plus, besoin d'installer 3 caméras..."></textarea>
+            <label for="msg" data-i18n="form.msg">Décrivez votre besoin</label>
+            <textarea id="msg" placeholder="Ex : PC qui ne s'allume plus, besoin d'installer 3 caméras..." data-i18n-placeholder="form.msgPh"></textarea>
           </div>
-          <button type="submit" class="submit-btn">Envoyer sur WhatsApp</button>
+          <button type="submit" class="submit-btn" data-i18n="form.submit">Envoyer sur WhatsApp</button>
         </form>
-        <script>
-          function sendToWhatsApp(e){
-            e.preventDefault();
-            const name = document.getElementById('name').value;
-            const phone = document.getElementById('phone').value;
-            const service = document.getElementById('service').value;
-            const msg = document.getElementById('msg').value;
-            const text = `Bonjour Mr Robot, je m'appelle ${name}.%0ATéléphone: ${phone}%0ABesoin: ${service}%0ADétails: ${msg}`;
-            window.open(`https://wa.me/213797202579?text=${text}`, '_blank');
-          }
-        </script>
       </div>
     </div>
   </section>
@@ -618,14 +710,212 @@
 
 <footer>
   <div class="wrap foot-wrap">
-    <p>MR ROBOT — Cité Lotfi, Oran · 0797 20 25 79 · yassinedella@gmail.com</p>
-    <p>© 2026 · Tous droits réservés</p>
+    <p><span data-i18n="footer.brand">MR ROBOT — Cité Lotfi, Oran</span> · 0797 20 25 79 · yassinedella@gmail.com</p>
+    <p data-i18n="footer.rights">© 2026 · Tous droits réservés</p>
   </div>
 </footer>
 
-<a href="https://wa.me/213797202579" target="_blank" rel="noopener" class="wa-float" aria-label="Contacter Mr Robot sur WhatsApp">
+<a href="https://api.whatsapp.com/send?phone=213797202579&amp;text=Bonjour%20Mr%20Robot%2C%20je%20souhaite%20avoir%20plus%20d%27informations%20sur%20vos%20services." onclick="return openWhatsAppDirect(event)" class="wa-float" aria-label="Contacter Mr Robot sur WhatsApp">
   <svg viewBox="0 0 32 32" width="26" height="26" fill="#04140f"><path d="M16.001 3C9.096 3 3.5 8.596 3.5 15.5c0 2.34.646 4.53 1.77 6.41L3 29l7.27-2.24A12.44 12.44 0 0 0 16 28c6.905 0 12.5-5.596 12.5-12.5S22.905 3 16.001 3zm7.27 17.77c-.31.87-1.6 1.6-2.57 1.8-.68.14-1.56.25-4.53-.97-3.8-1.57-6.24-5.41-6.43-5.66-.19-.25-1.53-2.04-1.53-3.9 0-1.85.97-2.76 1.32-3.14.34-.37.75-.46 1-.46.25 0 .5 0 .72.01.23.01.54-.09.85.65.31.75 1.06 2.6 1.15 2.79.1.19.16.41.03.66-.13.25-.2.4-.4.62-.2.22-.42.49-.6.66-.2.19-.41.4-.18.79.24.4 1.05 1.73 2.25 2.8 1.55 1.38 2.86 1.81 3.26 2.01.4.19.63.16.86-.1.24-.25 1-1.17 1.27-1.57.27-.4.53-.33.9-.2.36.13 2.31 1.09 2.7 1.29.4.19.66.29.76.45.1.16.1.94-.2 1.81z"/></svg>
 </a>
+
+<script>
+  const translations = {
+    fr: {
+      "nav.services":"Services", "nav.process":"Méthode", "nav.why":"Pourquoi nous", "nav.contact":"Contact",
+      "nav.cta":"Demander un devis",
+      "hero.eyebrow":"Électronique · Informatique · Réseaux",
+      "hero.h1":"On répare, on câble, on <span class=\"accent\">sécurise</span> votre installation.",
+      "hero.lead":"Diagnostic clair, réparation rapide, installation propre. Sur site.",
+      "hero.cta1":"Demander une intervention", "hero.cta2":"Voir les services",
+      "hero.stat1":"Ans d'expérience", "hero.stat2":"Support urgence", "hero.stat3":"Diagnostic sur site",
+      "services.tag":"// Nos services", "services.h2":"Une équipe, tous les câbles.",
+      "services.lead":"Toutes les compétences techniques, au même endroit.",
+      "svc1.index":"01 · ÉLECTRONIQUE", "svc1.title":"Réparation & maintenance électronique",
+      "svc1.desc":"Diagnostic et réparation de cartes électroniques.",
+      "svc2.index":"02 · INFORMATIQUE", "svc2.title":"Dépannage & entretien informatique",
+      "svc2.desc":"Nettoyage, mise à niveau, dépannage PC.",
+      "svc3.index":"03 · RÉSEAUX", "svc3.title":"Installation & configuration réseau", "svc3.short":"Installation réseau",
+      "svc3.desc":"Câblage, Wi-Fi, routeurs, réseaux sécurisés.",
+      "svc4.index":"04 · VIDÉOSURVEILLANCE", "svc4.title":"Installation de caméras",
+      "svc4.desc":"Pose et configuration de caméras.",
+      "svc5.index":"05 · PROGRAMMATION", "svc5.title":"Programmation & automatismes", "svc5.short":"Programmation / automatisme",
+      "svc5.desc":"Scripts et automatismes (Arduino, ESP32).",
+      "svc6.index":"06 · CONSEIL", "svc6.title":"Conseil technique",
+      "svc6.desc":"Audit et recommandations techniques.",
+      "process.tag":"// Méthode", "process.h2":"Comment se déroule une intervention",
+      "step1.title":"Prise de contact", "step1.desc":"Décrivez votre besoin.",
+      "step2.title":"Diagnostic", "step2.desc":"Analyse sur site ou à distance.",
+      "step3.title":"Intervention", "step3.desc":"Réparation ou installation rapide.",
+      "step4.title":"Suivi", "step4.desc":"Tests et suivi après passage.",
+      "why.tag":"// Pourquoi Mr Robot", "why.h2":"La technique, sans jargon inutile",
+      "why1.title":"Expertise transversale", "why1.desc":"Une seule équipe pour tout gérer.",
+      "why2.title":"Diagnostic honnête", "why2.desc":"Devis clair avant intervention.",
+      "why3.title":"Matériel fiable", "why3.desc":"Choisi pour durer, pas pour le prix.",
+      "why4.title":"Réactivité", "why4.desc":"Intervention rapide, suivi assuré.",
+      "why.t1":"&gt; électronique&nbsp;&nbsp;&nbsp;&nbsp; [ OK ]", "why.t2":"&gt; informatique&nbsp;&nbsp;&nbsp; [ OK ]",
+      "why.t3":"&gt; réseaux&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [ OK ]", "why.t4":"&gt; caméras&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [ OK ]",
+      "why.t5":"&gt; conseil&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [ OK ]", "why.waiting":"en attente de votre demande",
+      "contact.h3":"Parlons de votre installation",
+      "contact.lead":"Décrivez votre besoin, on vous répond vite.",
+      "contact.phone":"Téléphone", "contact.email":"Email", "contact.address":"Adresse", "contact.hours":"Horaires",
+      "contact.hoursval":"Lun–Sam, 8h–19h · urgences 24/7", "contact.waBtn":"Écrire sur WhatsApp",
+      "form.name":"Nom", "form.namePh":"Votre nom", "form.phone":"Téléphone", "form.phonePh":"Votre numéro",
+      "form.service":"Type de besoin", "form.msg":"Décrivez votre besoin",
+      "form.msgPh":"Ex : PC qui ne s'allume plus, besoin d'installer 3 caméras...", "form.submit":"Envoyer sur WhatsApp",
+      "footer.brand":"MR ROBOT — Cité Lotfi, Oran", "footer.rights":"© 2026 · Tous droits réservés"
+    },
+    en: {
+      "nav.services":"Services", "nav.process":"Process", "nav.why":"Why us", "nav.contact":"Contact",
+      "nav.cta":"Request a quote",
+      "hero.eyebrow":"Electronics · IT · Networks",
+      "hero.h1":"We repair, we wire, we <span class=\"accent\">secure</span> your setup.",
+      "hero.lead":"Clear diagnosis, fast repair, clean install. On-site.",
+      "hero.cta1":"Request a visit", "hero.cta2":"View services",
+      "hero.stat1":"Years of experience", "hero.stat2":"Emergency support", "hero.stat3":"On-site diagnosis",
+      "services.tag":"// Our services", "services.h2":"One team, every cable.",
+      "services.lead":"Every technical skill, in one place.",
+      "svc1.index":"01 · ELECTRONICS", "svc1.title":"Electronic repair & maintenance",
+      "svc1.desc":"Diagnosis and repair of electronic boards.",
+      "svc2.index":"02 · IT", "svc2.title":"IT repair & upkeep",
+      "svc2.desc":"Cleaning, upgrades, PC repair.",
+      "svc3.index":"03 · NETWORKS", "svc3.title":"Network installation & setup", "svc3.short":"Network installation",
+      "svc3.desc":"Cabling, Wi-Fi, routers, secure networks.",
+      "svc4.index":"04 · CCTV", "svc4.title":"Camera installation",
+      "svc4.desc":"Camera placement and setup.",
+      "svc5.index":"05 · PROGRAMMING", "svc5.title":"Programming & automation", "svc5.short":"Programming / automation",
+      "svc5.desc":"Scripts and automation (Arduino, ESP32).",
+      "svc6.index":"06 · CONSULTING", "svc6.title":"Technical consulting",
+      "svc6.desc":"Audit and technical recommendations.",
+      "process.tag":"// Process", "process.h2":"How a visit works",
+      "step1.title":"Get in touch", "step1.desc":"Tell us what you need.",
+      "step2.title":"Diagnosis", "step2.desc":"On-site or remote analysis.",
+      "step3.title":"Service", "step3.desc":"Fast repair or installation.",
+      "step4.title":"Follow-up", "step4.desc":"Tests and after-visit support.",
+      "why.tag":"// Why Mr Robot", "why.h2":"Technical work, no unnecessary jargon",
+      "why1.title":"Cross-domain expertise", "why1.desc":"One team handles it all.",
+      "why2.title":"Honest diagnosis", "why2.desc":"Clear quote before any work.",
+      "why3.title":"Reliable equipment", "why3.desc":"Chosen for durability, not price.",
+      "why4.title":"Responsiveness", "why4.desc":"Fast service, follow-up guaranteed.",
+      "why.t1":"&gt; electronics&nbsp;&nbsp;&nbsp;&nbsp; [ OK ]", "why.t2":"&gt; IT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [ OK ]",
+      "why.t3":"&gt; networks&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [ OK ]", "why.t4":"&gt; cameras&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [ OK ]",
+      "why.t5":"&gt; consulting&nbsp;&nbsp; [ OK ]", "why.waiting":"waiting for your request",
+      "contact.h3":"Let's talk about your setup",
+      "contact.lead":"Tell us what you need, we reply fast.",
+      "contact.phone":"Phone", "contact.email":"Email", "contact.address":"Address", "contact.hours":"Hours",
+      "contact.hoursval":"Mon–Sat, 8am–7pm · emergencies 24/7", "contact.waBtn":"Message us on WhatsApp",
+      "form.name":"Name", "form.namePh":"Your name", "form.phone":"Phone", "form.phonePh":"Your number",
+      "form.service":"Type of request", "form.msg":"Describe your need",
+      "form.msgPh":"E.g.: PC won't turn on, need to install 3 cameras...", "form.submit":"Send via WhatsApp",
+      "footer.brand":"MR ROBOT — Cité Lotfi, Oran", "footer.rights":"© 2026 · All rights reserved"
+    },
+    ar: {
+      "nav.services":"الخدمات", "nav.process":"طريقة العمل", "nav.why":"لماذا نحن", "nav.contact":"اتصل بنا",
+      "nav.cta":"اطلب عرض سعر",
+      "hero.eyebrow":"إلكترونيك · إعلام آلي · شبكات",
+      "hero.h1":"نصلّح، نمدّ الكابلات، <span class=\"accent\">ونؤمّن</span> تجهيزاتك.",
+      "hero.lead":"تشخيص واضح، إصلاح سريع، تركيب نظيف. في الموقع.",
+      "hero.cta1":"اطلب تدخّل", "hero.cta2":"شاهد الخدمات",
+      "hero.stat1":"سنوات خبرة", "hero.stat2":"دعم على مدار الساعة", "hero.stat3":"تشخيص في الموقع",
+      "services.tag":"// خدماتنا", "services.h2":"فريق واحد لكل الأسلاك.",
+      "services.lead":"كل الكفاءات التقنية في مكان واحد.",
+      "svc1.index":"01 · إلكترونيك", "svc1.title":"إصلاح وصيانة إلكترونية",
+      "svc1.desc":"تشخيص وإصلاح اللوحات الإلكترونية.",
+      "svc2.index":"02 · إعلام آلي", "svc2.title":"إصلاح وصيانة الحواسيب",
+      "svc2.desc":"تنظيف، ترقية، إصلاح الحاسوب.",
+      "svc3.index":"03 · شبكات", "svc3.title":"تركيب وضبط الشبكات", "svc3.short":"تركيب شبكة",
+      "svc3.desc":"كابلات، واي فاي، شبكات آمنة.",
+      "svc4.index":"04 · مراقبة", "svc4.title":"تركيب الكاميرات",
+      "svc4.desc":"تركيب وضبط الكاميرات.",
+      "svc5.index":"05 · برمجة", "svc5.title":"برمجة وأتمتة", "svc5.short":"برمجة / أتمتة",
+      "svc5.desc":"سكريبتات وأتمتة (Arduino، ESP32).",
+      "svc6.index":"06 · استشارة", "svc6.title":"استشارة تقنية",
+      "svc6.desc":"تدقيق وتوصيات تقنية.",
+      "process.tag":"// طريقة العمل", "process.h2":"كيف يتم التدخّل",
+      "step1.title":"التواصل", "step1.desc":"صف احتياجك.",
+      "step2.title":"التشخيص", "step2.desc":"تحليل في الموقع أو عن بعد.",
+      "step3.title":"التدخّل", "step3.desc":"إصلاح أو تركيب سريع.",
+      "step4.title":"المتابعة", "step4.desc":"اختبارات ومتابعة بعد التدخّل.",
+      "why.tag":"// لماذا Mr Robot", "why.h2":"تقنية بدون تعقيد",
+      "why1.title":"خبرة شاملة", "why1.desc":"فريق واحد يدير كل شيء.",
+      "why2.title":"تشخيص صادق", "why2.desc":"عرض سعر واضح قبل التدخّل.",
+      "why3.title":"معدات موثوقة", "why3.desc":"مختارة لمتانتها، لا لسعرها.",
+      "why4.title":"سرعة الاستجابة", "why4.desc":"تدخّل سريع، متابعة مضمونة.",
+      "why.t1":"&gt; إلكترونيك&nbsp;&nbsp; [ OK ]", "why.t2":"&gt; إعلام آلي&nbsp;&nbsp; [ OK ]",
+      "why.t3":"&gt; شبكات&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [ OK ]", "why.t4":"&gt; كاميرات&nbsp;&nbsp;&nbsp; [ OK ]",
+      "why.t5":"&gt; استشارة&nbsp;&nbsp;&nbsp; [ OK ]", "why.waiting":"في انتظار طلبك",
+      "contact.h3":"لنتحدث عن تجهيزاتك",
+      "contact.lead":"صف احتياجك، نرد عليك بسرعة.",
+      "contact.phone":"الهاتف", "contact.email":"البريد الإلكتروني", "contact.address":"العنوان", "contact.hours":"أوقات العمل",
+      "contact.hoursval":"الإثنين–السبت، 8ص–7م · طوارئ على مدار الساعة", "contact.waBtn":"راسلنا على واتساب",
+      "form.name":"الاسم", "form.namePh":"اسمك", "form.phone":"الهاتف", "form.phonePh":"رقمك",
+      "form.service":"نوع الطلب", "form.msg":"صف احتياجك",
+      "form.msgPh":"مثال: الحاسوب لا يعمل، أحتاج تركيب 3 كاميرات...", "form.submit":"أرسل عبر واتساب",
+      "footer.brand":"MR ROBOT — حي لطفي، وهران", "footer.rights":"© 2026 · جميع الحقوق محفوظة"
+    }
+  };
+
+  let currentLang = 'fr';
+
+  function setLang(lang){
+    currentLang = lang;
+    document.documentElement.lang = lang;
+    document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if(translations[lang][key]) el.innerHTML = translations[lang][key];
+    });
+    document.querySelectorAll('[data-i18n-html]').forEach(el => {
+      const key = el.getAttribute('data-i18n-html');
+      if(translations[lang][key]) el.innerHTML = translations[lang][key];
+    });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+      const key = el.getAttribute('data-i18n-placeholder');
+      if(translations[lang][key]) el.setAttribute('placeholder', translations[lang][key]);
+    });
+    document.querySelectorAll('.lang-btn').forEach(b => {
+      b.classList.toggle('active', b.getAttribute('data-lang') === lang);
+    });
+  }
+
+  function openWhatsAppDirect(e){
+    if(e) e.preventDefault();
+    const standardMessages = {
+      fr: "Bonjour Mr Robot, je souhaite avoir plus d'informations sur vos services.",
+      en: "Hello Mr Robot, I would like more information about your services.",
+      ar: "مرحباً Mr Robot، أرغب في معرفة المزيد عن خدماتكم."
+    };
+    const text = encodeURIComponent(standardMessages[currentLang] || standardMessages.fr);
+    window.location.href = `https://api.whatsapp.com/send?phone=213797202579&text=${text}`;
+    return false;
+  }
+
+  function sendToWhatsApp(e){
+    e.preventDefault();
+    const name = document.getElementById('name').value;
+    const phone = document.getElementById('phone').value;
+    const service = document.getElementById('service').value;
+    const msg = document.getElementById('msg').value;
+    const greetings = {
+      fr: `Bonjour Mr Robot, je m'appelle ${name}.%0ATéléphone: ${phone}%0ABesoin: ${service}%0ADétails: ${msg}`,
+      en: `Hello Mr Robot, my name is ${name}.%0APhone: ${phone}%0ANeed: ${service}%0ADetails: ${msg}`,
+      ar: `مرحباً Mr Robot، اسمي ${name}.%0Aالهاتف: ${phone}%0Aالطلب: ${service}%0Aالتفاصيل: ${msg}`
+    };
+    window.location.href = `https://api.whatsapp.com/send?phone=213797202579&text=${greetings[currentLang]}`;
+  }
+
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if(entry.isIntersecting){
+        setTimeout(() => entry.target.classList.add('in-view'), i * 70);
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+</script>
 
 </body>
 </html>
