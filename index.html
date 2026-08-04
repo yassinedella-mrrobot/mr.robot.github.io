@@ -772,11 +772,11 @@
     </div>
 
     <script>
-        // ⚠️ Clé API NVIDIA — pour la retirer, supprimez cette ligne (le robot repassera
-        // en mode base de connaissances locale automatiquement).
-        const NVIDIA_API_KEY = "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";
+        // ⚠️ Une fois ton Cloudflare Worker déployé (voir della-proxy-worker.js),
+        // colle son URL ici. Tant que c'est vide, Della utilise sa base de
+        // connaissances locale (pas d'appel réseau bloqué inutilement).
+        const DELLA_PROXY_URL = "https://della-proxy.yassinedella.workers.dev/";
         const NVIDIA_MODEL = "meta/llama-3.1-8b-instruct";
-        const NVIDIA_ENDPOINT = "https://integrate.api.nvidia.com/v1/chat/completions";
 
         const BOT_SYSTEM_PROMPT = `Tu es Della, le robot assistant du site de "Mr Robot", une entreprise de services techniques à Oran, Algérie, gérée par deux frères : Yassin (Responsable Technique) et Wahib (Opérations Terrain).
 Services proposés : Électronique (diagnostic et réparation de cartes mères), Informatique (maintenance, dépannage), Réseaux (installation, sécurisation WiFi/câblage), Vidéosurveillance (caméras IP, NVR), Programmation (logiciels, sites web, automatisation sur mesure), et Autres solutions techniques sur demande.
@@ -845,12 +845,9 @@ Réponds en français, de façon brève (2-3 phrases maximum), amicale et profes
             botHistory.push({ role: "user", content: text });
             const messages = [{ role: "system", content: BOT_SYSTEM_PROMPT }, ...botHistory.slice(-8)];
 
-            const res = await fetch(NVIDIA_ENDPOINT, {
+            const res = await fetch(DELLA_PROXY_URL, {
                 method: "POST",
-                headers: {
-                    "Authorization": `Bearer ${NVIDIA_API_KEY}`,
-                    "Content-Type": "application/json"
-                },
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     model: NVIDIA_MODEL,
                     messages: messages,
@@ -859,7 +856,7 @@ Réponds en français, de façon brève (2-3 phrases maximum), amicale et profes
                 })
             });
 
-            if(!res.ok) throw new Error("NVIDIA API error " + res.status);
+            if(!res.ok) throw new Error("Proxy error " + res.status);
             const data = await res.json();
             const reply = data.choices?.[0]?.message?.content?.trim();
             if(!reply) throw new Error("Réponse vide");
@@ -876,7 +873,7 @@ Réponds en français, de façon brève (2-3 phrases maximum), amicale et profes
 
             const typingEl = botAddMsg('bot', '…');
 
-            const useAI = !!NVIDIA_API_KEY;
+            const useAI = !!DELLA_PROXY_URL;
 
             const finish = (reply, isFallback) => {
                 typingEl.textContent = reply;
