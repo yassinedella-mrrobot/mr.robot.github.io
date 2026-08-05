@@ -18,7 +18,7 @@
             --amber: #ffaa00;
             --wa: #25D366;
             --text: #c5d6e3;
-            --text-dim: #6b8296;
+            --text-dim: #93a8b8;
             --text-light: #f0f4f7;
             --white: #ffffff;
             --transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -119,7 +119,7 @@
             padding: 5px 0; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
             position: absolute; top: 100%; left: 0; display: flex;
         }
-        .marquee-content { white-space: nowrap; animation: scroll-marquee 20s linear infinite; font-weight: bold; }
+        .marquee-content { white-space: nowrap; animation: scroll-marquee 42s linear infinite; font-weight: bold; letter-spacing: 0.06em; }
         @keyframes scroll-marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
         /* Hero */
@@ -143,10 +143,10 @@
         }
         .hero-cta:hover { background: var(--white); transform: translateY(-3px); box-shadow: 0 0 35px rgba(255,255,255,0.6); }
         .hero-cta-secondary {
-            background: transparent; border: 1px solid var(--text-dim); color: var(--text);
-            box-shadow: none; padding: 14px 32px; border-radius: 8px;
+            background: rgba(0,255,204,0.06); border: 2px solid var(--trace); color: var(--white);
+            box-shadow: 0 0 12px rgba(0,255,204,0.15); padding: 13px 32px; border-radius: 8px; font-weight: 700;
         }
-        .hero-cta-secondary:hover { background: var(--text-dim); color: #000; box-shadow: 0 0 20px var(--text-dim); }
+        .hero-cta-secondary:hover { background: var(--trace); color: #000; box-shadow: 0 0 25px rgba(0,255,204,0.5); transform: translateY(-3px); }
 
         .typewriter-container { display: inline-block; min-height: 24px; }
         .typewriter-text {
@@ -165,13 +165,21 @@
         .services-title { font-family: 'Space Grotesk', 'Cairo', sans-serif; font-size: 1.2rem; color: var(--white); margin: 30px 0 20px; display: flex; align-items: center; gap: 10px; }
         .services-title::before { content: ''; display: inline-block; width: 10px; height: 10px; background: var(--trace); border-radius: 50%; box-shadow: 0 0 10px var(--trace); }
 
-        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 20px; margin-bottom: 50px; }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 20px; margin-bottom: 50px; padding-bottom: 20px; }
+        @media (max-width: 768px) { .services-grid { padding-bottom: 76px; } }
         .service-card {
             background: rgba(13, 21, 28, 0.6); border: 1px solid var(--line); border-radius: 12px; padding: 25px; cursor: pointer; transition: var(--transition); backdrop-filter: blur(5px); position: relative; overflow: hidden;
         }
         .service-card::after { content:''; position: absolute; top:0; left:-100%; width:100%; height:100%; background: linear-gradient(90deg, transparent, rgba(0,255,204,0.1), transparent); transition: 0.5s; }
         .service-card:hover::after { left: 100%; }
         .service-card:hover { border-color: var(--trace); transform: translateY(-8px); box-shadow: 0 10px 30px rgba(0, 255, 204, 0.15); }
+
+        .price-badge {
+            position: absolute; top: 14px; right: 14px; z-index: 2;
+            background: rgba(255,170,0,0.1); border: 1px solid var(--amber); color: var(--amber);
+            font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; font-weight: 700;
+            padding: 4px 9px; border-radius: 12px; letter-spacing: 0.03em; text-transform: uppercase;
+        }
         
         .service-icon { font-size: 2.2rem; margin-bottom: 15px; display: inline-block; filter: drop-shadow(0 0 8px rgba(0,255,204,0.5)); transition: var(--transition); }
         .service-card:hover .service-icon { transform: scale(1.2); }
@@ -202,6 +210,12 @@
         .info-ic.amber { border-color: var(--amber); color: var(--amber); box-shadow: 0 0 12px rgba(255,170,0,0.2); }
         .info-item h4 { font-family: 'Space Grotesk', 'Cairo', sans-serif; color: var(--white); font-size: 0.9rem; margin-bottom: 2px; }
         .info-item p { font-family: 'JetBrains Mono', monospace; color: var(--text-light); font-size: 0.78rem; }
+
+        .map-embed {
+            border-radius: 14px; overflow: hidden; margin: 20px 0 10px;
+            border: 1px solid var(--line); filter: grayscale(0.3) contrast(1.1) brightness(0.9);
+        }
+        .map-embed iframe { display: block; }
 
         .circuit-process-container { background: var(--bg-panel); border: 1px solid var(--line); border-radius: 16px; padding: 40px 20px; margin-bottom: 50px; position: relative; }
         .circuit-header { text-align: center; margin-bottom: 40px; }
@@ -269,60 +283,83 @@
         .submit-btn.email { background: var(--trace); color: #000; }
         .submit-btn.email:hover { background: var(--white); box-shadow: 0 0 20px rgba(255,255,255,0.8); transform: translateY(-2px); }
 
-        /* Portfolio */
-        .portfolio-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;
-            margin: 30px 0 50px;
+        /* Portfolio - cas avant/après */
+        .case-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px;
+            margin: 30px 0 20px;
         }
-        .portfolio-item {
+        .case-card {
             background: var(--bg-panel); border: 1px solid var(--line); border-radius: 12px;
-            overflow: hidden; transition: var(--transition); cursor: default;
-            position: relative;
+            padding: 16px; transition: var(--transition); position: relative;
         }
-        .portfolio-item:hover { border-color: var(--trace); transform: translateY(-4px); box-shadow: 0 8px 25px rgba(0,255,204,0.1); }
-        .portfolio-item .port-img {
-            width: 100%; aspect-ratio: 16/10; background: var(--bg-card);
-            display: flex; align-items: center; justify-content: center;
-            padding: 16px;
-            border-bottom: 1px solid var(--line);
+        .case-card:hover { border-color: var(--trace); transform: translateY(-4px); box-shadow: 0 8px 25px rgba(0,255,204,0.1); }
+        .case-img-single {
+            aspect-ratio: 16/10; border-radius: 8px; overflow: hidden; margin-bottom: 14px;
+            border: 1px solid var(--line); background: var(--bg-card);
         }
-        .portfolio-item .port-img svg {
-            width: 80%; height: 80%;
-            stroke: var(--trace);
-            fill: none;
-            stroke-width: 1.6;
-            stroke-linecap: round;
-            stroke-linejoin: round;
+        .case-img-single img {
+            width: 100%; height: 100%; object-fit: cover; display: block;
+            filter: saturate(1.05) contrast(1.05); transition: transform 0.4s;
         }
-        .portfolio-item .port-img svg .fill-trace { fill: var(--trace); opacity: 0.15; }
-        .portfolio-item .port-img svg .fill-amber { fill: var(--amber); opacity: 0.2; }
-        .portfolio-item .port-img svg .stroke-amber { stroke: var(--amber); }
-        .portfolio-item .port-img svg .stroke-dim { stroke: var(--trace-dim); }
-        .portfolio-item .port-label {
-            padding: 12px 14px; font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75rem; color: var(--text-light); text-align: center;
-            background: var(--bg-card);
-        }
-        .portfolio-item .port-label span { display: block; font-size: 0.6rem; color: var(--text-dim); margin-top: 2px; }
+        .case-card:hover .case-img-single img { transform: scale(1.05); }
+        .case-card h4 { font-family: 'Space Grotesk', 'Cairo', sans-serif; color: var(--white); font-size: 0.95rem; margin-bottom: 6px; }
+        .case-card p { color: #f0f4f7; font-size: 0.82rem; line-height: 1.5; }
 
         /* Bot toggle */
         .bot-toggle {
-            position: fixed; bottom: 24px; left: 24px; z-index: 90;
-            width: 58px; height: 58px; border-radius: 50%; border: 2px solid var(--trace);
+            position: fixed; bottom: 24px; left: 24px; z-index: 9999;
+            width: 60px; height: 60px; border-radius: 50%; border: 2px solid var(--trace);
             background: var(--bg-card); box-shadow: 0 0 20px rgba(0,255,204,0.4);
-            display: flex; align-items: center; justify-content: center; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; cursor: grab;
             animation: bot-bob 3s ease-in-out infinite;
+            touch-action: none; user-select: none; -webkit-touch-callout: none; -webkit-user-select: none;
         }
+        .bot-toggle.dragging { cursor: grabbing; animation: none; transition: none; box-shadow: 0 0 30px rgba(0,255,204,0.7); }
         .bot-toggle svg { width: 28px; height: 28px; color: var(--trace); }
         .bot-toggle .bot-dot {
             position: absolute; top: 4px; right: 4px; width: 10px; height: 10px;
             border-radius: 50%; background: var(--wa); box-shadow: 0 0 8px var(--wa);
             animation: pulse-spark 1.6s infinite alternate;
         }
+        .bot-toggle::before, .bot-toggle::after {
+            content: ''; position: absolute; inset: 0; border-radius: 50%;
+            border: 2px solid var(--trace); opacity: 0; pointer-events: none;
+            animation: bot-ring 2.6s ease-out infinite;
+        }
+        .bot-toggle::after { animation-delay: 1.3s; }
+        @keyframes bot-ring {
+            0% { transform: scale(1); opacity: 0.55; }
+            100% { transform: scale(1.9); opacity: 0; }
+        }
         @keyframes bot-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
 
+        .bot-bubble {
+            position: fixed; bottom: 96px; left: 24px; z-index: 9999;
+            background: var(--bg-card); border: 1px solid var(--trace); color: var(--white);
+            font-family: 'JetBrains Mono', 'Cairo', monospace; font-size: 0.78rem;
+            padding: 10px 14px; border-radius: 10px; max-width: 190px; line-height: 1.4;
+            box-shadow: 0 0 18px rgba(0,255,204,0.3);
+            opacity: 0; transform: translateY(10px) scale(0.9); pointer-events: none;
+            transition: opacity 0.4s, transform 0.4s;
+        }
+        .bot-bubble.show { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; cursor: pointer; }
+        .bot-bubble::after {
+            content: ''; position: absolute; bottom: -6px; left: 22px; width: 12px; height: 12px;
+            background: var(--bg-card); border-right: 1px solid var(--trace); border-bottom: 1px solid var(--trace);
+            transform: rotate(45deg);
+        }
+
+        @media (max-width: 768px) {
+            .bot-toggle { width: 66px; height: 66px; bottom: 20px; left: 16px; }
+            .bot-toggle svg { width: 32px; height: 32px; }
+            .bot-bubble { left: 16px; bottom: 98px; }
+        }
+        html[dir="rtl"] .bot-bubble { left: auto; right: 24px; }
+        html[dir="rtl"] .bot-bubble::after { left: auto; right: 22px; }
+        @media (max-width: 768px) { html[dir="rtl"] .bot-bubble { right: 16px; } }
+
         .bot-panel {
-            position: fixed; bottom: 94px; left: 24px; z-index: 90;
+            position: fixed; bottom: 94px; left: 24px; z-index: 9999;
             width: 320px; max-width: calc(100vw - 40px); height: 420px; max-height: 70vh;
             background: var(--bg-panel); border: 1px solid var(--trace-dim); border-radius: 14px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.5); display: none; flex-direction: column; overflow: hidden;
@@ -392,13 +429,13 @@
             .hero-section h1 { font-size: 2rem; }
             .contact-methods { flex-direction: column; }
             .contact-badge { justify-content: center; width: 100%; }
-            .portfolio-grid { grid-template-columns: 1fr 1fr; }
+            .case-grid { grid-template-columns: 1fr; }
         }
         @media (max-width: 480px) {
-            .portfolio-grid { grid-template-columns: 1fr; }
             .submit-group { flex-direction: column; }
             .submit-btn { min-width: auto; }
         }
+        .pf-note { text-align: center; color: var(--text-dim); font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; margin-top: 4px; }
     </style>
 </head>
 <body>
@@ -565,6 +602,15 @@
             </div>
         </section>
 
+        <div class="map-embed circuit-frame reveal">
+            <iframe
+                src="https://www.google.com/maps?q=Miramar,+Oran,+Algeria&output=embed"
+                width="100%" height="280" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                title="Localisation Mr Robot - Oran, Miramar">
+            </iframe>
+        </div>
+
         <div class="circuit-divider"><span></span></div>
 
         <!-- Services -->
@@ -572,36 +618,42 @@
         <div class="services-grid">
             <div class="service-card reveal reveal-delay-1 circuit-frame" onclick="selectService('s1')">
                 <span class="circuit-led"></span>
+                <span class="price-badge" data-i18n="price_quote">Devis gratuit</span>
                 <span class="service-icon">⚡</span>
                 <h3 data-i18n="s1_title">Électronique</h3>
                 <p data-i18n="s1_desc">Diagnostic avancé et réparation de cartes mères.</p>
             </div>
             <div class="service-card reveal reveal-delay-2 circuit-frame" onclick="selectService('s2')">
                 <span class="circuit-led"></span>
+                <span class="price-badge" data-i18n="price_quote">Devis gratuit</span>
                 <span class="service-icon">💻</span>
                 <h3 data-i18n="s2_title">Informatique</h3>
                 <p data-i18n="s2_desc">Maintenance, optimisation et dépannage matériel.</p>
             </div>
             <div class="service-card reveal reveal-delay-3 circuit-frame" onclick="selectService('s3')">
                 <span class="circuit-led"></span>
+                <span class="price-badge" data-i18n="price_quote">Devis gratuit</span>
                 <span class="service-icon">🌐</span>
                 <h3 data-i18n="s3_title">Réseaux</h3>
                 <p data-i18n="s3_desc">Installation réseau et sécurisation d'infrastructure.</p>
             </div>
             <div class="service-card reveal circuit-frame" onclick="selectService('s4')">
                 <span class="circuit-led"></span>
+                <span class="price-badge" data-i18n="price_quote">Devis gratuit</span>
                 <span class="service-icon">📹</span>
                 <h3 data-i18n="s4_title">Vidéosurveillance</h3>
                 <p data-i18n="s4_desc">Caméras IP et configuration NVR à distance.</p>
             </div>
             <div class="service-card reveal circuit-frame" onclick="selectService('s5')">
                 <span class="circuit-led"></span>
+                <span class="price-badge" data-i18n="price_quote">Devis gratuit</span>
                 <span class="service-icon">🖥️</span>
                 <h3 data-i18n="s5_title">Programmation</h3>
                 <p data-i18n="s5_desc">Développement de logiciels, sites web et automatisation sur mesure.</p>
             </div>
             <div class="service-card reveal circuit-frame" onclick="selectService('s6')">
                 <span class="circuit-led"></span>
+                <span class="price-badge" data-i18n="price_quote">Devis gratuit</span>
                 <span class="service-icon">🛠️</span>
                 <h3 data-i18n="s6_title">Autres solutions</h3>
                 <p data-i18n="s6_desc">Un besoin technique particulier ? Nous étudions toute demande sur mesure.</p>
@@ -644,109 +696,41 @@
 
         <div class="circuit-divider"><span></span></div>
 
-        <!-- Portfolio avec nouvelles icônes SVG futuristes -->
+        <!-- Portfolio avec vraies photos -->
         <section id="portfolio">
             <h2 class="services-title reveal" data-i18n="portfolio_title">NOS RÉALISATIONS</h2>
             <p style="color:var(--text-dim); font-size:0.9rem; margin-bottom:20px;" data-i18n="portfolio_desc">Quelques exemples de nos interventions techniques.</p>
-            <div class="portfolio-grid">
-                <!-- Carte mère -->
-                <div class="portfolio-item circuit-frame">
-                    <div class="port-img">
-                        <svg viewBox="0 0 80 50" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="4" y="4" width="72" height="42" rx="4" stroke="var(--trace)"/>
-                            <!-- Traces -->
-                            <path d="M14 12 L20 12 L24 16 L28 16" stroke="var(--trace)"/>
-                            <path d="M14 20 L22 20 L26 24 L30 24" stroke="var(--trace)"/>
-                            <path d="M14 28 L18 28 L22 32 L30 32" stroke="var(--trace)"/>
-                            <path d="M14 36 L20 36 L24 40 L28 40" stroke="var(--trace)"/>
-                            <path d="M52 12 L58 12 L62 16 L66 16" stroke="var(--trace)"/>
-                            <path d="M52 20 L60 20 L64 24 L68 24" stroke="var(--trace)"/>
-                            <path d="M52 28 L56 28 L60 32 L68 32" stroke="var(--trace)"/>
-                            <path d="M52 36 L58 36 L62 40 L66 40" stroke="var(--trace)"/>
-                            <!-- Processeur -->
-                            <rect x="30" y="14" width="20" height="16" rx="2" stroke="var(--trace)" fill="rgba(0,255,204,0.08)"/>
-                            <circle cx="40" cy="22" r="4" fill="var(--trace)" opacity="0.3"/>
-                            <!-- Pins -->
-                            <circle cx="10" cy="12" r="1.5" fill="var(--trace)"/>
-                            <circle cx="10" cy="20" r="1.5" fill="var(--trace)"/>
-                            <circle cx="10" cy="28" r="1.5" fill="var(--trace)"/>
-                            <circle cx="10" cy="36" r="1.5" fill="var(--trace)"/>
-                            <circle cx="70" cy="12" r="1.5" fill="var(--trace)"/>
-                            <circle cx="70" cy="20" r="1.5" fill="var(--trace)"/>
-                            <circle cx="70" cy="28" r="1.5" fill="var(--trace)"/>
-                            <circle cx="70" cy="36" r="1.5" fill="var(--trace)"/>
-                            <!-- Points de test -->
-                            <circle cx="34" cy="10" r="2" fill="var(--amber)" opacity="0.6"/>
-                            <circle cx="46" cy="10" r="2" fill="var(--amber)" opacity="0.6"/>
-                        </svg>
+            <div class="case-grid">
+
+                <!-- Cas 1 : Soudure -->
+                <div class="case-card circuit-frame">
+                    <div class="case-img-single">
+                        <img src="images/soudure.jpg" alt="Soudure carte électronique">
                     </div>
-                    <div class="port-label" data-i18n="port1_label">Soudure carte mère <span>Diagnostic & réparation</span></div>
+                    <h4 data-i18n="port1_label">Soudure carte mère</h4>
+                    <p data-i18n="port1_desc">Diagnostic de panne, remplacement de composants et remise en état complète.</p>
                 </div>
 
-                <!-- Réseau -->
-                <div class="portfolio-item circuit-frame">
-                    <div class="port-img">
-                        <svg viewBox="0 0 80 50" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="20" cy="14" r="6" stroke="var(--trace)"/>
-                            <circle cx="60" cy="14" r="6" stroke="var(--trace)"/>
-                            <circle cx="40" cy="34" r="6" stroke="var(--trace)"/>
-                            <line x1="26" y1="14" x2="54" y2="14" stroke="var(--trace)" stroke-dasharray="3 3"/>
-                            <line x1="34" y1="18" x2="38" y2="30" stroke="var(--trace)"/>
-                            <line x1="46" y1="18" x2="42" y2="30" stroke="var(--trace)"/>
-                            <circle cx="20" cy="14" r="2" fill="var(--trace)" opacity="0.4"/>
-                            <circle cx="60" cy="14" r="2" fill="var(--trace)" opacity="0.4"/>
-                            <circle cx="40" cy="34" r="2" fill="var(--trace)" opacity="0.4"/>
-                            <!-- Nœuds actifs -->
-                            <circle cx="20" cy="14" r="1.2" fill="var(--amber)" opacity="0.8"/>
-                            <circle cx="60" cy="14" r="1.2" fill="var(--amber)" opacity="0.8"/>
-                            <circle cx="40" cy="34" r="1.2" fill="var(--amber)" opacity="0.8"/>
-                        </svg>
+                <!-- Cas 2 : Réseau -->
+                <div class="case-card circuit-frame">
+                    <div class="case-img-single">
+                        <img src="images/installation-reseau.jpg" alt="Installation réseau">
                     </div>
-                    <div class="port-label" data-i18n="port2_label">Installation réseau <span>Fibre & câblage structuré</span></div>
+                    <h4 data-i18n="port2_label">Installation réseau</h4>
+                    <p data-i18n="port2_desc">Câblage structuré, brassage et configuration WiFi professionnelle.</p>
                 </div>
 
-                <!-- Caméra -->
-                <div class="portfolio-item circuit-frame">
-                    <div class="port-img">
-                        <svg viewBox="0 0 80 50" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="16" y="14" width="48" height="24" rx="4" stroke="var(--trace)"/>
-                            <circle cx="40" cy="26" r="10" stroke="var(--trace)"/>
-                            <circle cx="40" cy="26" r="5" stroke="var(--trace)" fill="rgba(0,255,204,0.06)"/>
-                            <circle cx="40" cy="26" r="1.5" fill="var(--trace)"/>
-                            <path d="M8 14 L16 14 L16 22" stroke="var(--trace-dim)" stroke-dasharray="2 2"/>
-                            <path d="M72 14 L64 14 L64 22" stroke="var(--trace-dim)" stroke-dasharray="2 2"/>
-                            <rect x="30" y="38" width="20" height="6" rx="2" stroke="var(--trace)"/>
-                            <!-- LED témoin -->
-                            <circle cx="22" cy="20" r="1.5" fill="var(--amber)" opacity="0.7"/>
-                        </svg>
+                <!-- Cas 3 : Caméra -->
+                <div class="case-card circuit-frame">
+                    <div class="case-img-single">
+                        <img src="images/videosurveillance.jpg" alt="Installation vidéosurveillance">
                     </div>
-                    <div class="port-label" data-i18n="port3_label">Caméras de surveillance <span>IP & NVR</span></div>
+                    <h4 data-i18n="port3_label">Vidéosurveillance</h4>
+                    <p data-i18n="port3_desc">Pose de caméras IP et configuration NVR pour un client à Oran.</p>
                 </div>
 
-                <!-- Maintenance PC -->
-                <div class="portfolio-item circuit-frame">
-                    <div class="port-img">
-                        <svg viewBox="0 0 80 50" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-                            <!-- Écran -->
-                            <rect x="18" y="8" width="44" height="26" rx="3" stroke="var(--trace)"/>
-                            <!-- Lignes à l'écran -->
-                            <line x1="24" y1="16" x2="56" y2="16" stroke="var(--trace)" opacity="0.4"/>
-                            <line x1="24" y1="20" x2="48" y2="20" stroke="var(--trace)" opacity="0.4"/>
-                            <line x1="24" y1="24" x2="52" y2="24" stroke="var(--trace)" opacity="0.4"/>
-                            <line x1="24" y1="28" x2="44" y2="28" stroke="var(--trace)" opacity="0.4"/>
-                            <!-- Pied -->
-                            <rect x="34" y="34" width="12" height="4" rx="1" stroke="var(--trace)"/>
-                            <!-- Engrenage outil -->
-                            <circle cx="68" cy="12" r="6" stroke="var(--amber)" stroke-dasharray="2 2"/>
-                            <circle cx="68" cy="12" r="2" fill="var(--amber)" opacity="0.4"/>
-                            <!-- Clé / tournevis -->
-                            <line x1="64" y1="8" x2="72" y2="16" stroke="var(--amber)" stroke-width="1.8"/>
-                            <line x1="66" y1="10" x2="70" y2="14" stroke="var(--amber)" stroke-width="0.8"/>
-                        </svg>
-                    </div>
-                    <div class="port-label" data-i18n="port4_label">Maintenance PC <span>Nettoyage & optimisation</span></div>
-                </div>
             </div>
+            <p class="pf-note" data-i18n="pf_note">📸 Galerie photo complète disponible sur demande via WhatsApp.</p>
         </section>
 
         <div class="circuit-divider"><span></span></div>
@@ -849,10 +833,14 @@
                 s4_title: "Vidéosurveillance", s4_desc: "Caméras IP et configuration NVR à distance.",
                 s5_title: "Programmation", s5_desc: "Développement de logiciels, sites web et automatisation sur mesure.",
                 s6_title: "Autres solutions", s6_desc: "Un besoin technique particulier ? Nous étudions toute demande sur mesure.",
+                price_quote: "Devis gratuit",
                 circuit_title: "LOGIQUE DE FONCTIONNEMENT", circuit_sub: "// CYCLE D'INTERVENTION AUTOMATIQUE",
                 c1_title: "Signal", c2_title: "Diagnostic", c3_title: "Intervention", c4_title: "Delivery",
                 portfolio_title: "NOS RÉALISATIONS", portfolio_desc: "Quelques exemples de nos interventions techniques.",
                 port1_label: "Soudure carte mère", port2_label: "Installation réseau", port3_label: "Caméras de surveillance", port4_label: "Maintenance PC",
+                port1_desc: "Diagnostic de panne, remplacement de composants et remise en état complète.",
+                port2_desc: "Câblage structuré, brassage et configuration WiFi professionnelle.",
+                port3_desc: "Pose de caméras IP et configuration NVR pour un client à Oran.",
                 team_title: "NOTRE ÉQUIPE", team_motto: "Deux frères, une seule mission", yassin_role: "Responsable Technique", wahib_role: "Opérations Terrain",
                 contact_title: "Initialiser le Contact", contact_desc: "Sélectionnez le module défectueux. L'équipe interviendra rapidement.",
                 lbl_service: "Module Requis", opt_s1: "⚡ Électronique", opt_s2: "💻 Informatique", opt_s3: "🌐 Réseaux", opt_s4: "📹 Vidéosurveillance", opt_s5: "🖥️ Programmation", opt_s6: "🛠️ Autres solutions",
@@ -879,10 +867,14 @@
                 s4_title: "مراقبة", s4_desc: "تركيب كاميرات IP وبرمجة أجهزة NVR.",
                 s5_title: "برمجة", s5_desc: "تطوير برمجيات ومواقع ويب وأتمتة حسب الطلب.",
                 s6_title: "حلول أخرى", s6_desc: "لديك احتياج تقني خاص؟ ندرس أي طلب مخصص.",
+                price_quote: "عرض سعر مجاني",
                 circuit_title: "مسار العمليات", circuit_sub: "// دورة تنفيذ تلقائية",
                 c1_title: "إشارة", c2_title: "تشخيص", c3_title: "تنفيذ", c4_title: "تسليم",
                 portfolio_title: "إنجازاتنا", portfolio_desc: "بعض الأمثلة على تدخلاتنا التقنية.",
                 port1_label: "لحام لوحة أم", port2_label: "تركيب شبكة", port3_label: "كاميرات مراقبة", port4_label: "صيانة حواسيب",
+                port1_desc: "تشخيص العطل، استبدال المكونات وإصلاح كامل.",
+                port2_desc: "تمديد كابلات، تركيب لوحة توزيع وإعداد واي فاي احترافي.",
+                port3_desc: "تركيب كاميرات IP وإعداد جهاز NVR لعميل في وهران.",
                 team_title: "طاقم النظام", team_motto: "أخوان، مهمة واحدة", yassin_role: "المدير التقني", wahib_role: "العمليات الميدانية",
                 contact_title: "بدء الاتصال", contact_desc: "حدد الوحدة المطلوبة وسيتدخل الفريق فوراً.",
                 lbl_service: "الوحدة المطلوبة", opt_s1: "⚡ إلكترونيات", opt_s2: "💻 معلوماتية", opt_s3: "🌐 شبكات", opt_s4: "📹 أنظمة مراقبة", opt_s5: "🖥️ برمجة", opt_s6: "🛠️ حلول أخرى",
@@ -909,10 +901,14 @@
                 s4_title: "Surveillance", s4_desc: "IP Cameras & remote NVR configuration.",
                 s5_title: "Programming", s5_desc: "Custom software, website development and automation.",
                 s6_title: "Other solutions", s6_desc: "Have a specific technical need? We review any custom request.",
+                price_quote: "Free quote",
                 circuit_title: "OPERATIONAL FLOW", circuit_sub: "// AUTOMATED EXECUTION CYCLE",
                 c1_title: "Signal", c2_title: "Diagnostic", c3_title: "Execution", c4_title: "Delivery",
                 portfolio_title: "OUR WORK", portfolio_desc: "Some examples of our technical interventions.",
                 port1_label: "Motherboard soldering", port2_label: "Network installation", port3_label: "Surveillance cameras", port4_label: "PC maintenance",
+                port1_desc: "Fault diagnosis, component replacement and full repair.",
+                port2_desc: "Structured cabling, patch panel setup and professional WiFi configuration.",
+                port3_desc: "IP camera installation and NVR setup for a client in Oran.",
                 team_title: "SYSTEM CREW", team_motto: "Two brothers, one mission", yassin_role: "Technical Lead", wahib_role: "Field Operations",
                 contact_title: "Initialize Contact", contact_desc: "Select the required module. Our team will intervene swiftly.",
                 lbl_service: "Required Module", opt_s1: "⚡ Electronics", opt_s2: "💻 IT Support", opt_s3: "🌐 Networking", opt_s4: "📹 Surveillance", opt_s5: "🖥️ Programming", opt_s6: "🛠️ Other solutions",
@@ -1051,11 +1047,127 @@ Réponds en français, de façon brève (2-3 phrases maximum), amicale et profes
         function toggleBot(){
             const panel = document.getElementById('botPanel');
             panel.classList.toggle('open');
-            if(panel.classList.contains('open') && document.getElementById('botMsgs').children.length === 0){
-                botAddMsg('bot', "Bonjour ! 👋 Je suis Della, l'assistant de Mr Robot. Posez-moi une question sur nos services, tarifs, ou contactez directement l'équipe.");
-                botRenderSuggestions();
+            if(panel.classList.contains('open')){
+                hideBotBubble();
+                if(document.getElementById('botMsgs').children.length === 0){
+                    botAddMsg('bot', "Bonjour ! 👋 Je suis Della, l'assistant de Mr Robot. Posez-moi une question sur nos services, tarifs, ou contactez directement l'équipe.");
+                    botRenderSuggestions();
+                }
             }
         }
+
+        function hideBotBubble(){
+            const bubble = document.getElementById('botBubble');
+            if(bubble) bubble.classList.remove('show');
+        }
+
+        // --- Della déplaçable (glisser-déposer, souris + tactile) ---
+        function makeDellaDraggable(){
+            const btn = document.getElementById('botToggle');
+            if(!btn) return;
+
+            let dragging = false, moved = false, startX = 0, startY = 0, startLeft = 0, startTop = 0;
+            const PAD = 8;
+
+            function applyPosition(left, top){
+                const w = btn.offsetWidth, h = btn.offsetHeight;
+                const maxLeft = window.innerWidth - w - PAD;
+                const maxTop = window.innerHeight - h - PAD;
+                left = Math.min(Math.max(left, PAD), Math.max(maxLeft, PAD));
+                top = Math.min(Math.max(top, PAD), Math.max(maxTop, PAD));
+                btn.style.left = left + 'px';
+                btn.style.top = top + 'px';
+                btn.style.right = 'auto';
+                btn.style.bottom = 'auto';
+                return { left, top };
+            }
+
+            // Restaure la dernière position enregistrée
+            try {
+                const saved = JSON.parse(localStorage.getItem('della_pos'));
+                if(saved && typeof saved.left === 'number') applyPosition(saved.left, saved.top);
+            } catch(e){}
+
+            function pointFromEvent(e){
+                if(e.touches && e.touches.length) return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+                if(e.changedTouches && e.changedTouches.length) return { x: e.changedTouches[0].clientX, y: e.changedTouches[0].clientY };
+                return { x: e.clientX, y: e.clientY };
+            }
+
+            function startDrag(e){
+                const p = pointFromEvent(e);
+                dragging = true; moved = false;
+                const rect = btn.getBoundingClientRect();
+                startX = p.x; startY = p.y;
+                startLeft = rect.left; startTop = rect.top;
+                btn.classList.add('dragging');
+                hideBotBubble();
+            }
+
+            function moveDrag(e){
+                if(!dragging) return;
+                const p = pointFromEvent(e);
+                const dx = p.x - startX, dy = p.y - startY;
+                if(Math.abs(dx) > 6 || Math.abs(dy) > 6) moved = true;
+                if(moved){
+                    if(e.cancelable) e.preventDefault();
+                    applyPosition(startLeft + dx, startTop + dy);
+                }
+            }
+
+            function endDrag(){
+                if(!dragging) return;
+                dragging = false;
+                btn.classList.remove('dragging');
+                if(moved){
+                    const rect = btn.getBoundingClientRect();
+                    const pos = applyPosition(rect.left, rect.top);
+                    try { localStorage.setItem('della_pos', JSON.stringify(pos)); } catch(err){}
+                    suppressNextClick = true;
+                }
+            }
+
+            // Souris
+            btn.addEventListener('mousedown', startDrag);
+            window.addEventListener('mousemove', moveDrag);
+            window.addEventListener('mouseup', endDrag);
+
+            // Tactile (mobile) — écouteurs explicites, plus fiables que Pointer Events
+            // dans certains navigateurs intégrés (WhatsApp, Instagram, Facebook)
+            btn.addEventListener('touchstart', startDrag, { passive: true });
+            window.addEventListener('touchmove', moveDrag, { passive: false });
+            window.addEventListener('touchend', endDrag);
+            window.addEventListener('touchcancel', endDrag);
+
+            let suppressNextClick = false;
+            btn.addEventListener('click', (e) => {
+                if(suppressNextClick){ suppressNextClick = false; e.stopPropagation(); e.preventDefault(); return; }
+                toggleBot();
+            });
+
+            window.addEventListener('resize', () => {
+                const rect = btn.getBoundingClientRect();
+                if(rect.left && rect.top) applyPosition(rect.left, rect.top);
+            });
+        }
+
+        if(document.readyState === 'loading'){
+            document.addEventListener('DOMContentLoaded', makeDellaDraggable);
+        } else {
+            makeDellaDraggable();
+        }
+
+        // Bulle d'accroche automatique pour attirer l'attention sur Della à l'ouverture du site
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const bubble = document.getElementById('botBubble');
+                const panel = document.getElementById('botPanel');
+                if(bubble && panel && !panel.classList.contains('open')){
+                    bubble.classList.add('show');
+                    setTimeout(hideBotBubble, 7000);
+                }
+            }, 2200);
+        });
 
         function botAddMsg(role, text){
             const msgs = document.getElementById('botMsgs');
@@ -1145,46 +1257,11 @@ Réponds en français, de façon brève (2-3 phrases maximum), amicale et profes
                 }, 500);
             }
         }
-
-        // ============================================================
-        // BOT UI ELEMENTS (s'assurer qu'ils existent)
-        // ============================================================
-        (function initBotUI() {
-            if (!document.getElementById('botToggle')) {
-                const btn = document.createElement('button');
-                btn.className = 'bot-toggle';
-                btn.id = 'botToggle';
-                btn.setAttribute('aria-label', "Della, l'assistant Mr Robot");
-                btn.innerHTML = `<span class="bot-dot"></span>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="4" y="8" width="16" height="12" rx="2"/><path d="M12 8V4M9 4h6"/><circle cx="9" cy="14" r="1.2" fill="currentColor" stroke="none"/><circle cx="15" cy="14" r="1.2" fill="currentColor" stroke="none"/><path d="M2 13h2M20 13h2"/></svg>`;
-                btn.onclick = toggleBot;
-                document.body.appendChild(btn);
-            }
-
-            if (!document.getElementById('botPanel')) {
-                const panel = document.createElement('div');
-                panel.className = 'bot-panel';
-                panel.id = 'botPanel';
-                panel.innerHTML = `
-                    <div class="bot-head">
-                        <div class="bh-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="4" y="8" width="16" height="12" rx="2"/><path d="M12 8V4M9 4h6"/><circle cx="9" cy="14" r="1.2" fill="currentColor" stroke="none"/><circle cx="15" cy="14" r="1.2" fill="currentColor" stroke="none"/></svg></div>
-                        <div><h4>Della</h4><span>● en ligne</span></div>
-                        <button class="bot-close" onclick="toggleBot()">✕</button>
-                    </div>
-                    <div class="bot-msgs" id="botMsgs"></div>
-                    <div class="bot-suggest" id="botSuggest"></div>
-                    <div class="bot-input-row">
-                        <input type="text" id="botInput" placeholder="Écrivez votre question..." onkeydown="if(event.key==='Enter') botSend()">
-                        <button onclick="botSend()">➤</button>
-                    </div>
-                `;
-                document.body.appendChild(panel);
-            }
-        })();
     </script>
 
-    <!-- Bouton Della déjà présent dans le HTML -->
-    <button class="bot-toggle" id="botToggle" onclick="toggleBot()" aria-label="Della, l'assistant Mr Robot">
+    <!-- Robot Della -->
+    <div class="bot-bubble" id="botBubble" onclick="toggleBot(); hideBotBubble();">👋 Besoin d'aide ? Posez-moi une question !</div>
+    <button class="bot-toggle" id="botToggle" aria-label="Della, l'assistant Mr Robot">
         <span class="bot-dot"></span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="4" y="8" width="16" height="12" rx="2"/><path d="M12 8V4M9 4h6"/><circle cx="9" cy="14" r="1.2" fill="currentColor" stroke="none"/><circle cx="15" cy="14" r="1.2" fill="currentColor" stroke="none"/><path d="M2 13h2M20 13h2"/></svg>
     </button>
