@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mr Robot — Future Tech & IT Solutions</title>
+    <meta name="description" content="Mr Robot - Services techniques à Oran (Miramar) : électronique, informatique, réseaux, vidéosurveillance, programmation. Devis gratuit, intervention rapide.">
+    <meta property="og:title" content="Mr Robot — Future Tech & IT Solutions">
+    <meta property="og:description" content="Électronique, informatique, réseaux, vidéosurveillance et programmation à Oran. Devis gratuit.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="fr_FR">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
     
@@ -102,6 +107,12 @@
         nav ul { list-style: none; display: flex; gap: 18px; }
         nav ul a { font-size: 0.85rem; color: var(--text-dim); text-decoration: none; font-family: 'JetBrains Mono', 'Cairo', monospace; text-transform: uppercase; transition: var(--transition); }
         nav ul a:hover { color: var(--trace); text-shadow: 0 0 8px var(--trace); }
+
+        .nav-burger { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 30px; height: 30px; background: none; border: none; cursor: pointer; z-index: 200; }
+        .nav-burger span { display: block; width: 100%; height: 2px; background: var(--trace); transition: var(--transition); }
+        .nav-burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .nav-burger.open span:nth-child(2) { opacity: 0; }
+        .nav-burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
         .lang-switch-container {
             display: flex; align-items: center; background: var(--bg-card);
@@ -213,7 +224,7 @@
 
         .map-embed {
             border-radius: 14px; overflow: hidden; margin: 20px 0 10px;
-            border: 1px solid var(--line); filter: grayscale(0.3) contrast(1.1) brightness(0.9);
+            border: 1px solid var(--line); filter: contrast(1.03);
         }
         .map-embed iframe { display: block; }
 
@@ -425,7 +436,17 @@
             .circuit-board { grid-template-columns: 1fr 1fr; }
             .circuit-track { display: none; }
             .contact-grid { grid-template-columns: 1fr; gap: 20px;}
-            nav ul { display: none; }
+            .nav-burger { display: flex; }
+            nav ul {
+                position: fixed; top: 0; right: -100%; width: 72%; max-width: 300px; height: 100vh;
+                flex-direction: column; gap: 0; background: var(--bg-panel); border-left: 1px solid var(--line);
+                padding: 90px 24px 24px; transition: right 0.35s ease; z-index: 150; box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+            }
+            nav ul.open { right: 0; }
+            nav ul li { width: 100%; padding: 14px 0; border-bottom: 1px solid var(--line); }
+            nav ul a { font-size: 0.95rem; display: block; }
+            .nav-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 140; }
+            .nav-overlay.open { display: block; }
             .hero-section h1 { font-size: 2rem; }
             .contact-methods { flex-direction: column; }
             .contact-badge { justify-content: center; width: 100%; }
@@ -541,20 +562,24 @@
                     Mr Robot
                 </div>
                 <div class="nav-right">
-                    <ul>
-                        <li><a href="#services" data-i18n="nav_services">Services</a></li>
-                        <li><a href="#process" data-i18n="nav_process">Circuit</a></li>
-                        <li><a href="#portfolio" data-i18n="nav_portfolio">Réalisations</a></li>
-                        <li><a href="#team" data-i18n="nav_team">Équipe</a></li>
+                    <ul id="navLinks">
+                        <li><a href="#services" data-i18n="nav_services" onclick="closeMobileMenu()">Services</a></li>
+                        <li><a href="#process" data-i18n="nav_process" onclick="closeMobileMenu()">Circuit</a></li>
+                        <li><a href="#portfolio" data-i18n="nav_portfolio" onclick="closeMobileMenu()">Réalisations</a></li>
+                        <li><a href="#team" data-i18n="nav_team" onclick="closeMobileMenu()">Équipe</a></li>
                     </ul>
                     <div class="lang-switch-container">
                         <button class="lang-btn active" onclick="switchLang('FR', this)">FR</button>
                         <button class="lang-btn" onclick="switchLang('AR', this)">AR</button>
                         <button class="lang-btn" onclick="switchLang('EN', this)">EN</button>
                     </div>
+                    <button class="nav-burger" id="navBurger" onclick="toggleMobileMenu()" aria-label="Menu">
+                        <span></span><span></span><span></span>
+                    </button>
                 </div>
             </nav>
         </div>
+        <div class="nav-overlay" id="navOverlay" onclick="closeMobileMenu()"></div>
         <div class="marquee-container">
             <div class="marquee-content" id="marquee-text">
                 // SYSTEM ONLINE // ENCRYPTED CONNECTION // MR ROBOT IT SOLUTIONS // YASSIN & WAHIB // DIAGNOSTICS ACTIVATED // NETWORK SECURE // SYSTEM ONLINE // ENCRYPTED CONNECTION // MR ROBOT IT SOLUTIONS // YASSIN & WAHIB // DIAGNOSTICS ACTIVATED //
@@ -705,7 +730,7 @@
                 <!-- Cas 1 : Soudure -->
                 <div class="case-card circuit-frame">
                     <div class="case-img-single">
-                        <img src="images/soudure.jpg" alt="Soudure carte électronique">
+                        <img src="images/soudure.jpg" alt="Soudure carte électronique" loading="lazy">
                     </div>
                     <h4 data-i18n="port1_label">Soudure carte mère</h4>
                     <p data-i18n="port1_desc">Diagnostic de panne, remplacement de composants et remise en état complète.</p>
@@ -714,7 +739,7 @@
                 <!-- Cas 2 : Réseau -->
                 <div class="case-card circuit-frame">
                     <div class="case-img-single">
-                        <img src="images/installation-reseau.jpg" alt="Installation réseau">
+                        <img src="images/installation-reseau.jpg" alt="Installation réseau" loading="lazy">
                     </div>
                     <h4 data-i18n="port2_label">Installation réseau</h4>
                     <p data-i18n="port2_desc">Câblage structuré, brassage et configuration WiFi professionnelle.</p>
@@ -723,7 +748,7 @@
                 <!-- Cas 3 : Caméra -->
                 <div class="case-card circuit-frame">
                     <div class="case-img-single">
-                        <img src="images/videosurveillance.jpg" alt="Installation vidéosurveillance">
+                        <img src="images/videosurveillance.jpg" alt="Installation vidéosurveillance" loading="lazy">
                     </div>
                     <h4 data-i18n="port3_label">Vidéosurveillance</h4>
                     <p data-i18n="port3_desc">Pose de caméras IP et configuration NVR pour un client à Oran.</p>
@@ -785,6 +810,14 @@
                 <!-- Formulaire avec choix WhatsApp / Email -->
                 <form onsubmit="return handleFormSubmit(event)">
                     <div class="field">
+                        <label data-i18n="lbl_name">Votre Nom</label>
+                        <input type="text" id="inp_name" required placeholder="Nom complet" data-i18n-placeholder="name_ph">
+                    </div>
+                    <div class="field">
+                        <label data-i18n="lbl_phone">Téléphone</label>
+                        <input type="tel" id="inp_phone" required placeholder="0X XX XX XX XX" data-i18n-placeholder="phone_ph">
+                    </div>
+                    <div class="field">
                         <label data-i18n="lbl_service">Module Requis</label>
                         <select id="service-select">
                             <option value="s1" data-i18n="opt_s1">⚡ Électronique</option>
@@ -844,6 +877,8 @@
                 team_title: "NOTRE ÉQUIPE", team_motto: "Deux frères, une seule mission", yassin_role: "Responsable Technique", wahib_role: "Opérations Terrain",
                 contact_title: "Initialiser le Contact", contact_desc: "Sélectionnez le module défectueux. L'équipe interviendra rapidement.",
                 lbl_service: "Module Requis", opt_s1: "⚡ Électronique", opt_s2: "💻 Informatique", opt_s3: "🌐 Réseaux", opt_s4: "📹 Vidéosurveillance", opt_s5: "🖥️ Programmation", opt_s6: "🛠️ Autres solutions",
+                lbl_name: "Votre Nom", name_ph: "Nom complet", lbl_phone: "Téléphone", phone_ph: "0X XX XX XX XX",
+                wa_lbl_name: "Nom :", wa_lbl_phone: "Téléphone :",
                 lbl_msg: "Log d'Erreur (Description)", msg_ph: "Décrivez le problème...",
                 btn_wa: "WhatsApp", btn_email: "E-mail",
                 wa_greeting: "Bonjour l'équipe Mr Robot ! Je souhaite avoir plus d'informations sur vos services.",
@@ -878,6 +913,8 @@
                 team_title: "طاقم النظام", team_motto: "أخوان، مهمة واحدة", yassin_role: "المدير التقني", wahib_role: "العمليات الميدانية",
                 contact_title: "بدء الاتصال", contact_desc: "حدد الوحدة المطلوبة وسيتدخل الفريق فوراً.",
                 lbl_service: "الوحدة المطلوبة", opt_s1: "⚡ إلكترونيات", opt_s2: "💻 معلوماتية", opt_s3: "🌐 شبكات", opt_s4: "📹 أنظمة مراقبة", opt_s5: "🖥️ برمجة", opt_s6: "🛠️ حلول أخرى",
+                lbl_name: "الاسم", name_ph: "الاسم الكامل", lbl_phone: "الهاتف", phone_ph: "0X XX XX XX XX",
+                wa_lbl_name: "الاسم:", wa_lbl_phone: "الهاتف:",
                 lbl_msg: "سجل الخطأ (الوصف)", msg_ph: "اكتب تفاصيل المشكلة هنا...",
                 btn_wa: "واتساب", btn_email: "بريد إلكتروني",
                 wa_greeting: "مرحباً فريق مستر روبوت، أرغب في الحصول على مزيد من المعلومات حول خدماتكم.",
@@ -912,6 +949,8 @@
                 team_title: "SYSTEM CREW", team_motto: "Two brothers, one mission", yassin_role: "Technical Lead", wahib_role: "Field Operations",
                 contact_title: "Initialize Contact", contact_desc: "Select the required module. Our team will intervene swiftly.",
                 lbl_service: "Required Module", opt_s1: "⚡ Electronics", opt_s2: "💻 IT Support", opt_s3: "🌐 Networking", opt_s4: "📹 Surveillance", opt_s5: "🖥️ Programming", opt_s6: "🛠️ Other solutions",
+                lbl_name: "Your Name", name_ph: "Full name", lbl_phone: "Phone", phone_ph: "0X XX XX XX XX",
+                wa_lbl_name: "Name:", wa_lbl_phone: "Phone:",
                 lbl_msg: "Error Log (Description)", msg_ph: "Describe the issue...",
                 btn_wa: "WhatsApp", btn_email: "E-mail",
                 wa_greeting: "Hello Mr Robot team, I would like to have more information about your services.",
@@ -935,6 +974,17 @@
             }, 50);
         }
 
+        function toggleMobileMenu(){
+            document.getElementById('navLinks').classList.toggle('open');
+            document.getElementById('navBurger').classList.toggle('open');
+            document.getElementById('navOverlay').classList.toggle('open');
+        }
+        function closeMobileMenu(){
+            document.getElementById('navLinks').classList.remove('open');
+            document.getElementById('navBurger').classList.remove('open');
+            document.getElementById('navOverlay').classList.remove('open');
+        }
+
         function switchLang(lang, element) {
             currentActiveLang = lang;
             document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
@@ -949,6 +999,8 @@
                 if (t[key]) el.innerHTML = t[key];
             });
 
+            document.getElementById('inp_name').placeholder = t.name_ph || "Nom complet";
+            document.getElementById('inp_phone').placeholder = t.phone_ph || "0X XX XX XX XX";
             document.getElementById('inp_msg').placeholder = t.msg_ph || "Décrivez le problème...";
             typeWriter(t.type_text);
         }
@@ -981,21 +1033,25 @@
             event.preventDefault();
             const submitter = event.submitter;
             const type = submitter ? submitter.getAttribute('data-submit') : 'wa';
-            
+
+            const name = document.getElementById('inp_name').value.trim();
+            const phone = document.getElementById('inp_phone').value.trim();
             const selectEl = document.getElementById('service-select');
             const serviceName = selectEl.options[selectEl.selectedIndex].text;
             const message = document.getElementById('inp_msg').value.trim();
+            if (!name || !phone) { alert("Veuillez indiquer votre nom et votre téléphone."); return false; }
             if (!message) { alert("Veuillez décrire votre besoin."); return false; }
 
             const t = translations[currentActiveLang];
 
             if (type === 'wa') {
-                const fullMsg = `${t.wa_greeting}\n\n*${t.wa_lbl_service}* ${serviceName}\n*${t.wa_lbl_desc}* ${message}`;
+                const fullMsg = `${t.wa_greeting}\n\n*${t.wa_lbl_name || 'Nom :'}* ${name}\n*${t.wa_lbl_phone || 'Téléphone :'}* ${phone}\n*${t.wa_lbl_service}* ${serviceName}\n*${t.wa_lbl_desc}* ${message}`;
                 const encoded = encodeURIComponent(fullMsg);
                 window.open(`https://wa.me/213797202579?text=${encoded}`, '_blank');
             } else {
                 const subject = encodeURIComponent(t.email_subject);
                 const body = encodeURIComponent(
+                    `${t.wa_lbl_name || 'Nom :'} ${name}\n${t.wa_lbl_phone || 'Téléphone :'} ${phone}\n\n` +
                     t.email_body.replace('{service}', serviceName).replace('{msg}', message)
                 );
                 window.location.href = `mailto:Yassinedella@gmail.com?subject=${subject}&body=${body}`;
@@ -1044,17 +1100,49 @@ Réponds en français, de façon brève (2-3 phrases maximum), amicale et profes
         const botSuggestions = ["Vos services ?", "Prix / devis", "Réseaux & WiFi", "Contact WhatsApp"];
         let botHistory = [];
 
+        function positionBotPanel(){
+            const btn = document.getElementById('botToggle');
+            const panel = document.getElementById('botPanel');
+            if(!btn || !panel) return;
+
+            const rect = btn.getBoundingClientRect();
+            const panelW = panel.offsetWidth || 320;
+            const panelH = panel.offsetHeight || 420;
+            const gap = 12, margin = 10;
+
+            // Ouvre au-dessus de l'icône si la place manque en dessous, sinon en dessous
+            let top = rect.top - panelH - gap;
+            if(top < margin) top = Math.min(rect.bottom + gap, window.innerHeight - panelH - margin);
+            top = Math.max(margin, top);
+
+            // Aligne horizontalement sur l'icône, en restant dans l'écran
+            let left = rect.left;
+            if(left + panelW > window.innerWidth - margin) left = window.innerWidth - panelW - margin;
+            left = Math.max(margin, left);
+
+            panel.style.top = top + 'px';
+            panel.style.left = left + 'px';
+            panel.style.bottom = 'auto';
+            panel.style.right = 'auto';
+        }
+
         function toggleBot(){
             const panel = document.getElementById('botPanel');
             panel.classList.toggle('open');
             if(panel.classList.contains('open')){
                 hideBotBubble();
+                positionBotPanel();
                 if(document.getElementById('botMsgs').children.length === 0){
                     botAddMsg('bot', "Bonjour ! 👋 Je suis Della, l'assistant de Mr Robot. Posez-moi une question sur nos services, tarifs, ou contactez directement l'équipe.");
                     botRenderSuggestions();
                 }
             }
         }
+
+        window.addEventListener('resize', () => {
+            const panel = document.getElementById('botPanel');
+            if(panel && panel.classList.contains('open')) positionBotPanel();
+        });
 
         function hideBotBubble(){
             const bubble = document.getElementById('botBubble');
