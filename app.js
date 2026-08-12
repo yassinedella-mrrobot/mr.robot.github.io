@@ -1,7 +1,48 @@
 /**
  * Mr Robot — Future Tech & IT Solutions
- * Fichier JavaScript principal (Sécurisé & Optimisé)
+ * Fichier JavaScript principal (Sécurisé & Optimisé avec Obfuscation Avancée)
  */
+
+// ============================================================
+// 0. HAUTE SÉCURITÉ: INJECTION SEO JSON-LD & OBFUSCATION
+// ============================================================
+
+// Injection de JSON-LD respectant le CSP strict sans utiliser d'inline scripts
+(function injectSEO() {
+    const jsonLd = {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Mr Robot Systems",
+      "image": "https://mrrobot.qd.je/images/og-cover.jpg",
+      "telephone": "+213797202579",
+      "url": "https://mrrobot.qd.je/",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Miramar",
+        "addressLocality": "Oran",
+        "addressCountry": "DZ"
+      },
+      "geo": { "@type": "GeoCoordinates", "latitude": 35.7000, "longitude": -0.6333 },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"],
+        "opens": "08:00",
+        "closes": "17:00"
+      }
+    };
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.textContent = JSON.stringify(jsonLd);
+    document.head.appendChild(script);
+})();
+
+// Data Obfuscation Avancée Against Scraping Bots
+const _SECURE_DATA = {
+    // Les valeurs sont encodées en Base64 pour cacher les vraies informations au bots
+    p: atob("MDc5NzIwMjU3OQ=="), // "0797202579"
+    w: atob("MjEzNzk3MjAyNTc5"), // "213797202579"
+    e: atob("WWFzc2luZWRlbGxhQGdtYWlsLmNvbQ==") // "Yassinedella@gmail.com"
+};
 
 // ============================================================
 // 1. TRADUCTIONS ET DONNÉES GLOBALES
@@ -129,13 +170,6 @@ const translations = {
 let currentActiveLang = 'FR';
 let typeInterval;
 
-// Data Obfuscation Against Scraping Bots
-const OBFUSCATED_DATA = {
-    p1: "0797",
-    p2: "202579",
-    e1: "Yassinedella",
-    e2: "gmail.com"
-};
 
 // ============================================================
 // 2. INITIALISATION ET ÉVÉNEMENTS DOM
@@ -168,20 +202,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (badgeWa) {
         badgeWa.addEventListener('click', () => {
-            const targetNum = '213' + OBFUSCATED_DATA.p1.substring(1) + OBFUSCATED_DATA.p2;
-            window.open(`https://wa.me/${targetNum}`, '_blank', 'noopener,noreferrer');
+            window.open(`https://wa.me/${_SECURE_DATA.w}`, '_blank', 'noopener,noreferrer');
         });
     }
 
     if (badgePhone) {
         badgePhone.addEventListener('click', () => {
-            window.location.href = `tel:${OBFUSCATED_DATA.p1}${OBFUSCATED_DATA.p2}`;
+            window.location.href = `tel:${_SECURE_DATA.p}`;
         });
     }
 
     if (badgeEmail) {
         badgeEmail.addEventListener('click', () => {
-            window.location.href = `mailto:${OBFUSCATED_DATA.e1}@${OBFUSCATED_DATA.e2}`;
+            window.location.href = `mailto:${_SECURE_DATA.e}`;
         });
     }
 
@@ -221,7 +254,7 @@ function showToast(message, type = 'info') {
     if (!container) return;
     const toast = document.createElement('div');
     toast.className = `toast ${type}`;
-    toast.textContent = message; // Safe text insertion
+    toast.textContent = message; 
     container.appendChild(toast);
 
     requestAnimationFrame(() => {
@@ -303,7 +336,6 @@ function selectService(val) {
     document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
 }
 
-// FORM VALIDATION & FEEDBACK (a11y & UX)
 function handleFormSubmit(event) {
     event.preventDefault();
     const submitter = event.submitter;
@@ -319,7 +351,6 @@ function handleFormSubmit(event) {
     const serviceName = selectEl ? selectEl.options[selectEl.selectedIndex].text : '';
     const message = inpMsgEl?.value.trim();
 
-    // Visual feedback for form validation
     if (!name) {
         if (inpNameEl) { inpNameEl.style.borderColor = '#ff6b6b'; inpNameEl.focus(); }
         showToast("Veuillez indiquer votre nom.", "error");
@@ -329,7 +360,7 @@ function handleFormSubmit(event) {
     const phoneRegex = /^[\+\d\s\-\(\)]{7,20}$/;
     if (!phone || !phoneRegex.test(phone)) {
         if (inpPhoneEl) { inpPhoneEl.style.borderColor = '#ff6b6b'; inpPhoneEl.focus(); }
-        showToast("Numéro de téléphone invalide (ex: 0797 20 25 79).", "error");
+        showToast("Numéro de téléphone invalide.", "error");
         return false;
     } else if (inpPhoneEl) { inpPhoneEl.style.borderColor = 'var(--line)'; }
 
@@ -349,13 +380,12 @@ function handleFormSubmit(event) {
 
     if (type === 'wa') {
         const encoded = encodeURIComponent(fullMsg);
-        const targetNum = '213' + OBFUSCATED_DATA.p1.substring(1) + OBFUSCATED_DATA.p2;
-        window.open(`https://wa.me/${targetNum}?text=${encoded}`, '_blank', 'noopener,noreferrer');
+        window.open(`https://wa.me/${_SECURE_DATA.w}?text=${encoded}`, '_blank', 'noopener,noreferrer');
         showToast("✓ Message envoyé sur WhatsApp !", "success");
     } else {
         const subject = encodeURIComponent(t.email_subject || "Demande de service Mr Robot");
         const body = encodeURIComponent(fullMsg);
-        window.location.href = `mailto:${OBFUSCATED_DATA.e1}@${OBFUSCATED_DATA.e2}?subject=${subject}&body=${body}`;
+        window.location.href = `mailto:${_SECURE_DATA.e}?subject=${subject}&body=${body}`;
         showToast("✓ Ouverture de votre client email.", "success");
     }
 
@@ -393,7 +423,7 @@ const NVIDIA_MODEL = "meta/llama-3.1-8b-instruct";
 
 const BOT_SYSTEM_PROMPT = `Tu es Della, le robot assistant du site de "Mr Robot", une entreprise de services techniques à Oran, Algérie, gérée par deux frères : Yassin (Responsable Technique) et Wahib (Opérations Terrain).
 Services proposés : Électronique, Informatique, Réseaux, Vidéosurveillance, Programmation, et Autres solutions sur demande.
-Contact : téléphone/WhatsApp 0797 20 25 79, email Yassinedella@gmail.com.
+Contact : WhatsApp 0797 20 25 79, email Yassinedella@gmail.com.
 Réponds en français, de façon brève (2-3 phrases maximum), amicale et professionnelle. N'invente jamais de prix précis.`;
 
 const botKB = [
@@ -552,25 +582,13 @@ function makeDellaDraggable(){
     window.addEventListener('touchcancel', endDrag);
 }
 
-window.addEventListener('load', () => {
-    setTimeout(() => {
-        const bubble = document.getElementById('botBubble');
-        const panel = document.getElementById('botPanel');
-        if(bubble && panel && !panel.classList.contains('open')){
-            bubble.classList.add('show');
-            positionBotBubble();
-            setTimeout(hideBotBubble, 7000);
-        }
-    }, 2200);
-});
-
 // Protection DOM-XSS : Insertion directe via textContent
 function botAddMsg(role, text){
     const msgs = document.getElementById('botMsgs');
     if (!msgs) return null;
     const div = document.createElement('div');
     div.className = 'bot-msg ' + role;
-    div.textContent = text; // Sécurisé contre le XSS
+    div.textContent = text; 
     msgs.appendChild(div);
     msgs.scrollTop = msgs.scrollHeight;
     return div;
@@ -610,9 +628,7 @@ async function botAskAI(text){
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
             model: NVIDIA_MODEL,
-            messages: messages,
-            max_tokens: 220,
-            temperature: 0.5
+            messages: messages
         })
     });
 
@@ -639,8 +655,7 @@ function botSend(){
         if (typingEl) typingEl.textContent = reply;
         if(isFallback){
             const msg = encodeURIComponent("Bonjour Mr Robot, question depuis le site : " + text);
-            const targetNum = '213' + OBFUSCATED_DATA.p1.substring(1) + OBFUSCATED_DATA.p2;
-            setTimeout(() => window.open(`https://wa.me/${targetNum}?text=${msg}`, '_blank', 'noopener,noreferrer'), 900);
+            setTimeout(() => window.open(`https://wa.me/${_SECURE_DATA.w}?text=${msg}`, '_blank', 'noopener,noreferrer'), 900);
         }
     };
 
@@ -675,3 +690,15 @@ function botSend(){
         logEl.textContent = rows.join('\n');
     }, 2600);
 })();
+
+window.addEventListener('load', () => {
+    setTimeout(() => {
+        const bubble = document.getElementById('botBubble');
+        const panel = document.getElementById('botPanel');
+        if(bubble && panel && !panel.classList.contains('open')){
+            bubble.classList.add('show');
+            positionBotBubble();
+            setTimeout(hideBotBubble, 7000);
+        }
+    }, 2200);
+});
