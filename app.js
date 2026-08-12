@@ -1,6 +1,6 @@
 /**
  * Mr Robot — Future Tech & IT Solutions
- * Fichier JavaScript principal (Sécurisé & Complet)
+ * Fichier JavaScript principal (Sécurisé & Optimisé)
  */
 
 // ============================================================
@@ -60,7 +60,7 @@ const translations = {
         s2_title: "معلوماتية", s2_desc: "صيانة وتحسين الأنظمة والعتاد.",
         s3_title: "شبكات", s3_desc: "تأسيس الشبكات وتأمين البنية التحتية.",
         s4_title: "مراقبة", s4_desc: "تركيب كاميرات IP وبرمجة أجهزة NVR.",
-        s5_title: "برمجة", s5_desc: "تطوير برمجيات وم مواقع ويب وأتمتة حسب الطلب.",
+        s5_title: "برمجة", s5_desc: "تطوير برمجيات ومواقع ويب وأتمتة حسب الطلب.",
         s6_title: "حلول أخرى", s6_desc: "لديك احتياج تقني خاص؟ ندرس أي طلب مخصص.",
         price_quote: "عرض سعر مجاني",
         sec_tag: "// أمان الشبكة", sec_title: "حماية أنظمتك",
@@ -84,7 +84,7 @@ const translations = {
         wa_lbl_service: "الخدمة المطلوبة:", wa_lbl_desc: "الوصف:",
         email_subject: "طلب خدمة من مستر روبوت",
         email_body: "الخدمة: {service}\nالوصف: {msg}"
-            },
+    },
     EN: {
         nav_services: "Services", nav_process: "System", nav_securite: "Security", nav_portfolio: "Portfolio", nav_team: "Team",
         hero_badge: "+9 years experience",
@@ -303,30 +303,41 @@ function selectService(val) {
     document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
 }
 
+// FORM VALIDATION & FEEDBACK (a11y & UX)
 function handleFormSubmit(event) {
     event.preventDefault();
     const submitter = event.submitter;
     const type = submitter ? submitter.getAttribute('data-submit') : 'wa';
 
-    const name = document.getElementById('inp_name')?.value.trim();
-    const phone = document.getElementById('inp_phone')?.value.trim();
+    const inpNameEl = document.getElementById('inp_name');
+    const inpPhoneEl = document.getElementById('inp_phone');
+    const inpMsgEl = document.getElementById('inp_msg');
+
+    const name = inpNameEl?.value.trim();
+    const phone = inpPhoneEl?.value.trim();
     const selectEl = document.getElementById('service-select');
     const serviceName = selectEl ? selectEl.options[selectEl.selectedIndex].text : '';
-    const message = document.getElementById('inp_msg')?.value.trim();
+    const message = inpMsgEl?.value.trim();
 
-    if (!name || !phone) {
-        showToast("Veuillez indiquer votre nom et votre téléphone.", "error");
+    // Visual feedback for form validation
+    if (!name) {
+        if (inpNameEl) { inpNameEl.style.borderColor = '#ff6b6b'; inpNameEl.focus(); }
+        showToast("Veuillez indiquer votre nom.", "error");
         return false;
-    }
+    } else if (inpNameEl) { inpNameEl.style.borderColor = 'var(--line)'; }
+
     const phoneRegex = /^[\+\d\s\-\(\)]{7,20}$/;
-    if (!phoneRegex.test(phone)) {
+    if (!phone || !phoneRegex.test(phone)) {
+        if (inpPhoneEl) { inpPhoneEl.style.borderColor = '#ff6b6b'; inpPhoneEl.focus(); }
         showToast("Numéro de téléphone invalide (ex: 0797 20 25 79).", "error");
         return false;
-    }
+    } else if (inpPhoneEl) { inpPhoneEl.style.borderColor = 'var(--line)'; }
+
     if (!message) {
+        if (inpMsgEl) { inpMsgEl.style.borderColor = '#ff6b6b'; inpMsgEl.focus(); }
         showToast("Veuillez décrire votre besoin.", "error");
         return false;
-    }
+    } else if (inpMsgEl) { inpMsgEl.style.borderColor = 'var(--line)'; }
 
     document.querySelectorAll('.submit-btn').forEach(btn => {
         btn.disabled = true;
@@ -375,7 +386,7 @@ function initSparks() {
 }
 
 // ============================================================
-// 4. MODULE BOT DELLA (SÉCURISÉ & INTERACTIF)
+// 4. MODULE BOT DELLA
 // ============================================================
 const DELLA_PROXY_URL = "https://della-proxy.yassinedella.workers.dev/";
 const NVIDIA_MODEL = "meta/llama-3.1-8b-instruct";
