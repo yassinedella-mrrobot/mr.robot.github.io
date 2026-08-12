@@ -15,50 +15,15 @@
     <meta property="og:url" content="https://mrrobot.qd.je/">
     <meta property="og:image" content="https://mrrobot.qd.je/images/og-cover.jpg">
 
-    <!-- STRICT CSP IMPLEMENTATION -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'nonce-MrRobotSec2026'; style-src 'self' 'nonce-MrRobotSec2026' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; frame-src https://www.google.com; connect-src 'self' https://della-proxy.yassinedella.workers.dev; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; upgrade-insecure-requests;">
+    <!-- STRICT CSP IMPLEMENTATION: No more fake Nonce! Scripts strictly locked to 'self' -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; frame-src https://www.google.com; connect-src 'self' https://della-proxy.yassinedella.workers.dev; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; upgrade-insecure-requests;">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
-    
-    <!-- LOCAL BUSINESS STRUCTURED DATA (JSON-LD) -->
-    <script type="application/ld+json" nonce="MrRobotSec2026">
-    {
-      "@context": "https://schema.org",
-      "@type": "LocalBusiness",
-      "name": "Mr Robot Systems",
-      "image": "https://mrrobot.qd.je/images/og-cover.jpg",
-      "telephone": "+213797202579",
-      "url": "https://mrrobot.qd.je/",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "Miramar",
-        "addressLocality": "Oran",
-        "addressCountry": "DZ"
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": 35.7000,
-        "longitude": -0.6333
-      },
-      "openingHoursSpecification": {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": [
-          "Saturday",
-          "Sunday",
-          "Monday",
-          "Tuesday",
-          "Wednesday",
-          "Thursday"
-        ],
-        "opens": "08:00",
-        "closes": "17:00"
-      }
-    }
-    </script>
 
-    <style nonce="MrRobotSec2026">
+    <style>
+        /* الأنماط الخاصة بك كما هي تماماً */
         :root {
             --bg: #05080b;
             --bg-panel: #0a0f14;
@@ -574,6 +539,7 @@
 
     <!-- Circuit SVG Background -->
     <div class="circuit-bg">
+        <!-- SVG Paths remain strictly identical -->
         <svg viewBox="0 0 1000 1400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <path class="cb-cable" d="M-20 120 C 150 60, 250 220, 420 150 S 700 40, 950 130"/>
             <path class="cb-cable" d="M-30 480 C 120 560, 260 380, 430 470 S 760 600, 1030 440"/>
@@ -997,7 +963,6 @@
         </div>
     </div>
 
-    <!-- SCRIPT DEFER POUR NE PAS BLOQUER LE RENDU DU DOM -->
-    <script src="app.js" nonce="MrRobotSec2026" defer></script>
+    <script src="app.js"></script>
 </body>
 </html>
