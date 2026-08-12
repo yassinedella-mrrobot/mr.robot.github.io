@@ -1,21 +1,29 @@
-# Security Policy
+# Politique de Sécurité - Mr Robot Systems
 
-## Supported Versions
+La sécurité des systèmes et la protection des données de nos clients sont au cœur des préoccupations de **Mr Robot**. Ce document décrit notre politique concernant la découverte et le signalement de vulnérabilités sur notre site vitrine et nos services associés (incluant le Bot Della).
 
-Use this section to tell people about which versions of your project are
-currently being supported with security updates.
+## Versions Supportées
 
-| Version | Supported          |
-| ------- | ------------------ |
-| 5.1.x   | :white_check_mark: |
-| 5.0.x   | :x:                |
-| 4.0.x   | :white_check_mark: |
-| < 4.0   | :x:                |
+L'infrastructure web de Mr Robot est maintenue en continu par le Responsable Technique.
 
-## Reporting a Vulnerability
+| Version | Environnement | Support Actif |
+| ------- | ------------- | ------------- |
+| V2.0    | Production (`mrrobot.qd.je`) | :white_check_mark: |
+| Anciennes versions | Archive | :x: |
 
-Use this section to tell people how to report a vulnerability.
+## Signalement d'une Vulnérabilité
 
-Tell them where to go, how often they can expect to get an update on a
-reported vulnerability, what to expect if the vulnerability is accepted or
-declined, etc.
+Si vous êtes un chercheur en sécurité, un pentester, ou un utilisateur ayant identifié une faille de sécurité potentielle sur nos systèmes, veuillez nous en informer immédiatement afin que nous puissions collaborer et corriger le problème.
+
+### Comment nous contacter ?
+L'équipe de Mr Robot (Yassin et Wahib) prend les signalements de sécurité très au sérieux. Vous pouvez nous envoyer les détails techniques via l'un des canaux suivants :
+
+*   **Email de Sécurité** : [Yassinedella@gmail.com] (Veuillez indiquer "SECURITY VULNERABILITY" dans l'objet).
+*   **WhatsApp Direct** : +213 797 20 25 79.
+
+### À quoi s'attendre ?
+1.  **Accusé de réception** : Nous confirmerons la réception de votre signalement dans les 24 heures.
+2.  **Analyse** : Yassin (Responsable Technique) évaluera la faille et sa criticité technique.
+3.  **Correction (Patch)** : Selon la sévérité, un correctif sera développé et déployé dans les plus brefs délais.
+
+**Règle d'Or (Responsible Disclosure) :** Nous vous demandons avec respect de ne pas divulguer publiquement les détails de la vulnérabilité avant que nous n'ayons eu l'opportunité de l'analyser et de déployer le correctif.
