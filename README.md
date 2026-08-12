@@ -3,7 +3,12 @@
 Site vitrine professionnel sécurisé pour **Mr Robot**, entreprise de services techniques basée à Oran (Algérie).
 
 ---
-
+## 📁 Structure du projet
+- `index.html` : Structure HTML5 & UI Cyberpunk.
+- `app.js` : Scripts client & logique du Bot Della.
+- `worker.js` : Proxy Cloudflare Worker (Sécurité API & Headers).
+- `README.md` : Documentation du projet.
+  
 ## 🚀 Architecture & Sécurité
 
 - **Front-end** : HTML5, CSS3, Vanilla JS avec thème Cyberpunk / Dark.
