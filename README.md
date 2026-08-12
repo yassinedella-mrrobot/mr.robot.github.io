@@ -1,24 +1,23 @@
 # 🤖 Mr Robot — Site Web & Assistant Della
 
-Site vitrine professionnel sécurisé pour **Mr Robot**, entreprise spécialisée en électronique, informatique, réseaux et vidéosurveillance à Oran (Algérie).
+Site vitrine professionnel sécurisé pour **Mr Robot**, entreprise de services techniques basée à Oran (Algérie).
 
 ---
 
-## 🚀 Fonctionnalités & Sécurité
+## 🚀 Architecture & Sécurité
 
-- **Design Dark Tech / Cyberpunk**
-- **Sécurité Renforcée (OWASP)** :
-  - CSP Stricte sans `unsafe-inline`.
-  - Protection contre le XSS via `textContent`.
-  - Anti-scraping des données sensibles (email/téléphone obfusqués).
-  - Proxy Cloudflare Worker sécurisé évitant l'exposition de la clé API NVIDIA.
-  - En-têtes HTTP de sécurité contre le Clickjacking et le MIME-sniffing.
+- **Front-end** : HTML5, CSS3, Vanilla JS avec thème Cyberpunk / Dark.
+- **Sécurisation OWASP Top 10** :
+  - **Content Security Policy Stricte** (suppression complète de `unsafe-inline` avec `nonce`).
+  - **Protection Anti-Scraping** : Obfuscation dynamique du numéro de téléphone et de l'adresse email.
+  - **Isolation Chatbot Della** : Protection XSS basateur de DOM via manipulation sécurisée par des éléments texte stricts.
+  - **Proxy Cloudflare Worker** : Masquage serveur des clés API NVIDIA et en-têtes HTTP anti-Clickjacking.
 
 ---
 
 ## 📞 Contact
 
-- **Domain** : [mrrobot.qd.je](https://mrrobot.qd.je)
-- **Localisation** : Oran, Miramar (Près du Lycée Lotfi)
+- **Site Web** : [mrrobot.qd.je](https://mrrobot.qd.je)
+- **Localisation** : Oran, Miramar — Près du Lycée Lotfi
 
 © 2026 Mr Robot — Tous droits réservés.
