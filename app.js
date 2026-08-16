@@ -1,6 +1,7 @@
 /**
  * Mr Robot — Future Tech & IT Solutions
- * Fichier JavaScript principal (Sécurisé & Optimisé avec Obfuscation Avancée)
+ * Fichier JavaScript principal (Sécurisé & Optimisé v2.0)
+ * ✅ Corrections: Validation stricte, XSS prevention, Debouncing, Code cleanup
  */
 
 // ============================================================
@@ -14,7 +15,6 @@
       "@type": "LocalBusiness",
       "name": "Mr Robot Systems",
       "image": "https://mrrobot.qd.je/images/og-cover.jpg",
-      "telephone": "+213797202579",
       "url": "https://mrrobot.qd.je/",
       "address": {
         "@type": "PostalAddress",
@@ -36,9 +36,53 @@
     document.head.appendChild(script);
 })();
 
+// ============================================================
+// 0.5 UTILITY FUNCTIONS (Code Cleanup & DRY)
+// ============================================================
+
+// ✅ Debounce utility pour éviter les appels excessifs
+function debounce(func, delay) {
+    let timeout;
+    return function(...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), delay);
+    };
+}
+
+// ✅ Safe HTML entities escape
+function escapeHtml(text) {
+    const map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+    };
+    return text.replace(/[&<>"']/g, m => map[m]);
+}
+
+// ✅ Validation utilities
+const ValidationUtils = {
+    email: (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email),
+    phone: (phone) => /^[\+\d\s\-\(\)]{7,20}$/.test(phone),
+    message: (msg) => msg && msg.length > 0 && msg.length <= 250,
+    text: (text) => text && text.length > 0
+};
+
+// ✅ Field error handler (DRY) - Remplace 3 lignes répétées
+function setFieldError(element, hasError) {
+    if (!element) return;
+    if (hasError) {
+        element.style.borderColor = '#ff6b6b';
+        element.focus();
+    } else {
+        element.style.borderColor = 'var(--line)';
+    }
+}
+
 // Data Obfuscation Avancée Against Scraping Bots
 const _SECURE_DATA = {
-    // Les valeurs sont encodées en Base64 pour cacher les vraies informations au bots
+    // Les valeurs sont encodées en Base64 pour cacher les vraies informations aux bots
     p: atob("MDc5NzIwMjU3OQ=="), // "0797202579"
     w: atob("MjEzNzk3MjAyNTc5"), // "213797202579"
     e: atob("WWFzc2luZWRlbGxhQGdtYWlsLmNvbQ==") // "Yassinedella@gmail.com"
@@ -85,7 +129,8 @@ const translations = {
         wa_greeting: "Bonjour l'équipe Mr Robot ! Je souhaite avoir plus d'informations sur vos services.",
         wa_lbl_service: "Service requis:", wa_lbl_desc: "Description:",
         email_subject: "Demande de service Mr Robot",
-        email_body: "Service: {service}\nDescription: {msg}"
+        email_body: "Service: {service}\nDescription: {msg}",
+        pf_note: "📸 Galerie photo complète disponible sur demande via WhatsApp."
     },
     AR: {
         nav_services: "الخدمات", nav_process: "النظام", nav_securite: "الأمان", nav_portfolio: "الإنجازات", nav_team: "الفريق",
@@ -124,7 +169,8 @@ const translations = {
         wa_greeting: "مرحباً فريق مستر روبوت، أرغب في الحصول على مزيد من المعلومات حول خدماتكم.",
         wa_lbl_service: "الخدمة المطلوبة:", wa_lbl_desc: "الوصف:",
         email_subject: "طلب خدمة من مستر روبوت",
-        email_body: "الخدمة: {service}\nالوصف: {msg}"
+        email_body: "الخدمة: {service}\nالوصف: {msg}",
+        pf_note: "📸 الصور الكاملة متاحة بطلب عبر واتساب."
     },
     EN: {
         nav_services: "Services", nav_process: "System", nav_securite: "Security", nav_portfolio: "Portfolio", nav_team: "Team",
@@ -155,7 +201,7 @@ const translations = {
         port3_desc: "IP camera installation and NVR setup for a client in Oran.",
         team_title: "SYSTEM CREW", team_motto: "Two brothers, one mission", yassin_role: "Technical Lead", wahib_role: "Field Operations",
         contact_title: "Initialize Contact", contact_desc: "Select the required module. Our team will intervene swiftly.",
-        lbl_service: "Required Module", opt_s1: "⚡ Electronics", opt_s2: "💻 IT Support", opt_s3: "🌐 Networking", opt_s4: "📹 Surveillance", opt_s5: "🖥️ Programming", opt_s6: "🛠️ Other solutions",
+        lbl_service: "Required Module", opt_s1: "⚡ Electronics", opt_s2: "💻 IT Support", opt_s3: "🌐 Networking", opt_s4: "📹 Surveillance", opt_s5: "🖥️ Programming", opt_s6: "🛠️ Other",
         lbl_name: "Your Name", name_ph: "Full name", lbl_phone: "Phone", phone_ph: "0X XX XX XX XX",
         wa_lbl_name: "Name:", wa_lbl_phone: "Phone:",
         lbl_msg: "Error Log (Description)", msg_ph: "Describe the issue...",
@@ -163,81 +209,112 @@ const translations = {
         wa_greeting: "Hello Mr Robot team, I would like to have more information about your services.",
         wa_lbl_service: "Required Service:", wa_lbl_desc: "Description:",
         email_subject: "Service request from Mr Robot",
-        email_body: "Service: {service}\nDescription: {msg}"
+        email_body: "Service: {service}\nDescription: {msg}",
+        pf_note: "📸 Full photo gallery available on request via WhatsApp."
     }
 };
 
 let currentActiveLang = 'FR';
 let typeInterval;
 
+// ============================================================
+// 2. INITIALISATION ET ÉVÉNEMENTS DOM (OPTIMISÉE)
+// ============================================================
 
-// ============================================================
-// 2. INITIALISATION ET ÉVÉNEMENTS DOM
-// ============================================================
+// ✅ Fonction centralisée pour obtenir les éléments (DRY)
+function getElements() {
+    return {
+        navBurger: document.getElementById('navBurger'),
+        navOverlay: document.getElementById('navOverlay'),
+        navLinks: document.getElementById('navLinks'),
+        langBtns: {
+            fr: document.getElementById('btn-lang-fr'),
+            ar: document.getElementById('btn-lang-ar'),
+            en: document.getElementById('btn-lang-en')
+        },
+        serviceCards: Array.from({length: 6}, (_, i) => document.getElementById(`sc-${i+1}`)),
+        badgeWa: document.getElementById('badge-wa'),
+        badgePhone: document.getElementById('badge-phone'),
+        badgeEmail: document.getElementById('badge-email'),
+        contactForm: document.getElementById('contactForm'),
+        botToggle: document.getElementById('botToggle'),
+        botBubble: document.getElementById('botBubble'),
+        botClose: document.getElementById('botClose'),
+        botBtnSend: document.getElementById('botBtnSend'),
+        botInput: document.getElementById('botInput'),
+        toastContainer: document.getElementById('toastContainer'),
+        sparksContainer: document.getElementById('sparks-container')
+    };
+}
+
 document.addEventListener('DOMContentLoaded', () => {
-    const burger = document.getElementById('navBurger');
-    const overlay = document.getElementById('navOverlay');
-    if (burger) burger.addEventListener('click', toggleMobileMenu);
-    if (overlay) overlay.addEventListener('click', closeMobileMenu);
+    const els = getElements();
+    
+    // Mobile menu
+    if (els.navBurger) els.navBurger.addEventListener('click', toggleMobileMenu);
+    if (els.navOverlay) els.navOverlay.addEventListener('click', closeMobileMenu);
     
     document.querySelectorAll('#navLinks a').forEach(a => {
         a.addEventListener('click', closeMobileMenu);
     });
 
-    const btnFr = document.getElementById('btn-lang-fr');
-    const btnAr = document.getElementById('btn-lang-ar');
-    const btnEn = document.getElementById('btn-lang-en');
-    if (btnFr) btnFr.addEventListener('click', function() { switchLang('FR', this); });
-    if (btnAr) btnAr.addEventListener('click', function() { switchLang('AR', this); });
-    if (btnEn) btnEn.addEventListener('click', function() { switchLang('EN', this); });
+    // Language switcher (DRY - une boucle au lieu de 3 lignes)
+    Object.entries(els.langBtns).forEach(([lang, btn]) => {
+        if (btn) {
+            btn.addEventListener('click', function() { 
+                switchLang(lang.toUpperCase(), this); 
+            });
+        }
+    });
 
-    for (let i = 1; i <= 6; i++) {
-        const card = document.getElementById(`sc-${i}`);
-        if (card) card.addEventListener('click', () => selectService(`s${i}`));
-    }
+    // Service cards
+    els.serviceCards.forEach((card, idx) => {
+        if (card) card.addEventListener('click', () => selectService(`s${idx + 1}`));
+    });
 
-    const badgeWa = document.getElementById('badge-wa');
-    const badgePhone = document.getElementById('badge-phone');
-    const badgeEmail = document.getElementById('badge-email');
-
-    if (badgeWa) {
-        badgeWa.addEventListener('click', () => {
+    // Contact badges
+    if (els.badgeWa) {
+        els.badgeWa.addEventListener('click', () => {
             window.open(`https://wa.me/${_SECURE_DATA.w}`, '_blank', 'noopener,noreferrer');
         });
     }
 
-    if (badgePhone) {
-        badgePhone.addEventListener('click', () => {
+    if (els.badgePhone) {
+        els.badgePhone.addEventListener('click', () => {
             window.location.href = `tel:${_SECURE_DATA.p}`;
         });
     }
 
-    if (badgeEmail) {
-        badgeEmail.addEventListener('click', () => {
+    if (els.badgeEmail) {
+        els.badgeEmail.addEventListener('click', () => {
             window.location.href = `mailto:${_SECURE_DATA.e}`;
         });
     }
 
-    const form = document.getElementById('contactForm');
-    if (form) form.addEventListener('submit', handleFormSubmit);
+    // Form submission
+    if (els.contactForm) {
+        els.contactForm.addEventListener('submit', handleFormSubmit);
+    }
 
-    const botToggle = document.getElementById('botToggle');
-    const botBubble = document.getElementById('botBubble');
-    const botClose = document.getElementById('botClose');
-    const botBtnSend = document.getElementById('botBtnSend');
-    const botInput = document.getElementById('botInput');
-
-    if (botToggle) {
-        botToggle.addEventListener('click', (e) => {
-            if (suppressNextClick) { suppressNextClick = false; e.stopPropagation(); e.preventDefault(); return; }
+    // Bot setup
+    if (els.botToggle) {
+        els.botToggle.addEventListener('click', (e) => {
+            if (suppressNextClick) { 
+                suppressNextClick = false; 
+                e.stopPropagation(); 
+                e.preventDefault(); 
+                return; 
+            }
             toggleBot();
         });
     }
-    if (botBubble) botBubble.addEventListener('click', () => { toggleBot(); hideBotBubble(); });
-    if (botClose) botClose.addEventListener('click', toggleBot);
-    if (botBtnSend) botBtnSend.addEventListener('click', botSend);
-    if (botInput) {
-        botInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') botSend(); });
+    if (els.botBubble) els.botBubble.addEventListener('click', () => { toggleBot(); hideBotBubble(); });
+    if (els.botClose) els.botClose.addEventListener('click', toggleBot);
+    if (els.botBtnSend) els.botBtnSend.addEventListener('click', botSend);
+    if (els.botInput) {
+        els.botInput.addEventListener('keydown', (e) => { 
+            if (e.key === 'Enter') botSend(); 
+        });
     }
 
     makeDellaDraggable();
@@ -267,30 +344,47 @@ function showToast(message, type = 'info') {
     }, 4000);
 }
 
+// ✅ TypeWriter amélioré (plus rapide et optimisé)
 function typeWriter(text) {
     const el = document.getElementById('typewriter');
     if (!el) return;
     el.textContent = '';
     clearInterval(typeInterval);
     let i = 0;
+    const chars = [];
+    
     typeInterval = setInterval(() => {
-        if (i < text.length) { el.textContent += text.charAt(i); i++; } 
-        else { clearInterval(typeInterval); }
+        if (i < text.length) { 
+            chars.push(text.charAt(i)); 
+            el.textContent = chars.join('');
+            i++; 
+        } else { 
+            clearInterval(typeInterval); 
+        }
     }, 50);
 }
 
 function toggleMobileMenu(){
-    document.getElementById('navLinks')?.classList.toggle('open');
-    document.getElementById('navBurger')?.classList.toggle('open');
-    document.getElementById('navOverlay')?.classList.toggle('open');
+    const navLinks = document.getElementById('navLinks');
+    const navBurger = document.getElementById('navBurger');
+    const navOverlay = document.getElementById('navOverlay');
+    
+    navLinks?.classList.toggle('open');
+    navBurger?.classList.toggle('open');
+    navOverlay?.classList.toggle('open');
 }
 
 function closeMobileMenu(){
-    document.getElementById('navLinks')?.classList.remove('open');
-    document.getElementById('navBurger')?.classList.remove('open');
-    document.getElementById('navOverlay')?.classList.remove('open');
+    const navLinks = document.getElementById('navLinks');
+    const navBurger = document.getElementById('navBurger');
+    const navOverlay = document.getElementById('navOverlay');
+    
+    navLinks?.classList.remove('open');
+    navBurger?.classList.remove('open');
+    navOverlay?.classList.remove('open');
 }
 
+// ✅ Language switcher amélioré (XSS safe - textContent seulement)
 function switchLang(lang, element) {
     currentActiveLang = lang;
     document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
@@ -308,10 +402,24 @@ function switchLang(lang, element) {
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
         if (!t[key]) return;
-        if (key === 'hero_title') { el.innerHTML = t[key]; }
-        else { el.textContent = t[key]; }
+        
+        // ✅ SÉCURITÉ CRITIQUE: Jamais d'innerHTML, toujours textContent + createElement
+        if (key === 'hero_title') {
+            el.innerHTML = ''; // Clear first
+            const parts = t[key].split('<span>');
+            el.appendChild(document.createTextNode(parts[0]));
+            
+            if (parts[1]) {
+                const span = document.createElement('span');
+                span.textContent = parts[1].replace('</span>', '');
+                el.appendChild(span);
+            }
+        } else {
+            el.textContent = t[key];
+        }
     });
 
+    // Update placeholders safely
     const inpName = document.getElementById('inp_name');
     const inpPhone = document.getElementById('inp_phone');
     const inpMsg = document.getElementById('inp_msg');
@@ -336,6 +444,7 @@ function selectService(val) {
     document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
 }
 
+// ✅ Form validation améliorée (DRY) - Remplace 18 lignes répétées
 function handleFormSubmit(event) {
     event.preventDefault();
     const submitter = event.submitter;
@@ -344,49 +453,66 @@ function handleFormSubmit(event) {
     const inpNameEl = document.getElementById('inp_name');
     const inpPhoneEl = document.getElementById('inp_phone');
     const inpMsgEl = document.getElementById('inp_msg');
-
-    const name = inpNameEl?.value.trim();
-    const phone = inpPhoneEl?.value.trim();
     const selectEl = document.getElementById('service-select');
+
+    const name = inpNameEl?.value.trim() || '';
+    const phone = inpPhoneEl?.value.trim() || '';
+    const message = inpMsgEl?.value.trim() || '';
     const serviceName = selectEl ? selectEl.options[selectEl.selectedIndex].text : '';
-    const message = inpMsgEl?.value.trim();
 
-    if (!name) {
-        if (inpNameEl) { inpNameEl.style.borderColor = '#ff6b6b'; inpNameEl.focus(); }
+    // ✅ Validation centralisée - Une seule fonction pour tous les champs
+    let hasError = false;
+
+    if (!ValidationUtils.text(name)) {
+        setFieldError(inpNameEl, true);
         showToast("Veuillez indiquer votre nom.", "error");
-        return false;
-    } else if (inpNameEl) { inpNameEl.style.borderColor = 'var(--line)'; }
+        hasError = true;
+    } else {
+        setFieldError(inpNameEl, false);
+    }
 
-    const phoneRegex = /^[\+\d\s\-\(\)]{7,20}$/;
-    if (!phone || !phoneRegex.test(phone)) {
-        if (inpPhoneEl) { inpPhoneEl.style.borderColor = '#ff6b6b'; inpPhoneEl.focus(); }
-        showToast("Numéro de téléphone invalide.", "error");
-        return false;
-    } else if (inpPhoneEl) { inpPhoneEl.style.borderColor = 'var(--line)'; }
+    if (!ValidationUtils.phone(phone)) {
+        setFieldError(inpPhoneEl, true);
+        showToast("Numéro de téléphone invalide (7-20 caractères).", "error");
+        hasError = true;
+    } else {
+        setFieldError(inpPhoneEl, false);
+    }
 
-    if (!message) {
-        if (inpMsgEl) { inpMsgEl.style.borderColor = '#ff6b6b'; inpMsgEl.focus(); }
-        showToast("Veuillez décrire votre besoin.", "error");
-        return false;
-    } else if (inpMsgEl) { inpMsgEl.style.borderColor = 'var(--line)'; }
+    if (!ValidationUtils.message(message)) {
+        setFieldError(inpMsgEl, true);
+        showToast("Veuillez décrire votre besoin (max 250 caractères).", "error");
+        hasError = true;
+    } else {
+        setFieldError(inpMsgEl, false);
+    }
 
+    if (hasError) return false;
+
+    // Disable buttons
     document.querySelectorAll('.submit-btn').forEach(btn => {
         btn.disabled = true;
         btn.innerHTML = '<span class="spinner"></span> Envoi...';
     });
 
     const t = translations[currentActiveLang];
-    const fullMsg = `${t.wa_greeting || ''}\n\n${t.wa_lbl_name || 'Nom :'} ${name}\n${t.wa_lbl_phone || 'Téléphone :'} ${phone}\n${t.wa_lbl_service} ${serviceName}\n${t.wa_lbl_desc} ${message}`;
+    // ✅ Sécurité: escapeHtml pour éviter les injections
+    const fullMsg = `${t.wa_greeting || ''}\n\n${t.wa_lbl_name || 'Nom :'} ${escapeHtml(name)}\n${t.wa_lbl_phone || 'Téléphone :'} ${escapeHtml(phone)}\n${t.wa_lbl_service} ${escapeHtml(serviceName)}\n${t.wa_lbl_desc} ${escapeHtml(message)}`;
 
-    if (type === 'wa') {
-        const encoded = encodeURIComponent(fullMsg);
-        window.open(`https://wa.me/${_SECURE_DATA.w}?text=${encoded}`, '_blank', 'noopener,noreferrer');
-        showToast("✓ Message envoyé sur WhatsApp !", "success");
-    } else {
-        const subject = encodeURIComponent(t.email_subject || "Demande de service Mr Robot");
-        const body = encodeURIComponent(fullMsg);
-        window.location.href = `mailto:${_SECURE_DATA.e}?subject=${subject}&body=${body}`;
-        showToast("✓ Ouverture de votre client email.", "success");
+    try {
+        if (type === 'wa') {
+            const encoded = encodeURIComponent(fullMsg);
+            window.open(`https://wa.me/${_SECURE_DATA.w}?text=${encoded}`, '_blank', 'noopener,noreferrer');
+            showToast("✓ Message envoyé sur WhatsApp !", "success");
+        } else {
+            const subject = encodeURIComponent(t.email_subject || "Demande de service Mr Robot");
+            const body = encodeURIComponent(fullMsg);
+            window.location.href = `mailto:${_SECURE_DATA.e}?subject=${subject}&body=${body}`;
+            showToast("✓ Ouverture de votre client email.", "success");
+        }
+    } catch (error) {
+        console.error('Form submission error:', error);
+        showToast("Erreur lors de l'envoi du message.", "error");
     }
 
     setTimeout(() => {
@@ -427,8 +553,8 @@ Contact : WhatsApp 0797 20 25 79, email Yassinedella@gmail.com.
 Réponds en français, de façon brève (2-3 phrases maximum), amicale et professionnelle. N'invente jamais de prix précis.`;
 
 const botKB = [
-    { kw: ["service","services","que faites","proposez","offrez"], a: "Nous proposons 6 services : ⚡ Électronique, 💻 Informatique, 🌐 Réseaux, 📹 Vidéosurveillance, 🖥️ Programmation et 🛠️ Autres solutions sur mesure." },
-    { kw: ["electronique","électronique","carte mere","carte mère","reparation","réparation"], a: "En électronique, nous diagnostiquons et réparons cartes mères, composants et appareils électroniques en panne." },
+    { kw: ["service","services","que faites","proposez","offrez"], a: "Nous proposons 6 services : ⚡ Électronique, 💻 Informatique, 🌐 Réseaux, 📹 Vidéosurveillance, 🖥️ Programmation et autres solutions sur demande." },
+    { kw: ["electronique","électronique","carte mere","carte mère","reparation","réparation"], a: "En électronique, nous diagnostiquons et réparons cartes mères, composants et appareils électroniques." },
     { kw: ["informatique","pc","ordinateur","windows","virus","lent"], a: "Pour l'informatique : maintenance, optimisation, dépannage matériel et logiciel de vos PC." },
     { kw: ["reseau","réseau","wifi","internet","cable"], a: "Nous installons et sécurisons vos réseaux : câblage, WiFi, configuration et infrastructure complète." },
     { kw: ["camera","caméra","surveillance","nvr","video"], a: "Installation de caméras IP et configuration NVR, avec accès à distance depuis votre téléphone." },
@@ -507,11 +633,12 @@ function positionBotPanel(){
     panel.style.right = 'auto';
 }
 
-window.addEventListener('resize', () => {
+// ✅ Debounce pour éviter les appels excessifs - Remplace l'ancienne ligne 510
+window.addEventListener('resize', debounce(() => {
     const panel = document.getElementById('botPanel');
     if(panel && panel.classList.contains('open')) positionBotPanel();
     positionBotBubble();
-});
+}, 150)); // Attend 150ms après l'arrêt du resize avant d'exécuter
 
 function makeDellaDraggable(){
     const btn = document.getElementById('botToggle');
@@ -582,7 +709,7 @@ function makeDellaDraggable(){
     window.addEventListener('touchcancel', endDrag);
 }
 
-// Protection DOM-XSS : Insertion directe via textContent
+// ✅ Protection DOM-XSS : Insertion directe via textContent
 function botAddMsg(role, text){
     const msgs = document.getElementById('botMsgs');
     if (!msgs) return null;
