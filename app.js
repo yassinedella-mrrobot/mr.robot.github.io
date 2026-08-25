@@ -514,35 +514,37 @@ function detectLang(text) {
 }
 
 const BOT_SYSTEM_PROMPT = `Tu es Della (ديلا), l'assistant virtuel de Mr Robot Systems à Oran.
-RÈGLE OBLIGATOIRE DE LANGUE (CRITIQUE):
-- SI L'UTILISATEUR ÉCRIT EN ARABE OU DARIJA ALGÉRIENNE (حروف عربية / دارجة), TU DOIS IMPÉRATIVEMENT RÉPONDRE EN ARABE OU DARIJA ALGÉRIENNE 🇩🇿 ! (Exemple: أهلاً بك! نحن في خدمتك...).
-- IF THE USER WRITES IN ENGLISH, YOU MUST RESPOND IN ENGLISH ONLY!
-- SI L'UTILISATEUR ÉCRIT EN FRANÇAIS, RÉPONDS EN FRANÇAIS !
+
+RÈGLES DE LANGUE ET ADAPTATION INTELLIGENTE:
+1. Si l'utilisateur écrit en ARABE ÉCRITURE ARABE (حروف عربية): Réponds en Arabe / Darija fluide en caractères arabes 🇩🇿 (مثال: أهلاً بك! نقدم خدمات الصيانة...).
+2. Si l'utilisateur écrit en FRANCO-ARABE / ARABIZI (ex: "salam khoya chhal...", "slm win kayen", "wesh dirou") ou MÉLANGE le FRANÇAIS et L'ARABE (ex: "salam c'est combien le prix"): Réponds de manière très naturelle et chaleureuse en Français clair (avec un accueil amical comme "Salam !" ou "Bonjour !"), parfaitement adapté aux clients algériens !
+3. Si l'utilisateur écrit en FRANÇAIS pur: Réponds en Français clair et professionnel.
+4. Si l'utilisateur écrit en ANGLAIS: Réponds en Anglais.
 
 Informations Mr Robot Systems (Oran):
 - Services: ⚡ Électronique/Soudure carte mère, 💻 Informatique/Maintenance PC, 🌐 Réseaux & WiFi, 📹 Vidéosurveillance/Caméras IP, 🖥️ Programmation/Sites web & Logiciels.
 - Adresse: Oran, Miramar — Près du Lycée Lotfi (وهران ميرامار بالقرب من ثانوية لطفي).
-- Horaires: Samedi – Jeudi, 08h00 – 17h00 (من السبت إلى الخميس 08:00 إلى 17:00).
-- Contact WhatsApp: 0797202579.
-- Style de réponse: Très brève, polie et utile (2 à 3 phrases maximum).`;
+- Horaires: Samedi – Jeudi, 08h00 – 17h00.
+- Contact WhatsApp / Tél: 0797202579.
+- Style: Court (2 à 3 phrases max), professionnel, amical et très clair.`;
 
 const botKB = [
     { 
-        kw: ["service","services","que faites","proposez","offrez","خدمات","شنو ديرو","what do you do"], 
+        kw: ["service","services","que faites","proposez","offrez","خدمات","شنو ديرو","what do you do","dirou"], 
         ar: "نقدم 6 خدمات رئيسية: ⚡ إلكترونيات (صيانة الكروت الأم)، 💻 معلوماتية، 🌐 شبكات وايفاي، 📹 كاميرات مراقبة، 🖥️ برمجة حلول مخصصة.",
-        fr: "Nous proposons 6 services : ⚡ Électronique, 💻 Informatique, 🌐 Réseaux, 📹 Vidéosurveillance, 🖥️ Programmation et solutions sur mesure.",
+        fr: "Bonjour ! Nous proposons 6 services principaux : ⚡ Électronique (micro-soudure), 💻 Informatique, 🌐 Réseaux WiFi, 📹 Vidéosurveillance, 🖥️ Programmation.",
         en: "We offer 6 main services: ⚡ Electronics, 💻 IT & PC Repair, 🌐 Networking & WiFi, 📹 CCTV Cameras, 🖥️ Software Development."
     },
     { 
-        kw: ["electronique","électronique","carte mere","carte mère","reparation","réparation","الكترونيات","إلكترونيات","سودور","كارط مير","electronics"],
+        kw: ["electronique","électronique","carte mere","carte mère","reparation","réparation","الكترونيات","إلكترونيات","سودور","كارط مير","electronics","soudure"],
         ar: "في مجال الإلكترونيات: نقوم بتشخيص وإصلاح الكروت الأم (Cartes mères)، التلحيم الدقيق (Soudure)، وصيانة الأجهزة الإلكترونية.",
-        fr: "En électronique : diagnostic avancé et réparation de cartes mères, micro-soudure et composants.",
+        fr: "En électronique : nous effectuons le diagnostic et la réparation des cartes mères (micro-soudure et composants).",
         en: "In electronics: advanced motherboard diagnostics, micro-soldering, and electronic component repair."
     },
     { 
-        kw: ["informatique","pc","ordinateur","windows","virus","lent","ميكرو","كمبيوتر","حاسوب","computer"],
+        kw: ["informatique","pc","ordinateur","windows","virus","lent","ميكرو","كمبيوتر","حاسوب","computer","mikro"],
         ar: "في مجال المعلوماتية: صيانة وحل مشاكل الحواسيب (PC)، تسريع الجهاز، إزالة الفيروسات، وتغيير القطع.",
-        fr: "Pour l'informatique : maintenance, optimisation, suppression de virus et dépannage PC matériel & logiciel.",
+        fr: "Pour l'informatique : maintenance PC, suppression de virus, optimisation et dépannage matériel & logiciel.",
         en: "For IT & Computers: PC maintenance, speed optimization, virus removal, hardware & software repair."
     },
     { 
@@ -554,25 +556,25 @@ const botKB = [
     { 
         kw: ["camera","caméra","surveillance","nvr","video","كاميرا","كاميرات","cctv"],
         ar: "تركيب كاميرات المراقبة IP و NVR مع إمكانية مشاهدة البث المباشر من هاتفك الذكي في أي مكان.",
-        fr: "Pose de caméras IP et configuration NVR avec accès à distance sur votre smartphone.",
+        fr: "Installation de caméras de surveillance IP et NVR avec accès à distance depuis votre smartphone.",
         en: "Installation of IP cameras and NVR configuration with remote mobile viewing on your smartphone."
     },
     { 
         kw: ["programmation","logiciel","site web","app","developpement","développement","برمجة","موقع","software","coding"],
         ar: "تطوير البرامج والمواقع الإلكترونية وتصميم تطبيقات وحلول الأتمتة المخصصة لنشاطك.",
-        fr: "Développement de logiciels, sites web et automatisation sur mesure pour votre entreprise.",
+        fr: "Développement de logiciels, sites web et applications sur mesure pour votre activité.",
         en: "Custom software development, websites, and business automation solutions."
     },
     { 
-        kw: ["prix","tarif","combien","cout","coût","devis","شحال","سعر","سومة","price","cost"],
+        kw: ["prix","tarif","combien","cout","coût","devis","شحال","سعر","سومة","price","cost","chhal","somma"],
         ar: "السعر يختلف حسب نوع العطب والتاريخ. تواصل معنا عبر الواتساب على الرقم 0797202579 للحصول على تقدير سريع وسعر مجاني!",
-        fr: "Le prix dépend du diagnostic. Contactez-nous sur WhatsApp au 0797202579 pour un devis gratuit et rapide !",
+        fr: "Salam ! Le prix dépend du diagnostic exact de votre appareil. Envoyez-nous les détails sur WhatsApp au 0797202579 pour un devis rapide !",
         en: "Prices depend on the issue diagnosis. Contact us on WhatsApp at 0797202579 for a free quote!"
     },
     { 
-        kw: ["adresse","ou","où","localisation","situe","situé","oran","موقع","عنوان","وين","location","where"],
+        kw: ["adresse","ou","où","localisation","situe","situé","oran","موقع","عنوان","وين","location","where","win"],
         ar: "مقرنا يقع في وهران، ميرامار — بالقرب من ثانوية لطفي (Oran, Miramar - Près du Lycée Lotfi).",
-        fr: "Nous sommes situés à Oran, Miramar — près du Lycée Lotfi.",
+        fr: "Nous sommes basés à Oran, Miramar — juste près du Lycée Lotfi.",
         en: "We are located in Oran, Miramar — near Lycée Lotfi."
     },
     { 
@@ -582,19 +584,19 @@ const botKB = [
         en: "Working hours: Saturday to Thursday, 08:00 AM to 05:00 PM."
     },
     { 
-        kw: ["contact","telephone","téléphone","numero","numéro","whatsapp","appel","هاتف","رقم","واتساب","phone"],
+        kw: ["contact","telephone","téléphone","numero","numéro","whatsapp","appel","هاتف","رقم","واتساب","phone","khoya","slm","salam"],
         ar: "يمكنكم الاتصال بنا على الرقم 0797202579 أو التواصل معنا مباشرة عبر الواتساب 📱",
-        fr: "Appelez-nous au 0797 20 25 79 ou envoyez-nous un message WhatsApp 📱",
+        fr: "Salam ! Vous pouvez nous joindre directement par téléphone ou WhatsApp au 0797202579 📱",
         en: "Call us at 0797 20 25 79 or send us a WhatsApp message 📱"
     },
     { 
-        kw: ["bonjour","salut","salam","hello","bjr","hi","مرحبا","سلام","أهلا"],
+        kw: ["bonjour","salut","salam","hello","bjr","hi","مرحبا","سلام","أهلا","slm","wesh"],
         ar: "أهلاً وسهلاً بك! 👋 أنا ديلا (Della)، المساعد الذكي لشركة Mr Robot Systems. كيف يمكنني مساعدتك اليوم؟",
-        fr: "Bonjour ! 👋 Je suis Della, l'assistant de Mr Robot Systems. Comment puis-je vous aider aujourd'hui ?",
+        fr: "Salam ! 👋 Je suis Della, l'assistant virtuel de Mr Robot. Comment puis-je vous aider aujourd'hui ?",
         en: "Hello! 👋 I'm Della, Mr Robot Systems assistant. How can I help you today?"
     },
     { 
-        kw: ["merci","thanks","chokran","شكرا","يعطيك الصحة"],
+        kw: ["merci","thanks","chokran","شكرا","يعطيك الصحة","chokrane","sahhit"],
         ar: "على الرحب والسعة! يسعدنا دائماً خدمتك. 😊",
         fr: "Avec grand plaisir ! N'hésitez pas si vous avez d'autres questions. 😊",
         en: "You're very welcome! Feel free to ask if you have more questions. 😊"
