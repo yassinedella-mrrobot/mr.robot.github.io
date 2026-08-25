@@ -507,22 +507,98 @@ function initSparks() {
 // ============================================================
 const DELLA_PROXY_URL = "https://della-proxy.yassinedella.workers.dev/";
 
-const BOT_SYSTEM_PROMPT = `Tu es Della, assistant Mr Robot Systems (Oran). Services: Électronique, Informatique, Réseaux, Vidéosurveillance, Programmation. Contact: WhatsApp 0797202579. IMPORTANT: Réponds TOUJOURS dans la même langue que l'utilisateur (Français, Arabe/Darija 🇩🇿/العربية, ou Anglais/English) de façon brève, amicale et professionnelle.`;
+function detectLang(text) {
+    if (/[\u0600-\u06FF]/.test(text)) return 'ar';
+    if (/\b(hello|hi|price|cost|where|how|what|thanks|service|services|phone)\b/i.test(text)) return 'en';
+    return 'fr';
+}
+
+const BOT_SYSTEM_PROMPT = `Tu es Della (ديلا), l'assistant virtuel de Mr Robot Systems à Oran.
+RÈGLE OBLIGATOIRE DE LANGUE (CRITIQUE):
+- SI L'UTILISATEUR ÉCRIT EN ARABE OU DARIJA ALGÉRIENNE (حروف عربية / دارجة), TU DOIS IMPÉRATIVEMENT RÉPONDRE EN ARABE OU DARIJA ALGÉRIENNE 🇩🇿 ! (Exemple: أهلاً بك! نحن في خدمتك...).
+- IF THE USER WRITES IN ENGLISH, YOU MUST RESPOND IN ENGLISH ONLY!
+- SI L'UTILISATEUR ÉCRIT EN FRANÇAIS, RÉPONDS EN FRANÇAIS !
+
+Informations Mr Robot Systems (Oran):
+- Services: ⚡ Électronique/Soudure carte mère, 💻 Informatique/Maintenance PC, 🌐 Réseaux & WiFi, 📹 Vidéosurveillance/Caméras IP, 🖥️ Programmation/Sites web & Logiciels.
+- Adresse: Oran, Miramar — Près du Lycée Lotfi (وهران ميرامار بالقرب من ثانوية لطفي).
+- Horaires: Samedi – Jeudi, 08h00 – 17h00 (من السبت إلى الخميس 08:00 إلى 17:00).
+- Contact WhatsApp: 0797202579.
+- Style de réponse: Très brève, polie et utile (2 à 3 phrases maximum).`;
 
 const botKB = [
-    { kw: ["service","services","que faites","proposez","offrez","خدمات","شنو ديرو","what do you do"], a: "Nous proposons 6 services : ⚡ Électronique, 💻 Informatique, 🌐 Réseaux, 📹 Vidéosurveillance, 🖥️ Programmation et autres solutions. / نقدم 6 خدمات: إلكترونيات، معلوماتية، شبكات، كاميرات مراقبة، برمجة." },
-    { kw: ["electronique","électronique","carte mere","carte mère","reparation","réparation","الكترونيات","إلكترونيات","سودور","كارط مير","electronics"], a: "En électronique : diagnostic et réparation de cartes mères et composants. / إصلاح وصيانة الكروت الأم والأجهزة الإلكترونية." },
-    { kw: ["informatique","pc","ordinateur","windows","virus","lent","ميكرو","كمبيوتر","حاسوب","computer"], a: "Pour l'informatique : maintenance, optimisation, dépannage PC matériel & logiciel. / صيانة وتصليح جميع أنواع الكمبيوتر والحواسيب." },
-    { kw: ["reseau","réseau","wifi","internet","cable","شبكة","شبكات","وايفاي","network"], a: "Installation et sécurisation de réseaux : câblage, WiFi et infrastructures. / تركيب وتأمين شبكات الإنترنيت والوايفاي." },
-    { kw: ["camera","caméra","surveillance","nvr","video","كاميرا","كاميرات","cctv"], a: "Installation de caméras IP et NVR avec accès à distance sur votre smartphone. / تركيب كاميرات المراقبة وتوصيلها بالهاتف." },
-    { kw: ["programmation","logiciel","site web","app","developpement","développement","برمجة","موقع","software","coding"], a: "Développement de logiciels, sites web et automatisation sur mesure. / تطوير البرامج، المواقع الإلكترونية والحلول المخصصة." },
-    { kw: ["prix","tarif","combien","cout","coût","devis","شحال","سعر","سومة","price","cost"], a: "Le prix dépend du problème. Contactez-nous sur WhatsApp 0797202579 pour un devis rapide ! / السعر حسب العطب. تواصل معنا على الواتساب 0797202579." },
-    { kw: ["adresse","ou","où","localisation","situe","situé","oran","موقع","عنوان","وين","location","where"], a: "Nous sommes basés à Oran, Miramar — près du Lycée Lotfi. / مقرنا في وهران، ميرامار — بالقرب من ثانوية لطفي." },
-    { kw: ["horaire","heure","ouvert","disponib","وقت","أوقات","hours","open"], a: "Nos horaires : Samedi – Jeudi, 08h00 – 17h00. / أوقات العمل: من السبت إلى الخميس، 08:00 – 17:00." },
-    { kw: ["contact","telephone","téléphone","numero","numéro","whatsapp","appel","هاتف","رقم","واتساب","phone"], a: "Appelez-nous au 0797 20 25 79 ou contactez-nous via WhatsApp ! / اتصل بنا على 0797202579 أو تواصل معنا عبر الواتساب." },
-    { kw: ["equipe","équipe","yassin","wahib","qui etes","qui êtes","من انتم"], a: "Mr Robot est géré par deux frères : Yassin (Responsable Technique) et Wahib (Opérations Terrain)." },
-    { kw: ["bonjour","salut","salam","hello","bjr","hi","مرحبا","سلام","أهلا"], a: "Bonjour / السلام عليكم / Hello ! 👋 Je suis Della, l'assistant de Mr Robot. Comment puis-je vous aider ? / كيف يمكنني مساعدتك؟" },
-    { kw: ["merci","thanks","chokran","شكرا","يعطيك الصحة"], a: "Avec grand plaisir ! 😊 / على الرحب والسعة!" }
+    { 
+        kw: ["service","services","que faites","proposez","offrez","خدمات","شنو ديرو","what do you do"], 
+        ar: "نقدم 6 خدمات رئيسية: ⚡ إلكترونيات (صيانة الكروت الأم)، 💻 معلوماتية، 🌐 شبكات وايفاي، 📹 كاميرات مراقبة، 🖥️ برمجة حلول مخصصة.",
+        fr: "Nous proposons 6 services : ⚡ Électronique, 💻 Informatique, 🌐 Réseaux, 📹 Vidéosurveillance, 🖥️ Programmation et solutions sur mesure.",
+        en: "We offer 6 main services: ⚡ Electronics, 💻 IT & PC Repair, 🌐 Networking & WiFi, 📹 CCTV Cameras, 🖥️ Software Development."
+    },
+    { 
+        kw: ["electronique","électronique","carte mere","carte mère","reparation","réparation","الكترونيات","إلكترونيات","سودور","كارط مير","electronics"],
+        ar: "في مجال الإلكترونيات: نقوم بتشخيص وإصلاح الكروت الأم (Cartes mères)، التلحيم الدقيق (Soudure)، وصيانة الأجهزة الإلكترونية.",
+        fr: "En électronique : diagnostic avancé et réparation de cartes mères, micro-soudure et composants.",
+        en: "In electronics: advanced motherboard diagnostics, micro-soldering, and electronic component repair."
+    },
+    { 
+        kw: ["informatique","pc","ordinateur","windows","virus","lent","ميكرو","كمبيوتر","حاسوب","computer"],
+        ar: "في مجال المعلوماتية: صيانة وحل مشاكل الحواسيب (PC)، تسريع الجهاز، إزالة الفيروسات، وتغيير القطع.",
+        fr: "Pour l'informatique : maintenance, optimisation, suppression de virus et dépannage PC matériel & logiciel.",
+        en: "For IT & Computers: PC maintenance, speed optimization, virus removal, hardware & software repair."
+    },
+    { 
+        kw: ["reseau","réseau","wifi","internet","cable","شبكة","شبكات","وايفاي","network"],
+        ar: "تركيب وتأمين الشبكات: الكابلات الهيكلية، إعداد الوايفاي الاحترافي، وحماية الشبكات من الاختراق.",
+        fr: "Installation et sécurisation de réseaux : câblage structuré, WiFi professionnel et infrastructures IT.",
+        en: "Network installation and security: structured cabling, professional WiFi, and firewall configuration."
+    },
+    { 
+        kw: ["camera","caméra","surveillance","nvr","video","كاميرا","كاميرات","cctv"],
+        ar: "تركيب كاميرات المراقبة IP و NVR مع إمكانية مشاهدة البث المباشر من هاتفك الذكي في أي مكان.",
+        fr: "Pose de caméras IP et configuration NVR avec accès à distance sur votre smartphone.",
+        en: "Installation of IP cameras and NVR configuration with remote mobile viewing on your smartphone."
+    },
+    { 
+        kw: ["programmation","logiciel","site web","app","developpement","développement","برمجة","موقع","software","coding"],
+        ar: "تطوير البرامج والمواقع الإلكترونية وتصميم تطبيقات وحلول الأتمتة المخصصة لنشاطك.",
+        fr: "Développement de logiciels, sites web et automatisation sur mesure pour votre entreprise.",
+        en: "Custom software development, websites, and business automation solutions."
+    },
+    { 
+        kw: ["prix","tarif","combien","cout","coût","devis","شحال","سعر","سومة","price","cost"],
+        ar: "السعر يختلف حسب نوع العطب والتاريخ. تواصل معنا عبر الواتساب على الرقم 0797202579 للحصول على تقدير سريع وسعر مجاني!",
+        fr: "Le prix dépend du diagnostic. Contactez-nous sur WhatsApp au 0797202579 pour un devis gratuit et rapide !",
+        en: "Prices depend on the issue diagnosis. Contact us on WhatsApp at 0797202579 for a free quote!"
+    },
+    { 
+        kw: ["adresse","ou","où","localisation","situe","situé","oran","موقع","عنوان","وين","location","where"],
+        ar: "مقرنا يقع في وهران، ميرامار — بالقرب من ثانوية لطفي (Oran, Miramar - Près du Lycée Lotfi).",
+        fr: "Nous sommes situés à Oran, Miramar — près du Lycée Lotfi.",
+        en: "We are located in Oran, Miramar — near Lycée Lotfi."
+    },
+    { 
+        kw: ["horaire","heure","ouvert","disponib","وقت","أوقات","hours","open"],
+        ar: "أوقات العمل: من السبت إلى الخميس، من الساعة 08:00 صباحاً إلى 17:00 مساءً.",
+        fr: "Nos horaires d'ouverture : du Samedi au Jeudi, de 08h00 à 17h00.",
+        en: "Working hours: Saturday to Thursday, 08:00 AM to 05:00 PM."
+    },
+    { 
+        kw: ["contact","telephone","téléphone","numero","numéro","whatsapp","appel","هاتف","رقم","واتساب","phone"],
+        ar: "يمكنكم الاتصال بنا على الرقم 0797202579 أو التواصل معنا مباشرة عبر الواتساب 📱",
+        fr: "Appelez-nous au 0797 20 25 79 ou envoyez-nous un message WhatsApp 📱",
+        en: "Call us at 0797 20 25 79 or send us a WhatsApp message 📱"
+    },
+    { 
+        kw: ["bonjour","salut","salam","hello","bjr","hi","مرحبا","سلام","أهلا"],
+        ar: "أهلاً وسهلاً بك! 👋 أنا ديلا (Della)، المساعد الذكي لشركة Mr Robot Systems. كيف يمكنني مساعدتك اليوم؟",
+        fr: "Bonjour ! 👋 Je suis Della, l'assistant de Mr Robot Systems. Comment puis-je vous aider aujourd'hui ?",
+        en: "Hello! 👋 I'm Della, Mr Robot Systems assistant. How can I help you today?"
+    },
+    { 
+        kw: ["merci","thanks","chokran","شكرا","يعطيك الصحة"],
+        ar: "على الرحب والسعة! يسعدنا دائماً خدمتك. 😊",
+        fr: "Avec grand plaisir ! N'hésitez pas si vous avez d'autres questions. 😊",
+        en: "You're very welcome! Feel free to ask if you have more questions. 😊"
+    }
 ];
 
 const botSuggestions = ["Vos services ?", "Prix / devis", "Réseaux & WiFi", "Contact WhatsApp"];
@@ -695,8 +771,9 @@ function botRenderSuggestions(){
 
 function botFindAnswer(text){
     const q = text.toLowerCase();
+    const lang = detectLang(text);
     for(const entry of botKB){
-        if(entry.kw.some(k => q.includes(k))) return entry.a;
+        if(entry.kw.some(k => q.includes(k))) return entry[lang] || entry.fr;
     }
     return null;
 }
