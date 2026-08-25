@@ -99,7 +99,7 @@ export default {
         contents: geminiContents,
         generationConfig: {
           temperature: 0.5,
-          maxOutputTokens: 250
+          maxOutputTokens: 1000
         }
       };
 
