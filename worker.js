@@ -17,13 +17,29 @@ export default {
       });
     }
 
-    // 2. Blocage des méthodes autres que POST
+    // 2. Traitement des requêtes GET (Vérification d'état en navigateur)
+    if (request.method === "GET") {
+      return new Response(JSON.stringify({ 
+        status: "online",
+        service: "Della AI Proxy — Mr Robot Systems (Oran)",
+        engine: "Gemini 3.6 Flash + Realtime Web Search",
+        message: "🟢 Le Worker Cloudflare est actif et fonctionnel !"
+      }), {
+        status: 200,
+        headers: { 
+          ...getSecurityHeaders(request), 
+          "Content-Type": "application/json; charset=utf-8" 
+        }
+      });
+    }
+
+    // Blocage des autres méthodes (PUT, DELETE, etc.)
     if (request.method !== "POST") {
-      return new Response(JSON.stringify({ error: "Méthode non autorisée" }), {
+      return new Response(JSON.stringify({ error: "Méthode non autorisée. Seul POST est accepté pour l'IA." }), {
         status: 405,
         headers: { 
           ...getSecurityHeaders(request), 
-          "Content-Type": "application/json" 
+          "Content-Type": "application/json; charset=utf-8" 
         }
       });
     }
