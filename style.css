@@ -688,11 +688,31 @@ html[dir="rtl"] .bot-toggle, html[dir="rtl"] .bot-panel { left: auto; right: 24p
         font-size: 1.05rem;
     }
     .services-grid {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
         gap: 12px;
         margin-bottom: 25px;
+        padding-bottom: 12px;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
     }
     .service-card {
-        padding: 16px;
+        flex: 0 0 78vw !important;
+        max-width: 270px !important;
+        scroll-snap-align: start;
+        padding: 14px 16px;
+    }
+    .service-card h3 {
+        font-size: 0.95rem;
+        margin-bottom: 4px;
+    }
+    .service-card p {
+        font-size: 0.78rem;
+        line-height: 1.35;
+    }
+    .service-icon {
+        font-size: 1.3rem;
     }
     .map-embed iframe {
         height: 170px;
