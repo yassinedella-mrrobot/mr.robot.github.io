@@ -488,7 +488,8 @@ function handleFormSubmit(event) {
 function initSparks() {
     const sparksContainer = document.getElementById('sparks-container');
     if (!sparksContainer) return;
-    for (let i = 0; i < 15; i++) {
+    if (window.innerWidth < 768) return; // Skip heavy particle animations on mobile for max speed
+    for (let i = 0; i < 10; i++) {
         let spark = document.createElement('div');
         spark.className = 'spark';
         spark.style.width = Math.random() * 4 + 2 + 'px';

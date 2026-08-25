@@ -506,3 +506,94 @@ html[dir="rtl"] .bot-toggle, html[dir="rtl"] .bot-panel { left: auto; right: 24p
     .sec-list { align-items: center; }
     .sec-text .services-title { text-align: center !important; }
 }
+
+/* Mobile Quick Contact Action Bar */
+.mobile-action-bar {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9990;
+    background: rgba(10, 15, 20, 0.96);
+    border-top: 1px solid var(--trace-dim);
+    padding: 8px 12px;
+    gap: 10px;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.6);
+}
+
+.m-act-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 11px 14px;
+    border-radius: 8px;
+    font-family: 'Space Grotesk', 'Cairo', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.2s;
+}
+
+.m-act-phone {
+    background: rgba(255, 170, 0, 0.15);
+    border: 1px solid var(--amber);
+    color: var(--amber);
+}
+
+.m-act-wa {
+    background: #25D366;
+    color: #000;
+}
+
+/* Mobile Performance & UX Optimization */
+@media (max-width: 768px) {
+    .mobile-action-bar { display: flex; }
+    body { padding-bottom: 64px; }
+
+    /* Prevent iOS Auto-Zoom on form input focus */
+    .field input, .field select, .field textarea, .bot-input-row input {
+        font-size: 16px !important;
+    }
+
+    /* Disable heavy GPU backdrop blur and complex SVG animations on mobile */
+    header, .service-card, .contact-section, .bot-panel, .info-strip {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
+    header {
+        background: rgba(5, 8, 11, 0.96);
+    }
+    .cb-flow, .cb-pulse-dot {
+        animation: none !important;
+    }
+    .circuit-bg {
+        opacity: 0.35;
+    }
+    .logo-ic {
+        animation: none !important;
+    }
+
+    /* Floating bot button position on mobile */
+    .bot-toggle {
+        bottom: 74px;
+        left: 14px;
+        width: 54px;
+        height: 54px;
+    }
+    .bot-panel {
+        bottom: 135px;
+        left: 10px;
+        right: 10px;
+        max-width: calc(100vw - 20px);
+        width: auto;
+    }
+
+    /* Smooth rendering */
+    .services-grid, .sec-grid, .case-grid, .team-grid, .contact-section {
+        content-visibility: auto;
+        contain-intrinsic-size: 1px 400px;
+    }
+}
