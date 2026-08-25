@@ -787,21 +787,31 @@ async function botAskAI(text){
     const rawMessages = [{ role: "system", content: BOT_SYSTEM_PROMPT }, ...botHistory.slice(-6)];
     const messages = rawMessages.map(m => ({
         role: m.role,
-        content: m.content.slice(0, 240)
+        content: m.role === "system" ? m.content : m.content.slice(0, 240)
     }));
 
-    const res = await fetch(DELLA_PROXY_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: messages })
-    });
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 7000);
 
-    if(!res.ok) throw new Error("Proxy error " + res.status);
-    const data = await res.json();
-    const reply = data.choices?.[0]?.message?.content?.trim();
-    if(!reply) throw new Error("Réponse vide");
-    botHistory.push({ role: "assistant", content: reply });
-    return reply;
+    try {
+        const res = await fetch(DELLA_PROXY_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ messages: messages }),
+            signal: controller.signal
+        });
+        clearTimeout(timeoutId);
+
+        if(!res.ok) throw new Error("Proxy error " + res.status);
+        const data = await res.json();
+        const reply = data.choices?.[0]?.message?.content?.trim();
+        if(!reply) throw new Error("Réponse vide");
+        botHistory.push({ role: "assistant", content: reply });
+        return reply;
+    } catch(err) {
+        clearTimeout(timeoutId);
+        throw err;
+    }
 }
 
 function botSend(){
@@ -815,20 +825,26 @@ function botSend(){
 
     const typingEl = botAddMsg('bot', '…');
 
-    const finish = (reply, isFallback) => {
+    const finish = (reply) => {
         if (typingEl) typingEl.textContent = reply;
-        if(isFallback){
-            const msg = encodeURIComponent("Bonjour Mr Robot, question depuis le site : " + text);
-            setTimeout(() => window.open(`https://wa.me/${_SECURE_DATA.w}?text=${msg}`, '_blank', 'noopener,noreferrer'), 900);
-        }
     };
 
+    // 1. Réponse instantanée via la base de connaissances (0ms)
+    const kbAnswer = botFindAnswer(text);
+    if(kbAnswer){
+        setTimeout(() => finish(kbAnswer), 150);
+        return;
+    }
+
+    // 2. Si non trouvé dans la KB, appel vers l'IA Gemini 3.6 Flash
     botAskAI(text)
-        .then(reply => finish(reply, false))
+        .then(reply => finish(reply))
         .catch(() => {
-            const kbAnswer = botFindAnswer(text);
-            if(kbAnswer){ finish(kbAnswer, false); }
-            else { finish("Je n'ai pas pu joindre l'IA à l'instant 🤔. Je transmets votre question directement à l'équipe sur WhatsApp.", true); }
+            const lang = detectLang(text);
+            const fallbackMsg = lang === 'ar'
+                ? "أهلاً بك! 👋 فريق Mr Robot في خدمتك بمدينة وهران (ميرامار). للحصول على إجابة سريعة أو استفسار مخصص، تواصل معنا عبر الواتساب: 0797202579 📱"
+                : "Bonjour ! 👋 L'équipe Mr Robot à Oran (Miramar) est à votre service. Pour un devis ou une question spécifique, contactez-nous directement sur WhatsApp au 0797202579 📱";
+            finish(fallbackMsg);
         });
 }
 

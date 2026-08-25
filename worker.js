@@ -109,18 +109,31 @@ export default {
         };
       }
 
-      // 8. Appel vers l'API Gemini avec ta clé intégrée
+      // 8. Appel vers l'API Gemini (gemini-3.6-flash)
       const geminiApiKey = env.GEMINI_API_KEY || "AQ.Ab8RN6I34_1YsCRh1r-ol09FM10KJ9XrCX0FITXYX2IgKAImRA";
+      const primaryUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=${geminiApiKey}`;
 
-      const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${geminiApiKey}`;
-
-      const apiResponse = await fetch(geminiUrl, {
+      let apiResponse = await fetch(primaryUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(geminiPayload)
       });
 
-      const data = await apiResponse.json();
+      let data = await apiResponse.json();
+
+      if (!apiResponse.ok) {
+        // Fallback en cas de problème de quota temporaire
+        const fallbackUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${geminiApiKey}`;
+        const fallbackResponse = await fetch(fallbackUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(geminiPayload)
+        });
+        if (fallbackResponse.ok) {
+          data = await fallbackResponse.json();
+          apiResponse = fallbackResponse;
+        }
+      }
 
       if (!apiResponse.ok) {
         throw new Error(data.error?.message || "Erreur lors de l'appel à Gemini");
