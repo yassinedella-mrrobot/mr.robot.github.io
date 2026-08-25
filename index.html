@@ -129,6 +129,12 @@
                     Mr Robot
                 </div>
                 <div class="nav-right">
+                    <a href="tel:0797202579" class="top-nav-btn top-nav-phone" title="Appeler 0797202579" aria-label="Appeler 0797202579">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.5 2.1L8 9.7a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.7 2z"/></svg>
+                    </a>
+                    <a href="https://wa.me/213797202579" target="_blank" rel="noopener noreferrer" class="top-nav-btn top-nav-wa" title="WhatsApp" aria-label="WhatsApp">
+                        <svg viewBox="0 0 32 32" width="16" height="16" fill="#fff"><path d="M16 3C9 3 3.3 8.6 3.3 15.5c0 2.4.7 4.7 1.9 6.6L3 29l7.2-2.1c1.8 1 3.8 1.5 5.8 1.5 7 0 12.7-5.6 12.7-12.5S23 3 16 3zm0 22.8c-1.9 0-3.7-.5-5.3-1.5l-.4-.2-4.3 1.3 1.3-4.2-.2-.4C6 19 5.4 17.3 5.4 15.5c0-5.9 4.8-10.6 10.6-10.6S26.6 9.6 26.6 15.5 21.8 25.8 16 25.8z"/><path d="M21.6 18.1c-.3-.1-1.8-.9-2.1-1-.3-.1-.5-.2-.7.1-.2.3-.8 1-1 1.2-.2.2-.4.3-.7.1-.3-.2-1.4-.5-2.6-1.6-1-.9-1.6-2-1.8-2.3-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2 0-.4 0-.5-.1-.1-.7-1.7-1-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.2 3.3 5.3 4.6.7.3 1.3.5 1.8.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.5.3-.7.3-1.3.2-1.5-.1-.1-.3-.2-.6-.4z"/></svg>
+                    </a>
                     <ul id="navLinks">
                         <li><a href="#services" data-i18n="nav_services" id="menu-serv">Services</a></li>
                         <li><a href="#securite" data-i18n="nav_securite" id="menu-sec">Sécurité</a></li>
@@ -181,6 +187,36 @@
 
         <div class="circuit-divider"><span></span></div>
 
+        <!-- Informations : Adresse & Horaires -->
+        <section class="info-strip reveal circuit-frame" id="infos">
+            <div class="info-item">
+                <div>
+                    <h4 data-i18n="info_addr_lbl">Adresse</h4>
+                    <p data-i18n="info_addr_val">Oran, Miramar — Près du Lycée Lotfi</p>
+                </div>
+            </div>
+            <div class="info-item">
+                <div class="info-ic amber">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+                </div>
+                <div>
+                    <h4 data-i18n="info_hours_lbl">Horaires</h4>
+                    <p data-i18n="info_hours_val">Samedi – Jeudi, 08h00 – 17h00</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="map-embed circuit-frame reveal">
+            <iframe
+                src="https://www.google.com/maps?q=Miramar,+Oran,+Algeria&output=embed"
+                width="100%" height="280" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                title="Localisation Mr Robot - Oran, Miramar">
+            </iframe>
+        </div>
+
+        <div class="circuit-divider"><span></span></div>
+
         <!-- Services -->
         <h2 class="services-title reveal" id="services" data-i18n="services_title">NOS SERVICES</h2>
         <div class="services-grid">
@@ -220,24 +256,7 @@
                 <div class="service-head"><span class="service-icon">🛠️</span><h3 data-i18n="s6_title">Autres solutions</h3></div>
                 <p data-i18n="s6_desc">Un besoin technique particulier ? Nous étudions toute demande sur mesure.</p>
             </div>
-        <!-- Informations : Adresse & Horaires -->
-        <section class="info-strip reveal circuit-frame" id="infos">
-            <div class="info-item">
-                <div>
-                    <h4 data-i18n="info_addr_lbl">Adresse</h4>
-                    <p data-i18n="info_addr_val">Oran, Miramar — Près du Lycée Lotfi</p>
-                </div>
-            </div>
-            <div class="info-item">
-                <div class="info-ic amber">
-                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
-                </div>
-                <div>
-                    <h4 data-i18n="info_hours_lbl">Horaires</h4>
-                    <p data-i18n="info_hours_val">Samedi – Jeudi, 08h00 – 17h00</p>
-                </div>
-            </div>
-        </section>
+        </div>
 
         <div class="circuit-divider"><span></span></div>
 
@@ -288,21 +307,21 @@
             <div class="case-grid">
                 <div class="case-card circuit-frame">
                     <div class="case-img-single">
-                        <img src="images/soudure.webp" alt="Soudure carte mère" loading="lazy" width="400" height="250">
+                        <img src="images/soudure.webp" alt="Soudure carte mère" loading="lazy" decoding="async" width="400" height="250">
                     </div>
                     <h4 data-i18n="port1_label">Soudure carte mère</h4>
                     <p data-i18n="port1_desc">Diagnostic de panne, remplacement de composants et remise en état complète.</p>
                 </div>
                 <div class="case-card circuit-frame">
                     <div class="case-img-single">
-                        <img src="images/installation-reseau.webp" alt="Installation réseau" loading="lazy" width="400" height="250">
+                        <img src="images/installation-reseau.webp" alt="Installation réseau" loading="lazy" decoding="async" width="400" height="250">
                     </div>
                     <h4 data-i18n="port2_label">Installation réseau</h4>
                     <p data-i18n="port2_desc">Câblage structuré, brassage et configuration WiFi professionnelle.</p>
                 </div>
                 <div class="case-card circuit-frame">
                     <div class="case-img-single">
-                        <img src="images/videosurveillance.webp" alt="Vidéosurveillance" loading="lazy" width="400" height="250">
+                        <img src="images/videosurveillance.webp" alt="Vidéosurveillance" loading="lazy" decoding="async" width="400" height="250">
                     </div>
                     <h4 data-i18n="port3_label">Vidéosurveillance</h4>
                     <p data-i18n="port3_desc">Pose de caméras IP et configuration NVR pour un client à Oran.</p>
