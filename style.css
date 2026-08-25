@@ -770,6 +770,97 @@ html[dir="rtl"] .bot-toggle, html[dir="rtl"] .bot-panel { left: auto; right: 24p
         width: auto;
     }
 
+    /* Ultra-Compact & Cyber Futuristic Mobile Contact Section */
+    .contact-section {
+        padding: 16px 14px !important;
+        margin-bottom: 25px !important;
+        border: 1px solid var(--trace-dim) !important;
+        border-radius: 12px !important;
+        box-shadow: 0 0 15px rgba(0, 255, 204, 0.12), inset 0 0 15px rgba(0, 255, 204, 0.05) !important;
+        background: radial-gradient(ellipse at top left, rgba(0, 255, 204, 0.08), rgba(10, 15, 20, 0.95)) !important;
+    }
+    .contact-grid {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+    }
+    .contact-section h2 {
+        font-size: 1.1rem !important;
+        margin-bottom: 4px !important;
+        color: var(--white) !important;
+        text-shadow: 0 0 8px rgba(0, 255, 204, 0.5) !important;
+    }
+    .contact-section p {
+        font-size: 0.76rem !important;
+        line-height: 1.35 !important;
+        margin-bottom: 8px !important;
+        color: var(--text-dim) !important;
+    }
+    .contact-methods {
+        display: flex !important;
+        gap: 6px !important;
+        flex-wrap: wrap !important;
+        margin-top: 8px !important;
+        margin-bottom: 6px !important;
+    }
+    .contact-badge {
+        padding: 5px 10px !important;
+        font-size: 0.72rem !important;
+        border-radius: 20px !important;
+        border: 1px solid var(--trace) !important;
+        background: rgba(0, 255, 204, 0.06) !important;
+        color: var(--trace) !important;
+        box-shadow: 0 0 8px rgba(0, 255, 204, 0.25) !important;
+    }
+    .contact-badge .app-ic {
+        width: 20px !important;
+        height: 20px !important;
+        border-radius: 50% !important;
+        background: rgba(0, 255, 204, 0.15) !important;
+        border: 1px solid var(--trace) !important;
+        box-shadow: 0 0 8px rgba(0, 255, 204, 0.4) !important;
+    }
+    .contact-badge .app-ic svg,
+    .contact-badge .app-ic svg path {
+        fill: var(--trace) !important;
+        stroke: var(--trace) !important;
+    }
+    .contact-section .field {
+        margin-bottom: 8px !important;
+    }
+    .contact-section .field label {
+        font-size: 0.7rem !important;
+        margin-bottom: 3px !important;
+        color: var(--trace) !important;
+        letter-spacing: 0.03em !important;
+    }
+    .contact-section .field input,
+    .contact-section .field select {
+        padding: 8px 10px !important;
+        height: 38px !important;
+        font-size: 16px !important;
+        border-radius: 6px !important;
+        background: rgba(5, 10, 15, 0.85) !important;
+        border: 1px solid var(--line) !important;
+    }
+    .contact-section .field textarea {
+        padding: 8px 10px !important;
+        height: 55px !important;
+        font-size: 16px !important;
+        border-radius: 6px !important;
+        background: rgba(5, 10, 15, 0.85) !important;
+        border: 1px solid var(--line) !important;
+    }
+    .submit-group {
+        gap: 8px !important;
+        margin-top: 8px !important;
+    }
+    .submit-btn {
+        padding: 10px !important;
+        font-size: 0.82rem !important;
+        border-radius: 6px !important;
+        box-shadow: 0 0 10px rgba(0, 255, 204, 0.25) !important;
+    }
+
     /* Smooth rendering */
     .services-grid, .sec-grid, .case-grid, .team-grid, .contact-section {
         content-visibility: auto;
