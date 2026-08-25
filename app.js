@@ -505,10 +505,7 @@ function initSparks() {
 // ============================================================
 const DELLA_PROXY_URL = "https://della-proxy.yassinedella.workers.dev/";
 
-const BOT_SYSTEM_PROMPT = `Tu es Della, le robot assistant du site de "Mr Robot", une entreprise de services techniques à Oran, Algérie, gérée par deux frères : Yassin (Responsable Technique) et Wahib (Opérations Terrain).
-Services proposés : Électronique, Informatique, Réseaux, Vidéosurveillance, Programmation, et Autres solutions sur demande.
-Contact : WhatsApp 0797 20 25 79, email Yassinedella@gmail.com.
-Réponds en français, de façon brève (2-3 phrases maximum), amicale et professionnelle. N'invente jamais de prix précis.`;
+const BOT_SYSTEM_PROMPT = `Tu es Della, assistant Mr Robot (Oran). Services: Électronique, Informatique, Réseaux, Vidéosurveillance, Programmation. Contact: WhatsApp 0797202579. Réponds en français de façon brève et amicale.`;
 
 const botKB = [
     { kw: ["service","services","que faites","proposez","offrez"], a: "Nous proposons 6 services : ⚡ Électronique, 💻 Informatique, 🌐 Réseaux, 📹 Vidéosurveillance, 🖥️ Programmation et autres solutions sur demande." },
@@ -703,8 +700,14 @@ function botFindAnswer(text){
 }
 
 async function botAskAI(text){
-    botHistory.push({ role: "user", content: text });
-    const messages = [{ role: "system", content: BOT_SYSTEM_PROMPT }, ...botHistory.slice(-8)];
+    const cleanText = text.slice(0, 240);
+    botHistory.push({ role: "user", content: cleanText });
+    
+    const rawMessages = [{ role: "system", content: BOT_SYSTEM_PROMPT }, ...botHistory.slice(-6)];
+    const messages = rawMessages.map(m => ({
+        role: m.role,
+        content: m.content.slice(0, 240)
+    }));
 
     const res = await fetch(DELLA_PROXY_URL, {
         method: "POST",

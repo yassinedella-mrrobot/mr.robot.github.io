@@ -13,7 +13,7 @@ export default {
     if (request.method === "OPTIONS") {
       return new Response(null, {
         status: 204,
-        headers: getSecurityHeaders()
+        headers: getSecurityHeaders(request)
       });
     }
 
@@ -22,7 +22,7 @@ export default {
       return new Response(JSON.stringify({ error: "Méthode non autorisée" }), {
         status: 405,
         headers: { 
-          ...getSecurityHeaders(), 
+          ...getSecurityHeaders(request), 
           "Content-Type": "application/json" 
         }
       });
@@ -62,21 +62,21 @@ export default {
       if (!clientData.messages || !Array.isArray(clientData.messages) || clientData.messages.length === 0) {
         return new Response(JSON.stringify({ error: "Format de message invalide" }), {
           status: 400,
-          headers: { ...getSecurityHeaders(), "Content-Type": "application/json" }
+          headers: { ...getSecurityHeaders(request), "Content-Type": "application/json" }
         });
       }
 
       // 6. Validation et Sanitization stricte
       const isPayloadSafe = clientData.messages.every(
-        msg => msg && typeof msg.content === "string" && msg.content.trim().length > 0 && msg.content.length <= 250
+        msg => msg && typeof msg.content === "string" && msg.content.trim().length > 0 && (msg.role === "system" ? msg.content.length <= 2000 : msg.content.length <= 1000)
       );
 
       if (!isPayloadSafe) {
         return new Response(JSON.stringify({ 
-          error: "Chaque message doit contenir entre 1 et 250 caractères." 
+          error: "Chaque message utilisateur doit contenir entre 1 et 1000 caractères." 
         }), {
           status: 400,
-          headers: { ...getSecurityHeaders(), "Content-Type": "application/json" }
+          headers: { ...getSecurityHeaders(request), "Content-Type": "application/json" }
         });
       }
 
@@ -112,7 +112,7 @@ export default {
       // 8. Appel vers l'API Gemini avec ta clé intégrée
       const geminiApiKey = env.GEMINI_API_KEY || "AQ.Ab8RN6I34_1YsCRh1r-ol09FM10KJ9XrCX0FITXYX2IgKAImRA";
 
-      const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiApiKey}`;
+      const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=${geminiApiKey}`;
 
       const apiResponse = await fetch(geminiUrl, {
         method: "POST",
@@ -126,7 +126,8 @@ export default {
         throw new Error(data.error?.message || "Erreur lors de l'appel à Gemini");
       }
 
-      const reply = data.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || "Aucune réponse générée.";
+      const textPart = data.candidates?.[0]?.content?.parts?.find(p => p.text);
+      const reply = textPart?.text?.trim() || "Aucune réponse générée.";
       const lastUserMsg = clientData.messages[clientData.messages.length - 1]?.content || "";
 
       // 9. Envoi de la notification sur Telegram en tâche de fond (Non-bloquant)
@@ -164,7 +165,7 @@ export default {
       return new Response(JSON.stringify(standardResponse), {
         status: 200,
         headers: { 
-          ...getSecurityHeaders(), 
+          ...getSecurityHeaders(request), 
           "Content-Type": "application/json" 
         }
       });
@@ -173,7 +174,7 @@ export default {
       return new Response(JSON.stringify({ error: error.message || "Erreur interne du proxy" }), {
         status: 500,
         headers: { 
-          ...getSecurityHeaders(), 
+          ...getSecurityHeaders(request), 
           "Content-Type": "application/json" 
         }
       });
@@ -181,9 +182,11 @@ export default {
   }
 };
 
-function getSecurityHeaders() {
+function getSecurityHeaders(request) {
+  const origin = request?.headers?.get("Origin") || "";
+  const isAllowed = origin.includes("mrrobot.qd.je") || origin.includes("github.io") || origin.includes("localhost") || origin.includes("127.0.0.1");
   return {
-    "Access-Control-Allow-Origin": "https://mrrobot.qd.je",
+    "Access-Control-Allow-Origin": isAllowed ? origin : "https://mrrobot.qd.je",
     "Access-Control-Allow-Methods": "POST, OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type",
     "X-Frame-Options": "DENY",
