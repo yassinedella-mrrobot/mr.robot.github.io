@@ -44,7 +44,7 @@ export default {
           }), {
             status: 429,
             headers: { 
-              ...getSecurityHeaders(), 
+              ...getSecurityHeaders(request), 
               "Content-Type": "application/json",
               "Retry-After": "60"
             }
