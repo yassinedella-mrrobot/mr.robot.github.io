@@ -113,12 +113,9 @@ export default {
 
       const geminiPayload = {
         contents: geminiContents,
-        tools: [
-          { googleSearch: {} }
-        ],
         generationConfig: {
-          temperature: 0.5,
-          maxOutputTokens: 1000
+          temperature: 0.6,
+          maxOutputTokens: 800
         }
       };
 
@@ -128,46 +125,39 @@ export default {
         };
       }
 
-      // 8. Appel vers l'API Gemini (gemini-3.6-flash avec Recherche Web Google en temps réel)
+      // 8. Appel Gemini — Cascade de 3 modèles (du plus léger au plus puissant)
       const geminiApiKey = env.GEMINI_API_KEY || "AQ.Ab8RN6I34_1YsCRh1r-ol09FM10KJ9XrCX0FITXYX2IgKAImRA";
-      const primaryUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=${geminiApiKey}`;
+      const BASE = `https://generativelanguage.googleapis.com/v1beta/models`;
+      const MODELS = [
+        "gemini-3.5-flash-lite",      // Rapide, gratuit, peu de quota
+        "gemini-flash-lite-latest",    // Alias stable de la dernière version lite
+        "gemini-3.6-flash"             // Plus puissant, quota plus limité
+      ];
 
-      let apiResponse = await fetch(primaryUrl, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(geminiPayload)
-      });
+      let data = null;
+      let apiOk = false;
 
-      let data = await apiResponse.json();
-
-      // Si erreur avec la recherche Web, retry sans le module de recherche
-      if (!apiResponse.ok) {
-        delete geminiPayload.tools;
-        const retryResponse = await fetch(primaryUrl, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(geminiPayload)
-        });
-        if (retryResponse.ok) {
-          data = await retryResponse.json();
-          apiResponse = retryResponse;
-        } else {
-          // Fallback sur le second modèle si quota dépassé
-          const fallbackUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${geminiApiKey}`;
-          const fallbackResponse = await fetch(fallbackUrl, {
+      for (const model of MODELS) {
+        try {
+          const url = `${BASE}/${model}:generateContent?key=${geminiApiKey}`;
+          const apiResponse = await fetch(url, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(geminiPayload)
           });
-          if (fallbackResponse.ok) {
-            data = await fallbackResponse.json();
-            apiResponse = fallbackResponse;
+          const json = await apiResponse.json();
+          if (apiResponse.ok && json.candidates?.[0]?.content?.parts) {
+            data = json;
+            apiOk = true;
+            break;
           }
+        } catch (e) {
+          // Essai modèle suivant
         }
       }
 
-      if (!apiResponse.ok) {
-        throw new Error(data.error?.message || "Erreur lors de l'appel à Gemini");
+      if (!apiOk || !data) {
+        throw new Error("Tous les modèles Gemini sont indisponibles en ce moment. Veuillez réessayer dans 1 minute.");
       }
 
       const textPart = data.candidates?.[0]?.content?.parts?.find(p => p.text);
