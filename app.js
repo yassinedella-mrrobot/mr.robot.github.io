@@ -502,26 +502,27 @@ function initSparks() {
 }
 
 // ============================================================
+// ============================================================
 // 4. MODULE BOT DELLA (Gemini-Compatible)
 // ============================================================
 const DELLA_PROXY_URL = "https://della-proxy.yassinedella.workers.dev/";
 
-const BOT_SYSTEM_PROMPT = `Tu es Della, assistant Mr Robot (Oran). Services: Électronique, Informatique, Réseaux, Vidéosurveillance, Programmation. Contact: WhatsApp 0797202579. Réponds en français de façon brève et amicale.`;
+const BOT_SYSTEM_PROMPT = `Tu es Della, assistant Mr Robot Systems (Oran). Services: Électronique, Informatique, Réseaux, Vidéosurveillance, Programmation. Contact: WhatsApp 0797202579. IMPORTANT: Réponds TOUJOURS dans la même langue que l'utilisateur (Français, Arabe/Darija 🇩🇿/العربية, ou Anglais/English) de façon brève, amicale et professionnelle.`;
 
 const botKB = [
-    { kw: ["service","services","que faites","proposez","offrez"], a: "Nous proposons 6 services : ⚡ Électronique, 💻 Informatique, 🌐 Réseaux, 📹 Vidéosurveillance, 🖥️ Programmation et autres solutions sur demande." },
-    { kw: ["electronique","électronique","carte mere","carte mère","reparation","réparation"], a: "En électronique, nous diagnostiquons et réparons cartes mères, composants et appareils électroniques." },
-    { kw: ["informatique","pc","ordinateur","windows","virus","lent"], a: "Pour l'informatique : maintenance, optimisation, dépannage matériel et logiciel de vos PC." },
-    { kw: ["reseau","réseau","wifi","internet","cable"], a: "Nous installons et sécurisons vos réseaux : câblage, WiFi, configuration et infrastructure complète." },
-    { kw: ["camera","caméra","surveillance","nvr","video"], a: "Installation de caméras IP et configuration NVR, avec accès à distance depuis votre téléphone." },
-    { kw: ["programmation","logiciel","site web","app","developpement","développement"], a: "Nous développons des logiciels, sites web et solutions d'automatisation sur mesure pour votre activité." },
-    { kw: ["prix","tarif","combien","cout","coût","devis"], a: "Le prix dépend du diagnostic. Décrivez votre problème et nous vous donnerons un devis rapide via WhatsApp." },
-    { kw: ["adresse","ou","où","localisation","situe","situé","oran"], a: "Nous sommes basés à Oran, Miramar — près du Lycée Lotfi." },
-    { kw: ["horaire","heure","ouvert","disponib"], a: "Nos horaires : Samedi – Jeudi, 08h00 – 17h00." },
-    { kw: ["contact","telephone","téléphone","numero","numéro","whatsapp","appel"], a: "Vous pouvez nous joindre au 0797 20 25 79, par WhatsApp, email ou via le formulaire de contact." },
-    { kw: ["equipe","équipe","yassin","wahib","qui etes","qui êtes"], a: "Mr Robot est géré par deux frères : Yassin (Responsable Technique) et Wahib (Opérations Terrain)." },
-    { kw: ["bonjour","salut","salam","hello","bjr"], a: "Bonjour ! 👋 Je suis Della, l'assistant de Mr Robot. Posez-moi une question sur nos services, tarifs, ou contactez directement l'équipe." },
-    { kw: ["merci","thanks","chokran"], a: "Avec plaisir ! N'hésitez pas si vous avez d'autres questions. 😊" }
+    { kw: ["service","services","que faites","proposez","offrez","خدمات","شنو ديرو","what do you do"], a: "Nous proposons 6 services : ⚡ Électronique, 💻 Informatique, 🌐 Réseaux, 📹 Vidéosurveillance, 🖥️ Programmation et autres solutions. / نقدم 6 خدمات: إلكترونيات، معلوماتية، شبكات، كاميرات مراقبة، برمجة." },
+    { kw: ["electronique","électronique","carte mere","carte mère","reparation","réparation","الكترونيات","إلكترونيات","سودور","كارط مير","electronics"], a: "En électronique : diagnostic et réparation de cartes mères et composants. / إصلاح وصيانة الكروت الأم والأجهزة الإلكترونية." },
+    { kw: ["informatique","pc","ordinateur","windows","virus","lent","ميكرو","كمبيوتر","حاسوب","computer"], a: "Pour l'informatique : maintenance, optimisation, dépannage PC matériel & logiciel. / صيانة وتصليح جميع أنواع الكمبيوتر والحواسيب." },
+    { kw: ["reseau","réseau","wifi","internet","cable","شبكة","شبكات","وايفاي","network"], a: "Installation et sécurisation de réseaux : câblage, WiFi et infrastructures. / تركيب وتأمين شبكات الإنترنيت والوايفاي." },
+    { kw: ["camera","caméra","surveillance","nvr","video","كاميرا","كاميرات","cctv"], a: "Installation de caméras IP et NVR avec accès à distance sur votre smartphone. / تركيب كاميرات المراقبة وتوصيلها بالهاتف." },
+    { kw: ["programmation","logiciel","site web","app","developpement","développement","برمجة","موقع","software","coding"], a: "Développement de logiciels, sites web et automatisation sur mesure. / تطوير البرامج، المواقع الإلكترونية والحلول المخصصة." },
+    { kw: ["prix","tarif","combien","cout","coût","devis","شحال","سعر","سومة","price","cost"], a: "Le prix dépend du problème. Contactez-nous sur WhatsApp 0797202579 pour un devis rapide ! / السعر حسب العطب. تواصل معنا على الواتساب 0797202579." },
+    { kw: ["adresse","ou","où","localisation","situe","situé","oran","موقع","عنوان","وين","location","where"], a: "Nous sommes basés à Oran, Miramar — près du Lycée Lotfi. / مقرنا في وهران، ميرامار — بالقرب من ثانوية لطفي." },
+    { kw: ["horaire","heure","ouvert","disponib","وقت","أوقات","hours","open"], a: "Nos horaires : Samedi – Jeudi, 08h00 – 17h00. / أوقات العمل: من السبت إلى الخميس، 08:00 – 17:00." },
+    { kw: ["contact","telephone","téléphone","numero","numéro","whatsapp","appel","هاتف","رقم","واتساب","phone"], a: "Appelez-nous au 0797 20 25 79 ou contactez-nous via WhatsApp ! / اتصل بنا على 0797202579 أو تواصل معنا عبر الواتساب." },
+    { kw: ["equipe","équipe","yassin","wahib","qui etes","qui êtes","من انتم"], a: "Mr Robot est géré par deux frères : Yassin (Responsable Technique) et Wahib (Opérations Terrain)." },
+    { kw: ["bonjour","salut","salam","hello","bjr","hi","مرحبا","سلام","أهلا"], a: "Bonjour / السلام عليكم / Hello ! 👋 Je suis Della, l'assistant de Mr Robot. Comment puis-je vous aider ? / كيف يمكنني مساعدتك؟" },
+    { kw: ["merci","thanks","chokran","شكرا","يعطيك الصحة"], a: "Avec grand plaisir ! 😊 / على الرحب والسعة!" }
 ];
 
 const botSuggestions = ["Vos services ?", "Prix / devis", "Réseaux & WiFi", "Contact WhatsApp"];
