@@ -97,6 +97,9 @@ export default {
 
       const geminiPayload = {
         contents: geminiContents,
+        tools: [
+          { googleSearch: {} }
+        ],
         generationConfig: {
           temperature: 0.5,
           maxOutputTokens: 1000
@@ -109,7 +112,7 @@ export default {
         };
       }
 
-      // 8. Appel vers l'API Gemini (gemini-3.6-flash)
+      // 8. Appel vers l'API Gemini (gemini-3.6-flash avec Recherche Web Google en temps réel)
       const geminiApiKey = env.GEMINI_API_KEY || "AQ.Ab8RN6I34_1YsCRh1r-ol09FM10KJ9XrCX0FITXYX2IgKAImRA";
       const primaryUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=${geminiApiKey}`;
 
@@ -121,17 +124,29 @@ export default {
 
       let data = await apiResponse.json();
 
+      // Si erreur avec la recherche Web, retry sans le module de recherche
       if (!apiResponse.ok) {
-        // Fallback en cas de problème de quota temporaire
-        const fallbackUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${geminiApiKey}`;
-        const fallbackResponse = await fetch(fallbackUrl, {
+        delete geminiPayload.tools;
+        const retryResponse = await fetch(primaryUrl, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(geminiPayload)
         });
-        if (fallbackResponse.ok) {
-          data = await fallbackResponse.json();
-          apiResponse = fallbackResponse;
+        if (retryResponse.ok) {
+          data = await retryResponse.json();
+          apiResponse = retryResponse;
+        } else {
+          // Fallback sur le second modèle si quota dépassé
+          const fallbackUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${geminiApiKey}`;
+          const fallbackResponse = await fetch(fallbackUrl, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(geminiPayload)
+          });
+          if (fallbackResponse.ok) {
+            data = await fallbackResponse.json();
+            apiResponse = fallbackResponse;
+          }
         }
       }
 
