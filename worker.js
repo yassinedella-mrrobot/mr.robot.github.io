@@ -112,7 +112,7 @@ export default {
       // 8. Appel vers l'API Gemini avec ta clé intégrée
       const geminiApiKey = env.GEMINI_API_KEY || "AQ.Ab8RN6I34_1YsCRh1r-ol09FM10KJ9XrCX0FITXYX2IgKAImRA";
 
-      const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=${geminiApiKey}`;
+      const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${geminiApiKey}`;
 
       const apiResponse = await fetch(geminiUrl, {
         method: "POST",
