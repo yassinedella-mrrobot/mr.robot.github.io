@@ -168,10 +168,58 @@
                 <a href="#contact" class="hero-cta" data-i18n="hero_cta">Demander un diagnostic</a>
                 <a href="#services" class="hero-cta hero-cta-secondary" data-i18n="hero_cta_secondary">Voir les services</a>
             </div>
+
+            <!-- Quick 1-Tap Service Bar for Mobile -->
+            <div class="quick-service-bar">
+                <button type="button" class="q-chip" onclick="selectService('s1')">⚡ Électronique</button>
+                <button type="button" class="q-chip" onclick="selectService('s2')">💻 Informatique</button>
+                <button type="button" class="q-chip" onclick="selectService('s3')">🌐 Réseaux</button>
+                <button type="button" class="q-chip" onclick="selectService('s4')">📹 Vidéo</button>
+                <button type="button" class="q-chip" onclick="selectService('s5')">🖥️ Prog</button>
+            </div>
         </section>
 
         <div class="circuit-divider"><span></span></div>
 
+        <!-- Services -->
+        <h2 class="services-title reveal" id="services" data-i18n="services_title">NOS SERVICES</h2>
+        <div class="services-grid">
+            <div class="service-card reveal reveal-delay-1 circuit-frame" id="sc-1" onclick="selectService('s1')">
+                <span class="circuit-led"></span>
+                <span class="price-badge" data-i18n="price_quote">Devis gratuit</span>
+                <div class="service-head"><span class="service-icon">⚡</span><h3 data-i18n="s1_title">Électronique</h3></div>
+                <p data-i18n="s1_desc">Diagnostic avancé et réparation de cartes mères.</p>
+            </div>
+            <div class="service-card reveal reveal-delay-2 circuit-frame" id="sc-2" onclick="selectService('s2')">
+                <span class="circuit-led"></span>
+                <span class="price-badge" data-i18n="price_quote">Devis gratuit</span>
+                <div class="service-head"><span class="service-icon">💻</span><h3 data-i18n="s2_title">Informatique</h3></div>
+                <p data-i18n="s2_desc">Maintenance, optimisation et dépannage matériel.</p>
+            </div>
+            <div class="service-card reveal reveal-delay-3 circuit-frame" id="sc-3" onclick="selectService('s3')">
+                <span class="circuit-led"></span>
+                <span class="price-badge" data-i18n="price_quote">Devis gratuit</span>
+                <div class="service-head"><span class="service-icon">🌐</span><h3 data-i18n="s3_title">Réseaux</h3></div>
+                <p data-i18n="s3_desc">Installation réseau et sécurisation d'infrastructure.</p>
+            </div>
+            <div class="service-card reveal circuit-frame" id="sc-4" onclick="selectService('s4')">
+                <span class="circuit-led"></span>
+                <span class="price-badge" data-i18n="price_quote">Devis gratuit</span>
+                <div class="service-head"><span class="service-icon">📹</span><h3 data-i18n="s4_title">Vidéosurveillance</h3></div>
+                <p data-i18n="s4_desc">Caméras IP et configuration NVR à distance.</p>
+            </div>
+            <div class="service-card reveal circuit-frame" id="sc-5" onclick="selectService('s5')">
+                <span class="circuit-led"></span>
+                <span class="price-badge" data-i18n="price_quote">Devis gratuit</span>
+                <div class="service-head"><span class="service-icon">🖥️</span><h3 data-i18n="s5_title">Programmation</h3></div>
+                <p data-i18n="s5_desc">Développement de logiciels, sites web et automatisation sur mesure.</p>
+            </div>
+            <div class="service-card reveal circuit-frame" id="sc-6" onclick="selectService('s6')">
+                <span class="circuit-led"></span>
+                <span class="price-badge" data-i18n="price_quote">Devis gratuit</span>
+                <div class="service-head"><span class="service-icon">🛠️</span><h3 data-i18n="s6_title">Autres solutions</h3></div>
+                <p data-i18n="s6_desc">Un besoin technique particulier ? Nous étudions toute demande sur mesure.</p>
+            </div>
         <!-- Informations : Adresse & Horaires -->
         <section class="info-strip reveal circuit-frame" id="infos">
             <div class="info-item">
@@ -190,58 +238,6 @@
                 </div>
             </div>
         </section>
-
-        <div class="map-embed circuit-frame reveal">
-            <iframe
-                src="https://www.google.com/maps?q=Miramar,+Oran,+Algeria&output=embed"
-                width="100%" height="280" style="border:0;" allowfullscreen="" loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"
-                title="Localisation Mr Robot - Oran, Miramar">
-            </iframe>
-        </div>
-
-        <div class="circuit-divider"><span></span></div>
-
-        <!-- Services -->
-        <h2 class="services-title reveal" id="services" data-i18n="services_title">NOS SERVICES</h2>
-        <div class="services-grid">
-            <div class="service-card reveal reveal-delay-1 circuit-frame" id="sc-1">
-                <span class="circuit-led"></span>
-                <span class="price-badge" data-i18n="price_quote">Devis gratuit</span>
-                <div class="service-head"><span class="service-icon">⚡</span><h3 data-i18n="s1_title">Électronique</h3></div>
-                <p data-i18n="s1_desc">Diagnostic avancé et réparation de cartes mères.</p>
-            </div>
-            <div class="service-card reveal reveal-delay-2 circuit-frame" id="sc-2">
-                <span class="circuit-led"></span>
-                <span class="price-badge" data-i18n="price_quote">Devis gratuit</span>
-                <div class="service-head"><span class="service-icon">💻</span><h3 data-i18n="s2_title">Informatique</h3></div>
-                <p data-i18n="s2_desc">Maintenance, optimisation et dépannage matériel.</p>
-            </div>
-            <div class="service-card reveal reveal-delay-3 circuit-frame" id="sc-3">
-                <span class="circuit-led"></span>
-                <span class="price-badge" data-i18n="price_quote">Devis gratuit</span>
-                <div class="service-head"><span class="service-icon">🌐</span><h3 data-i18n="s3_title">Réseaux</h3></div>
-                <p data-i18n="s3_desc">Installation réseau et sécurisation d'infrastructure.</p>
-            </div>
-            <div class="service-card reveal circuit-frame" id="sc-4">
-                <span class="circuit-led"></span>
-                <span class="price-badge" data-i18n="price_quote">Devis gratuit</span>
-                <div class="service-head"><span class="service-icon">📹</span><h3 data-i18n="s4_title">Vidéosurveillance</h3></div>
-                <p data-i18n="s4_desc">Caméras IP et configuration NVR à distance.</p>
-            </div>
-            <div class="service-card reveal circuit-frame" id="sc-5">
-                <span class="circuit-led"></span>
-                <span class="price-badge" data-i18n="price_quote">Devis gratuit</span>
-                <div class="service-head"><span class="service-icon">🖥️</span><h3 data-i18n="s5_title">Programmation</h3></div>
-                <p data-i18n="s5_desc">Développement de logiciels, sites web et automatisation sur mesure.</p>
-            </div>
-            <div class="service-card reveal circuit-frame" id="sc-6">
-                <span class="circuit-led"></span>
-                <span class="price-badge" data-i18n="price_quote">Devis gratuit</span>
-                <div class="service-head"><span class="service-icon">🛠️</span><h3 data-i18n="s6_title">Autres solutions</h3></div>
-                <p data-i18n="s6_desc">Un besoin technique particulier ? Nous étudions toute demande sur mesure.</p>
-            </div>
-        </div>
 
         <div class="circuit-divider"><span></span></div>
 

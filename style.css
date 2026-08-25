@@ -129,6 +129,31 @@ nav ul a:hover { color: var(--trace); text-shadow: 0 0 8px var(--trace); }
 }
 .hero-cta-secondary:hover { background: var(--trace); color: #000; box-shadow: 0 0 25px rgba(0,255,204,0.5); transform: translateY(-3px); }
 
+.quick-service-bar {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 18px;
+}
+.q-chip {
+    background: rgba(0, 255, 204, 0.06);
+    border: 1px solid var(--trace-dim);
+    color: var(--trace);
+    font-family: 'JetBrains Mono', 'Cairo', monospace;
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 8px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.25s;
+}
+.q-chip:hover, .q-chip:active {
+    background: var(--trace);
+    color: #000;
+    transform: scale(1.04);
+}
+
 .typewriter-container { display: inline-block; min-height: 24px; }
 .typewriter-text {
     color: var(--text-dim); font-size: 1.1rem; font-family: 'JetBrains Mono', 'Cairo', monospace;
@@ -553,6 +578,66 @@ html[dir="rtl"] .bot-toggle, html[dir="rtl"] .bot-panel { left: auto; right: 24p
     .mobile-action-bar { display: flex; }
     body { padding-bottom: 64px; }
 
+    /* Ultra-compact Hero & Section Spacing for Mobile */
+    .hero-section {
+        padding: 20px 0 12px;
+    }
+    .hero-section h1 {
+        font-size: 1.8rem;
+        margin-bottom: 6px;
+    }
+    .hero-badge {
+        margin-bottom: 8px;
+        padding: 4px 10px;
+        font-size: 0.68rem;
+    }
+    .hero-cta-row {
+        margin-top: 12px;
+        gap: 8px;
+    }
+    .hero-cta {
+        font-size: 0.88rem;
+        padding: 11px 20px;
+        width: 100%;
+        text-align: center;
+    }
+    .hero-cta-secondary {
+        display: none;
+    }
+
+    /* Horizontal 1-Tap Quick Chips on Mobile */
+    .quick-service-bar {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        padding: 6px 0 12px;
+        margin-top: 14px;
+        -webkit-overflow-scrolling: touch;
+    }
+    .q-chip {
+        flex-shrink: 0;
+        font-size: 0.74rem;
+        padding: 6px 12px;
+    }
+
+    .services-title {
+        margin: 16px 0 12px;
+        font-size: 1.05rem;
+    }
+    .services-grid {
+        gap: 12px;
+        margin-bottom: 25px;
+    }
+    .service-card {
+        padding: 16px;
+    }
+    .map-embed iframe {
+        height: 170px;
+    }
+    .circuit-divider {
+        margin: 6px 0 16px;
+    }
+
     /* Prevent iOS Auto-Zoom on form input focus */
     .field input, .field select, .field textarea, .bot-input-row input {
         font-size: 16px !important;
@@ -594,6 +679,6 @@ html[dir="rtl"] .bot-toggle, html[dir="rtl"] .bot-panel { left: auto; right: 24p
     /* Smooth rendering */
     .services-grid, .sec-grid, .case-grid, .team-grid, .contact-section {
         content-visibility: auto;
-        contain-intrinsic-size: 1px 400px;
+        contain-intrinsic-size: 1px 300px;
     }
 }
