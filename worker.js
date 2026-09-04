@@ -126,12 +126,18 @@ export default {
       }
 
       // 8. Appel Gemini — Cascade de 3 modèles (du plus léger au plus puissant)
-      const geminiApiKey = env.GEMINI_API_KEY || "AQ.Ab8RN6I34_1YsCRh1r-ol09FM10KJ9XrCX0FITXYX2IgKAImRA";
+      const geminiApiKey = env.GEMINI_API_KEY;
+      if (!geminiApiKey) {
+        return new Response(JSON.stringify({ error: "Clé API manquante. Configurez GEMINI_API_KEY dans les variables d'environnement Cloudflare." }), {
+          status: 500,
+          headers: { ...getSecurityHeaders(request), "Content-Type": "application/json" }
+        });
+      }
       const BASE = `https://generativelanguage.googleapis.com/v1beta/models`;
       const MODELS = [
-        "gemini-3.5-flash-lite",      // Rapide, gratuit, peu de quota
-        "gemini-flash-lite-latest",    // Alias stable de la dernière version lite
-        "gemini-3.6-flash"             // Plus puissant, quota plus limité
+        "gemini-2.0-flash-lite",       // Rapide, gratuit, peu de quota
+        "gemini-1.5-flash-latest",     // Alias stable de la version 1.5
+        "gemini-2.0-flash"             // Plus puissant, quota plus limité
       ];
 
       let data = null;
@@ -165,8 +171,8 @@ export default {
       const lastUserMsg = clientData.messages[clientData.messages.length - 1]?.content || "";
 
       // 9. Envoi de la notification sur Telegram en tâche de fond (Non-bloquant)
-      const botToken = env.TELEGRAM_BOT_TOKEN || "8805280078:AAGbJ6UiRFddfR0G5pkuaUtWqRfvMJvfGKw";
-      const chatId = env.TELEGRAM_CHAT_ID || "5976234845";
+      const botToken = env.TELEGRAM_BOT_TOKEN;
+      const chatId = env.TELEGRAM_CHAT_ID;
 
       if (botToken && chatId) {
         const textLog = `🤖 *Mr Robot — Della (Gemini)*\n🌐 *IP :* \`${ip}\`\n\n👤 *Client :*\n${lastUserMsg}\n\n🤖 *Della :*\n${reply}`;
