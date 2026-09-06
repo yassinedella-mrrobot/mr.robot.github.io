@@ -286,30 +286,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    if (els.badgeWa) {
-        els.badgeWa.addEventListener('click', () => {
-            window.open(`https://wa.me/${_SECURE_DATA.w}`, '_blank', 'noopener,noreferrer');
-        });
-    }
-
-    if (els.badgePhone) {
-        els.badgePhone.addEventListener('click', () => {
-            window.location.href = `tel:${_SECURE_DATA.p}`;
-        });
-    }
-
-    if (els.badgeEmail) {
-        els.badgeEmail.addEventListener('click', () => {
-            window.location.href = `mailto:${_SECURE_DATA.e}`;
-        });
-    }
-
-    if (els.badgeFb) {
-        els.badgeFb.addEventListener('click', () => {
-            window.open(_SECURE_DATA.fb, '_blank', 'noopener,noreferrer');
-        });
-    }
-
     if (els.contactForm) {
         els.contactForm.addEventListener('submit', handleFormSubmit);
     }

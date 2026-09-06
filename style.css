@@ -76,7 +76,7 @@ nav { display: flex; align-items: center; justify-content: space-between; gap: 1
 
 .nav-right { display: flex; align-items: center; gap: 14px; }
 .top-nav-btn {
-    display: none;
+    display: flex;
     align-items: center;
     justify-content: center;
     width: 34px;
@@ -610,6 +610,11 @@ html[dir="rtl"] .bot-toggle, html[dir="rtl"] .bot-panel { left: auto; right: 24p
 .m-act-wa {
     background: #25D366;
     color: #000;
+}
+
+.m-act-fb {
+    background: #1877F2;
+    color: #fff;
 }
 
 /* Mobile Performance & UX Optimization */
