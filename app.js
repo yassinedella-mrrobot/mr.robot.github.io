@@ -1761,9 +1761,26 @@ function initCyberTerminal() {
         cyberTerminal.classList.remove('open');
     }
 
+    const secLaunchCli = document.getElementById('secLaunchCli');
+
     if (topNavCli) topNavCli.addEventListener('click', openTerminal);
     if (cliCloseBtn) cliCloseBtn.addEventListener('click', closeTerminal);
     if (cliCloseDot) cliCloseDot.addEventListener('click', closeTerminal);
+    if (secLaunchCli) {
+        secLaunchCli.addEventListener('click', () => {
+            openTerminal();
+            addCliLine('<span class="cli-prompt">mrrobot@root:~$</span> audit --security');
+            setTimeout(() => {
+                const isOp = document.getElementById('atelierStatusDot')?.classList.contains('open');
+                addCliLine("DIAGNOSTIC & AUDIT SYSTÈME EN DIRECT :", "banner");
+                addCliLine("  [✓] SSL / TLS 1.3 : Handshake chiffré certifié");
+                addCliLine("  [✓] Pare-feu & Filtrage d'adresses IP : ACTIF");
+                addCliLine("  [✓] Analyse des vulnérabilités réseau : 0 menace détectée");
+                addCliLine(`  [✓] Atelier Miramar (Oran) : <span style="color:${isOp ? '#00ffcc' : '#ff4757'}">${isOp ? 'OUVERT (08h00 - 17h00)' : 'FERMÉ (Ouvre à 08h00)'}</span>`);
+                addCliLine("  [✓] Della IA & Chiffrement bout en bout : Opérationnel");
+            }, 300);
+        });
+    }
 
     cyberTerminal.addEventListener('click', (e) => {
         if (e.target === cyberTerminal) closeTerminal();
