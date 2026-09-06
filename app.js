@@ -71,7 +71,7 @@ const _SECURE_DATA = {
     p: atob("MDc5NzIwMjU3OQ=="),
     w: atob("MjEzNzk3MjAyNTc5"),
     e: atob("WWFzc2luZWRlbGxhQGdtYWlsLmNvbQ=="),
-    fb: "https://www.facebook.com"
+    fb: "https://www.facebook.com/profile.php?id=61594007523187"
 };
 
 const translations = {
@@ -651,6 +651,12 @@ const botKB = [
         ar: "على الرحب والسعة! يسعدنا دائماً خدمتك. 😊",
         fr: "Avec grand plaisir ! N'hésitez pas si vous avez d'autres questions. 😊",
         en: "You're very welcome! Feel free to ask if you have more questions. 😊"
+    },
+    {
+        kw: ["facebook","fb","page","reseau social","فيسبوك","فايسبوك"],
+        ar: "صفحتنا الرسمية على فيسبوك: https://www.facebook.com/profile.php?id=61594007523187 👍 تابعونا لمشاهدة جديد أعمالنا وعروضنا!",
+        fr: "Voici notre page Facebook officielle : https://www.facebook.com/profile.php?id=61594007523187 👍 Suivez-nous pour découvrir nos dernières interventions !",
+        en: "Here is our official Facebook page: https://www.facebook.com/profile.php?id=61594007523187 👍 Follow us to see our latest work and updates!"
     }
 ];
 
