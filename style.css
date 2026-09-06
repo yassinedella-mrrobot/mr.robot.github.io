@@ -169,6 +169,21 @@ nav { display: flex; align-items: center; justify-content: space-between; gap: 1
     box-shadow: 0 0 16px var(--trace);
     transform: scale(1.12);
 }
+.top-nav-pwa {
+    background: rgba(0, 255, 204, 0.1);
+    border: 1px solid rgba(0, 255, 204, 0.35);
+    color: var(--trace);
+    box-shadow: 0 0 10px rgba(0, 255, 204, 0.2);
+    cursor: pointer;
+    position: relative;
+}
+.top-nav-pwa:hover {
+    background: var(--trace);
+    color: #05080b;
+    border-color: var(--trace);
+    box-shadow: 0 0 16px var(--trace);
+    transform: scale(1.12);
+}
 
 nav ul { list-style: none; display: flex; gap: 18px; }
 nav ul a { font-size: 0.85rem; color: var(--text-dim); text-decoration: none; font-family: 'JetBrains Mono', 'Cairo', monospace; text-transform: uppercase; transition: var(--transition); }
@@ -2255,72 +2270,178 @@ html[dir="rtl"] .cli-close {
 }
 
 /* ============================================================
-   PWA INSTALL BANNER
+   CYBER PWA MODAL WITH RICH EFFECT
 ============================================================ */
-.pwa-install-banner {
+.cyber-pwa-modal {
     position: fixed;
-    bottom: 74px;
-    right: 20px;
-    z-index: 10002;
-    background: rgba(13, 21, 28, 0.95);
+    inset: 0;
+    z-index: 10005;
+    background: rgba(2, 5, 8, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cyber-pwa-modal.open {
+    opacity: 1;
+    pointer-events: auto;
+}
+.pwa-modal-window {
+    background: rgba(10, 15, 22, 0.95);
     border: 1px solid var(--trace);
-    border-radius: 10px;
-    padding: 12px 16px;
-    box-shadow: 0 0 25px rgba(0, 255, 204, 0.3);
+    border-radius: 14px;
+    width: 100%;
+    max-width: 480px;
+    box-shadow: 0 0 40px rgba(0, 255, 204, 0.25), 0 25px 60px rgba(0, 0, 0, 0.8);
+    overflow: hidden;
+    transform: scale(0.88) translateY(24px);
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+}
+.cyber-pwa-modal.open .pwa-modal-window {
+    transform: scale(1) translateY(0);
+}
+.pwa-modal-head {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 16px;
-    max-width: 360px;
-    backdrop-filter: blur(8px);
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--line);
+    background: rgba(13, 21, 28, 0.8);
 }
-html[dir="rtl"] .pwa-install-banner {
-    right: auto;
-    left: 20px;
-}
-.pwa-info {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-.pwa-info img {
-    border-radius: 8px;
-}
-.pwa-info strong {
-    display: block;
-    color: var(--white);
-    font-size: 0.8rem;
-    font-family: 'Space Grotesk', 'Cairo', sans-serif;
-}
-.pwa-info p {
-    font-size: 0.68rem;
-    color: var(--text-dim);
-    margin: 2px 0 0;
-}
-.pwa-actions {
+.pwa-modal-title-box {
     display: flex;
     align-items: center;
     gap: 8px;
-    margin-left: auto;
 }
-html[dir="rtl"] .pwa-actions {
-    margin-left: 0;
-    margin-right: auto;
-}
-.pwa-btn {
-    padding: 6px 12px;
+.pwa-badge {
+    font-family: 'JetBrains Mono', monospace;
     font-size: 0.75rem;
-    cursor: pointer;
-    border: none;
+    color: var(--trace);
+    letter-spacing: 1px;
 }
-.pwa-close {
+.pwa-modal-close {
     background: none;
     border: none;
     color: var(--text-dim);
     cursor: pointer;
-    font-size: 0.9rem;
+    font-size: 1.1rem;
+    line-height: 1;
+    padding: 4px;
+    transition: all 0.2s;
 }
-.pwa-close:hover {
-    color: var(--trace);
+.pwa-modal-close:hover {
+    color: #ff4757;
+    transform: scale(1.2);
+}
+.pwa-modal-body {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.pwa-app-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: rgba(0, 255, 204, 0.04);
+    border: 1px solid rgba(0, 255, 204, 0.2);
+    border-radius: 12px;
+    padding: 16px;
+}
+.pwa-app-logo {
+    position: relative;
+    flex-shrink: 0;
+}
+.pwa-app-logo img {
+    border-radius: 12px;
+    box-shadow: 0 0 16px rgba(0, 255, 204, 0.3);
+    display: block;
+}
+.pwa-app-meta h3 {
+    margin: 0 0 4px;
+    color: var(--white);
+    font-size: 1.15rem;
+    font-family: 'Space Grotesk', 'Cairo', sans-serif;
+}
+.pwa-app-meta p {
+    margin: 0 0 8px;
+    color: var(--text-dim);
+    font-size: 0.8rem;
+}
+.pwa-status-pill {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    color: #00ff88;
+    background: rgba(0, 255, 136, 0.1);
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    padding: 3px 8px;
+    border-radius: 12px;
+}
+.pwa-features-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.pwa-feat {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: rgba(13, 21, 28, 0.5);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 10px 14px;
+    transition: border-color 0.2s;
+}
+.pwa-feat:hover {
+    border-color: var(--trace-dim);
+}
+.pwa-feat-icon {
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+.pwa-feat strong {
+    display: block;
+    color: var(--white);
+    font-size: 0.84rem;
+    font-family: 'Space Grotesk', 'Cairo', sans-serif;
+    margin-bottom: 2px;
+}
+.pwa-feat p {
+    margin: 0;
+    color: var(--text-dim);
+    font-size: 0.74rem;
+    line-height: 1.4;
+}
+.pwa-install-action-btn {
+    width: 100%;
+    padding: 14px;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    animation: pwa-pulse 2.5s infinite;
+}
+@keyframes pwa-pulse {
+    0%, 100% {
+        box-shadow: 0 0 15px rgba(0, 255, 204, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(0, 255, 204, 0.6);
+        transform: translateY(-2px);
+    }
 }
 
 

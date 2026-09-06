@@ -168,6 +168,13 @@
                             <line x1="13" y1="15" x2="18" y2="15"></line>
                         </svg>
                     </button>
+                    <button type="button" class="top-nav-btn top-nav-pwa" id="topNavPwa" title="Installer l'Application Mr Robot" aria-label="Installer l'Application">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                    </button>
                     <ul id="navLinks">
                         <li><a href="#tracker" data-i18n="nav_tracker" id="menu-track">Suivi</a></li>
                         <li><a href="#services" data-i18n="nav_services" id="menu-serv">Services</a></li>
@@ -463,17 +470,39 @@
                     <h4 data-i18n="port1_label">Soudure carte mère</h4>
                     <p data-i18n="port1_desc">Diagnostic de panne, remplacement de composants et remise en état complète.</p>
                 </div>
-                <div class="case-card circuit-frame">
-                    <div class="case-img-single">
-                        <img src="images/installation-reseau.webp" alt="Installation réseau" loading="lazy" decoding="async" width="400" height="250">
+                <div class="case-card circuit-frame ba-showcase-card">
+                    <div class="ba-slider-container" style="--ba-pos: 50%;">
+                        <img src="images/reseau.webp" alt="Après : Câblage structuré et baie propre" class="ba-img ba-after" loading="lazy" decoding="async" width="400" height="250">
+                        <span class="ba-tag ba-tag-after" data-i18n="ba_after">APRÈS</span>
+                        <div class="ba-clip-wrap">
+                            <img src="images/reseau-avant.webp" alt="Avant : Câblage réseau désordonné" class="ba-img ba-before" loading="lazy" decoding="async" width="400" height="250">
+                            <span class="ba-tag ba-tag-before" data-i18n="ba_before">AVANT</span>
+                        </div>
+                        <div class="ba-handle">
+                            <div class="ba-handle-btn">
+                                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M8 5v14l-6-7 6-7zm8 0 6 7-6 7V5z"/></svg>
+                            </div>
+                        </div>
                     </div>
+                    <span class="ba-hint" data-i18n="ba_hint">↔ Glissez le curseur pour comparer Avant / Après</span>
                     <h4 data-i18n="port2_label">Installation réseau</h4>
                     <p data-i18n="port2_desc">Câblage structuré, brassage et configuration WiFi professionnelle.</p>
                 </div>
-                <div class="case-card circuit-frame">
-                    <div class="case-img-single">
-                        <img src="images/videosurveillance.webp" alt="Vidéosurveillance" loading="lazy" decoding="async" width="400" height="250">
+                <div class="case-card circuit-frame ba-showcase-card">
+                    <div class="ba-slider-container" style="--ba-pos: 50%;">
+                        <img src="images/cctv.webp" alt="Après : Vidéosurveillance 4K et centre NVR" class="ba-img ba-after" loading="lazy" decoding="async" width="400" height="250">
+                        <span class="ba-tag ba-tag-after" data-i18n="ba_after">APRÈS</span>
+                        <div class="ba-clip-wrap">
+                            <img src="images/cctv-avant.webp" alt="Avant : Ancienne caméra et signal parasité" class="ba-img ba-before" loading="lazy" decoding="async" width="400" height="250">
+                            <span class="ba-tag ba-tag-before" data-i18n="ba_before">AVANT</span>
+                        </div>
+                        <div class="ba-handle">
+                            <div class="ba-handle-btn">
+                                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M8 5v14l-6-7 6-7zm8 0 6 7-6 7V5z"/></svg>
+                            </div>
+                        </div>
                     </div>
+                    <span class="ba-hint" data-i18n="ba_hint">↔ Glissez le curseur pour comparer Avant / Après</span>
                     <h4 data-i18n="port3_label">Vidéosurveillance</h4>
                     <p data-i18n="port3_desc">Pose de caméras IP et configuration NVR pour un client à Oran.</p>
                 </div>
@@ -553,66 +582,6 @@
                     <span class="circuit-led"></span>
                     <div class="team-avatar" style="border-color:var(--amber); color:var(--amber); box-shadow: 0 0 15px rgba(255, 170, 0, 0.2);">W</div>
                     <div><h4 style="color:var(--white);">Wahib</h4><p style="color:var(--text-dim); font-size:0.8rem;" data-i18n="wahib_role">Opérations Terrain</p></div>
-                </div>
-            </div>
-        </section>
-
-        <div class="circuit-divider"><span></span></div>
-
-        <!-- Diagnostic Estimator Module -->
-        <section class="reveal circuit-frame estimator-section" id="estimator">
-            <div class="estimator-header">
-                <div class="contact-terminal-tag">
-                    <span class="sec-dot amber"></span>
-                    <span data-i18n="est_tag">// ESTIMATEUR EXPRESS & DIAGNOSTIC</span>
-                </div>
-                <h2 class="services-title" data-i18n="est_title">DIAGNOSTIC RAPIDE EN 2 CLICS</h2>
-                <p class="estimator-subtitle" data-i18n="est_subtitle">Sélectionnez votre type d'équipement et le symptôme pour obtenir une estimation immédiate.</p>
-            </div>
-
-            <div class="estimator-grid">
-                <!-- Step 1: Device -->
-                <div class="est-step">
-                    <div class="est-step-head">
-                        <span class="est-step-num">01</span>
-                        <h4 data-i18n="est_step1_lbl">Équipement</h4>
-                    </div>
-                    <div class="est-options" id="estDeviceOptions">
-                        <button type="button" class="est-btn active" data-device="laptop">💻 PC Portable / Bureau</button>
-                        <button type="button" class="est-btn" data-device="board">⚡ Carte Mère / Électronique</button>
-                        <button type="button" class="est-btn" data-device="network">🌐 Réseau / WiFi / Câblage</button>
-                        <button type="button" class="est-btn" data-device="cctv">📹 Caméra IP / NVR</button>
-                    </div>
-                </div>
-
-                <!-- Step 2: Symptom -->
-                <div class="est-step">
-                    <div class="est-step-head">
-                        <span class="est-step-num">02</span>
-                        <h4 data-i18n="est_step2_lbl">Symptôme constaté</h4>
-                    </div>
-                    <div class="est-options" id="estSymptomOptions"></div>
-                </div>
-
-                <!-- Step 3: Result Card -->
-                <div class="est-result-card circuit-frame">
-                    <div class="est-res-badge">
-                        <span class="della-pulse-led"></span>
-                        <span data-i18n="est_res_badge">ESTIMATION MR ROBOT</span>
-                    </div>
-                    <h3 class="est-res-title" id="estResTitle">Diagnostic approfondi recommandé</h3>
-                    <p class="est-res-desc" id="estResDesc">Inspection sous microscope, test d'alimentation et diagnostic de court-circuit.</p>
-                    <div class="est-meta-row">
-                        <div class="est-meta-item">
-                            <span class="est-meta-lbl" data-i18n="est_time_lbl">Délai estimé :</span>
-                            <strong class="est-meta-val" id="estResTime">24h à 48h</strong>
-                        </div>
-                        <div class="est-meta-item">
-                            <span class="est-meta-lbl" data-i18n="est_cost_lbl">Diagnostic :</span>
-                            <strong class="est-meta-val green" data-i18n="price_quote">Devis gratuit</strong>
-                        </div>
-                    </div>
-                    <button type="button" class="hero-cta est-apply-btn" id="estApplyBtn" data-i18n="est_btn_book">Prendre en charge avec cette estimation ↗</button>
                 </div>
             </div>
         </section>
@@ -892,18 +861,62 @@
         </div>
     </div>
 
-    <!-- PWA Install Prompt Banner -->
-    <div class="pwa-install-banner" id="pwaBanner" style="display:none;">
-        <div class="pwa-info">
-            <img src="images/logo.webp" alt="Mr Robot App" width="36" height="36">
-            <div>
-                <strong data-i18n="pwa_title">Installer l'application Mr Robot</strong>
-                <p data-i18n="pwa_desc">Accès rapide 1-clic à Della et au suivi sans navigateur.</p>
+    <!-- Cyber PWA Modal with Rich Visual Effect -->
+    <div class="cyber-pwa-modal" id="pwaModal">
+        <div class="pwa-modal-window circuit-frame">
+            <div class="pwa-modal-head">
+                <div class="pwa-modal-title-box">
+                    <span class="sec-dot green"></span>
+                    <span class="pwa-badge">// PROGRESSIVE WEB APP v3.2</span>
+                </div>
+                <button type="button" class="pwa-modal-close" id="pwaModalClose" aria-label="Fermer">✕</button>
             </div>
-        </div>
-        <div class="pwa-actions">
-            <button type="button" class="hero-cta pwa-btn" id="pwaInstallBtn" data-i18n="pwa_btn">Installer</button>
-            <button type="button" class="pwa-close" id="pwaCloseBtn">✕</button>
+            <div class="pwa-modal-body">
+                <div class="pwa-app-card">
+                    <div class="pwa-app-logo">
+                        <img src="images/logo.webp" alt="Mr Robot App" width="58" height="58">
+                        <span class="pwa-logo-glow"></span>
+                    </div>
+                    <div class="pwa-app-meta">
+                        <h3>Mr Robot Systems</h3>
+                        <p>Application Officielle — Oran, Algérie</p>
+                        <span class="pwa-status-pill">● Mode Autonome • 100% Hors-ligne</span>
+                    </div>
+                </div>
+
+                <div class="pwa-features-grid">
+                    <div class="pwa-feat">
+                        <span class="pwa-feat-icon">⚡</span>
+                        <div>
+                            <strong>Accès Instantané 1-Clic</strong>
+                            <p>Lancez l'application directement depuis votre écran d'accueil sans navigateur.</p>
+                        </div>
+                    </div>
+                    <div class="pwa-feat">
+                        <span class="pwa-feat-icon">📦</span>
+                        <div>
+                            <strong>Suivi de Réparation en Direct</strong>
+                            <p>Vérifiez l'avancement de votre ticket d'atelier à tout moment.</p>
+                        </div>
+                    </div>
+                    <div class="pwa-feat">
+                        <span class="pwa-feat-icon">🤖</span>
+                        <div>
+                            <strong>Assistant IA Della & Hotline 24/7</strong>
+                            <p>Accès ultra-rapide aux diagnostics vocaux et aux techniciens.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" class="hero-cta pwa-install-action-btn" id="pwaModalInstallBtn">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    <span>INSTALLER SUR L'ÉCRAN D'ACCUEIL</span>
+                </button>
+            </div>
         </div>
     </div>
 

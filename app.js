@@ -398,9 +398,10 @@ function getElements() {
         photoPreviewImg: document.getElementById('photoPreviewImg'),
         photoName: document.getElementById('photoName'),
         photoRemoveBtn: document.getElementById('photoRemoveBtn'),
-        pwaBanner: document.getElementById('pwaBanner'),
-        pwaInstallBtn: document.getElementById('pwaInstallBtn'),
-        pwaCloseBtn: document.getElementById('pwaCloseBtn'),
+        topNavPwa: document.getElementById('topNavPwa'),
+        pwaModal: document.getElementById('pwaModal'),
+        pwaModalClose: document.getElementById('pwaModalClose'),
+        pwaModalInstallBtn: document.getElementById('pwaModalInstallBtn'),
         atelierStatusDot: document.getElementById('atelierStatusDot'),
         atelierStatusTxt: document.getElementById('atelierStatusTxt')
     };
@@ -1225,52 +1226,55 @@ function exportChatToWhatsApp() {
 }
 
 // ============================================================
-// 7. BEFORE / AFTER INTERACTIVE SLIDER
+// 7. BEFORE / AFTER INTERACTIVE SLIDERS
 // ============================================================
 function initBeforeAfterSlider() {
-    const slider = document.getElementById('baSlider');
-    if (!slider) return;
+    const sliders = document.querySelectorAll('.ba-slider-container');
+    if (!sliders.length) return;
 
-    let isSliding = false;
+    sliders.forEach(slider => {
+        let isSliding = false;
 
-    function setSliderPosition(clientX) {
-        const rect = slider.getBoundingClientRect();
-        let x = clientX - rect.left;
-        if (currentActiveLang === 'AR') {
-            x = rect.width - x;
+        function setSliderPosition(clientX) {
+            const rect = slider.getBoundingClientRect();
+            let x = clientX - rect.left;
+            if (currentActiveLang === 'AR') {
+                x = rect.width - x;
+            }
+            let pct = (x / rect.width) * 100;
+            pct = Math.max(5, Math.min(95, pct));
+            slider.style.setProperty('--ba-pos', `${pct}%`);
         }
-        let pct = (x / rect.width) * 100;
-        pct = Math.max(5, Math.min(95, pct));
-        slider.style.setProperty('--ba-pos', `${pct}%`);
-    }
 
-    function onPointerMove(e) {
-        if (!isSliding) return;
-        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-        setSliderPosition(clientX);
-    }
+        function onPointerMove(e) {
+            if (!isSliding) return;
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            setSliderPosition(clientX);
+        }
 
-    function onPointerUp() {
-        isSliding = false;
-        window.removeEventListener('mousemove', onPointerMove);
-        window.removeEventListener('mouseup', onPointerUp);
-        window.removeEventListener('touchmove', onPointerMove);
-        window.removeEventListener('touchend', onPointerUp);
-    }
+        function onPointerUp() {
+            if (!isSliding) return;
+            isSliding = false;
+            window.removeEventListener('mousemove', onPointerMove);
+            window.removeEventListener('mouseup', onPointerUp);
+            window.removeEventListener('touchmove', onPointerMove);
+            window.removeEventListener('touchend', onPointerUp);
+        }
 
-    function onPointerDown(e) {
-        isSliding = true;
-        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-        setSliderPosition(clientX);
+        function onPointerDown(e) {
+            isSliding = true;
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            setSliderPosition(clientX);
 
-        window.addEventListener('mousemove', onPointerMove, { passive: true });
-        window.addEventListener('mouseup', onPointerUp, { passive: true });
-        window.addEventListener('touchmove', onPointerMove, { passive: true });
-        window.addEventListener('touchend', onPointerUp, { passive: true });
-    }
+            window.addEventListener('mousemove', onPointerMove, { passive: true });
+            window.addEventListener('mouseup', onPointerUp, { passive: true });
+            window.addEventListener('touchmove', onPointerMove, { passive: true });
+            window.addEventListener('touchend', onPointerUp, { passive: true });
+        }
 
-    slider.addEventListener('mousedown', onPointerDown);
-    slider.addEventListener('touchstart', onPointerDown, { passive: true });
+        slider.addEventListener('mousedown', onPointerDown);
+        slider.addEventListener('touchstart', onPointerDown, { passive: true });
+    });
 }
 
 // ============================================================
@@ -1800,6 +1804,139 @@ function initCyberTerminal() {
         cliBody.scrollTop = cliBody.scrollHeight;
     }
 
+    let diagState = null;
+
+    const diagCatalog = {
+        '1': {
+            name: "PC Portable (Laptop)",
+            symptoms: [
+                {
+                    label: "Ne s'allume plus du tout (aucun voyant)",
+                    diag: "Court-circuit ligne 19V / Mosfet d'entrée ou puce d'alimentation brûlée",
+                    delay: "24h à 48h",
+                    price: "4 500 - 8 000 DZD"
+                },
+                {
+                    label: "Écran noir mais voyants & ventilateurs actifs",
+                    diag: "Panne BIOS corrompu, puce graphique ou contrôleur RAM",
+                    delay: "24h à 48h",
+                    price: "4 000 - 7 500 DZD"
+                },
+                {
+                    label: "Surchauffe extrême / Coupure automatique en charge",
+                    diag: "Pâte thermique asséchée, ventilateur encrassé ou caloduc percé",
+                    delay: "Même jour (2h - 4h)",
+                    price: "2 500 - 4 000 DZD"
+                },
+                {
+                    label: "Charnière cassée, coque fissurée ou port de charge dessoudé",
+                    diag: "Reconstruction résine époxy renforcée ou micro-soudure connecteur",
+                    delay: "24h à 48h",
+                    price: "3 500 - 6 500 DZD"
+                }
+            ]
+        },
+        '2': {
+            name: "PC Fixe / Station de travail / Gamer",
+            symptoms: [
+                {
+                    label: "Pas de démarrage / Alimentation en sécurité",
+                    diag: "Bloc d'alimentation défaillant ou court-circuit étage VRM carte mère",
+                    delay: "24h à 48h",
+                    price: "3 000 - 7 000 DZD"
+                },
+                {
+                    label: "Bips au démarrage / Redémarrage en boucle",
+                    diag: "Incompatibilité ou défaillance barrette RAM / GPU non initialisé",
+                    delay: "24h",
+                    price: "2 500 - 5 000 DZD"
+                },
+                {
+                    label: "Écran bleu BSOD / Windows plante ou freeze",
+                    diag: "Secteurs défectueux SSD/HDD ou corruption système/pilotes",
+                    delay: "24h",
+                    price: "2 500 - 4 500 DZD"
+                },
+                {
+                    label: "Surchauffe GPU/CPU sous forte charge",
+                    diag: "Remplacement pads thermiques, repaste complet & airflow",
+                    delay: "Même jour",
+                    price: "2 500 - 5 000 DZD"
+                }
+            ]
+        },
+        '3': {
+            name: "Écran / Moniteur",
+            symptoms: [
+                {
+                    label: "L'écran ne s'allume pas du tout",
+                    diag: "Condensateurs gonflés ou primaire carte d'alimentation",
+                    delay: "24h à 48h",
+                    price: "3 000 - 5 500 DZD"
+                },
+                {
+                    label: "Voyant allumé mais dalle totalement noire",
+                    diag: "Circuit rétroéclairage (Backlight Inverter) ou ruban LED HS",
+                    delay: "24h à 48h",
+                    price: "3 500 - 6 500 DZD"
+                },
+                {
+                    label: "Image qui clignote ou s'éteint après 2 secondes",
+                    diag: "Sécurité surtension déclenchée ou transfo inverter en fuite",
+                    delay: "24h à 48h",
+                    price: "3 000 - 5 000 DZD"
+                },
+                {
+                    label: "Lignes verticales colorées / Artéfacts",
+                    diag: "Nappe LVDS oxydée ou contrôleur T-Con défaillant",
+                    delay: "24h à 72h",
+                    price: "3 500 - 7 000 DZD"
+                }
+            ]
+        },
+        '4': {
+            name: "Réseaux & Caméras CCTV",
+            symptoms: [
+                {
+                    label: "Coupures réseau fréquentes / Pertes de paquets",
+                    diag: "Câblage RJ45 non certifié, faux contact ou switch saturé",
+                    delay: "Sur site / 24h",
+                    price: "Sur devis (dès 3 500 DZD)"
+                },
+                {
+                    label: "Caméras IP hors ligne sur NVR / Enregistrement perdu",
+                    diag: "Alimentation PoE défaillante, conflit IP ou disque dur NVR HS",
+                    delay: "24h",
+                    price: "Sur devis (dès 4 000 DZD)"
+                },
+                {
+                    label: "Baie de brassage emmêlée / Repérage nécessaire",
+                    diag: "Restructuration complète, patch panels, repérage et certification",
+                    delay: "1 à 2 jours",
+                    price: "Sur devis"
+                },
+                {
+                    label: "Accès distant caméras / VPN bloqué",
+                    diag: "Configuration NAT/Ports, redirection DynDNS / Cloud P2P sécurisé",
+                    delay: "Même jour",
+                    price: "3 000 - 6 000 DZD"
+                }
+            ]
+        }
+    };
+
+    function startDiagnosticFlow() {
+        diagState = { step: 'device' };
+        addCliLine("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━", "banner");
+        addCliLine("<b>⚡ DIAGNOSTIC TECHNIQUE RAPIDE MR ROBOT</b>", "banner");
+        addCliLine("Sélectionnez votre type d'équipement :");
+        addCliLine("  [1] 💻 <b>PC Portable</b> (Laptop)");
+        addCliLine("  [2] 🖥️ <b>PC Fixe / Gamer / Tour</b> (Desktop)");
+        addCliLine("  [3] 📺 <b>Écran / Moniteur</b>");
+        addCliLine("  [4] 🌐 <b>Réseaux & Vidéosurveillance CCTV</b>");
+        addCliLine("Entrez un chiffre [1-4] ou 'cancel' pour annuler :", "dim");
+    }
+
     cliInput.addEventListener('keydown', (e) => {
         if (e.key !== 'Enter') return;
         const cmd = cliInput.value.trim();
@@ -1810,9 +1947,82 @@ function initCyberTerminal() {
 
         const lowerCmd = cmd.toLowerCase();
 
+        // Gestion de l'interrogation interactive de diagnostic
+        if (diagState) {
+            if (lowerCmd === 'cancel' || lowerCmd === 'annuler' || lowerCmd === 'exit') {
+                diagState = null;
+                addCliLine("Diagnostic annulé. Tapez 'help' pour les autres commandes.", "dim");
+                return;
+            }
+
+            if (diagState.step === 'device') {
+                if (diagCatalog[cmd]) {
+                    const dev = diagCatalog[cmd];
+                    diagState = { step: 'symptom', deviceKey: cmd, deviceData: dev };
+                    addCliLine(`<b>Équipement sélectionné :</b> ${dev.name}`, "banner");
+                    addCliLine("Sélectionnez le symptôme observé :");
+                    dev.symptoms.forEach((s, idx) => {
+                        addCliLine(`  [${idx + 1}] ${s.label}`);
+                    });
+                    addCliLine("Entrez le numéro du problème [1-4] :", "dim");
+                    return;
+                } else {
+                    addCliLine("Choix invalide. Veuillez taper un chiffre de 1 à 4 (ou 'cancel') :", "error-line");
+                    return;
+                }
+            } else if (diagState.step === 'symptom') {
+                const sIdx = parseInt(cmd, 10) - 1;
+                if (diagState.deviceData.symptoms[sIdx]) {
+                    const sym = diagState.deviceData.symptoms[sIdx];
+                    addCliLine("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━", "banner");
+                    addCliLine("📋 <b>RAPPORT D'ESTIMATION PRÉ-DIAGNOSTIC</b>", "banner");
+                    addCliLine(`  <b>Équipement :</b> ${diagState.deviceData.name}`);
+                    addCliLine(`  <b>Symptôme :</b> ${sym.label}`);
+                    addCliLine(`  <b>Diagnostic probable :</b> ${sym.diag}`);
+                    addCliLine(`  <b>Délai moyen atelier :</b> ${sym.delay}`);
+                    addCliLine(`  <b>Tarif indicatif :</b> ${sym.price}`);
+                    addCliLine(`  <b>Garantie atelier :</b> 90 jours pièces & main-d'œuvre`);
+                    addCliLine("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━", "banner");
+                    addCliLine("👉 Pour réserver ou déposer votre appareil immédiatement :");
+                    addCliLine("  Tapez <b>book</b> pour transmettre ce rapport sur WhatsApp.");
+                    addCliLine("  Tapez <b>diag</b> pour un nouveau diagnostic.");
+                    
+                    diagState = {
+                        step: 'done',
+                        deviceName: diagState.deviceData.name,
+                        symLabel: sym.label,
+                        diag: sym.diag,
+                        price: sym.price
+                    };
+                    return;
+                } else {
+                    addCliLine("Numéro de symptôme invalide. Tapez un chiffre de 1 à 4 :", "error-line");
+                    return;
+                }
+            } else if (diagState.step === 'done') {
+                if (lowerCmd === 'book') {
+                    const text = encodeURIComponent(`Bonjour Mr Robot, voici mon pré-diagnostic terminal :\n- Équipement : ${diagState.deviceName}\n- Panne : ${diagState.symLabel}\n- Diagnostic : ${diagState.diag}\n- Estimation : ${diagState.price}\nPuis-je déposer l'appareil à l'atelier Miramar ?`);
+                    window.open(`https://wa.me/213797202579?text=${text}`, '_blank');
+                    addCliLine("Transmission du rapport vers WhatsApp lancée...", "banner");
+                    diagState = null;
+                    return;
+                }
+                diagState = null; // Sortie du mode diagnostic pour continuer les autres commandes
+            }
+        }
+
         switch (lowerCmd) {
+            case 'diag':
+            case 'diagnostic':
+                startDiagnosticFlow();
+                break;
+            case 'book':
+                window.open('https://wa.me/213797202579?text=Bonjour%20Mr%20Robot,%20je%20souhaite%20prendre%20rendez-vous%20pour%20une%20r%C3%A9paration.', '_blank');
+                addCliLine("Ouverture de la ligne WhatsApp de réservation...", "banner");
+                break;
             case 'help':
                 addCliLine("COMMANDES DISPONIBLES :", "banner");
+                addCliLine("  <b>diag</b>      - Diagnostic express interactif en 2 questions");
                 addCliLine("  <b>services</b>  - Liste des 6 départements techniques");
                 addCliLine("  <b>status</b>    - État des serveurs & ouverture atelier");
                 addCliLine("  <b>tracker</b>   - Outil de suivi de réparation");
@@ -1865,14 +2075,14 @@ function initCyberTerminal() {
             case 'clear':
                 cliBody.innerHTML = '';
                 addCliLine("MR ROBOT SYSTEMS [CYBER TERMINAL v3.2]", "banner");
-                addCliLine("Tapez 'help' pour afficher les commandes système disponibles.", "dim");
+                addCliLine("Tapez 'help' pour la liste des commandes ou 'diag' pour un diagnostic rapide.", "dim");
                 break;
             case 'exit':
             case 'quit':
                 closeTerminal();
                 break;
             default:
-                addCliLine(`Commande inconnue: '${escapeHtml(cmd)}'. Tapez <b>help</b> pour voir les commandes.`, "error-line");
+                addCliLine(`Commande inconnue: '${escapeHtml(cmd)}'. Tapez <b>help</b> ou <b>diag</b>.`, "error-line");
                 break;
         }
     });
@@ -1892,41 +2102,63 @@ function initPwa() {
         });
     }
 
-    const pwaBanner = document.getElementById('pwaBanner');
-    const pwaInstallBtn = document.getElementById('pwaInstallBtn');
-    const pwaCloseBtn = document.getElementById('pwaCloseBtn');
-
-    if (!pwaBanner) return;
+    const topNavPwa = document.getElementById('topNavPwa');
+    const pwaModal = document.getElementById('pwaModal');
+    const pwaModalClose = document.getElementById('pwaModalClose');
+    const pwaModalInstallBtn = document.getElementById('pwaModalInstallBtn');
 
     window.addEventListener('beforeinstallprompt', (e) => {
         e.preventDefault();
         deferredPwaPrompt = e;
-        if (!sessionStorage.getItem('pwa_dismissed')) {
-            setTimeout(() => {
-                pwaBanner.style.display = 'flex';
-                pwaBanner.classList.add('show');
-            }, 3000);
-        }
     });
 
-    if (pwaInstallBtn) {
-        pwaInstallBtn.addEventListener('click', () => {
-            if (!deferredPwaPrompt) return;
-            deferredPwaPrompt.prompt();
-            deferredPwaPrompt.userChoice.then((choiceResult) => {
-                if (choiceResult.outcome === 'accepted') {
-                    showToast("Application installée avec succès !", "success");
-                }
-                deferredPwaPrompt = null;
-                pwaBanner.style.display = 'none';
-            });
+    function openPwaModal() {
+        if (pwaModal) {
+            pwaModal.classList.add('open');
+        }
+    }
+
+    function closePwaModal() {
+        if (pwaModal) {
+            pwaModal.classList.remove('open');
+        }
+    }
+
+    if (topNavPwa) {
+        topNavPwa.addEventListener('click', openPwaModal);
+    }
+
+    if (pwaModalClose) {
+        pwaModalClose.addEventListener('click', closePwaModal);
+    }
+
+    if (pwaModal) {
+        pwaModal.addEventListener('click', (e) => {
+            if (e.target === pwaModal) closePwaModal();
         });
     }
 
-    if (pwaCloseBtn) {
-        pwaCloseBtn.addEventListener('click', () => {
-            pwaBanner.style.display = 'none';
-            sessionStorage.setItem('pwa_dismissed', '1');
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && pwaModal && pwaModal.classList.contains('open')) {
+            closePwaModal();
+        }
+    });
+
+    if (pwaModalInstallBtn) {
+        pwaModalInstallBtn.addEventListener('click', () => {
+            if (deferredPwaPrompt) {
+                deferredPwaPrompt.prompt();
+                deferredPwaPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        showToast("Application installée avec succès !", "success");
+                    }
+                    deferredPwaPrompt = null;
+                    closePwaModal();
+                });
+            } else {
+                showToast("Pour installer : utilisez l'option 'Ajouter à l'écran d'accueil' dans le menu de votre navigateur.", "info");
+                setTimeout(closePwaModal, 2000);
+            }
         });
     }
 }
