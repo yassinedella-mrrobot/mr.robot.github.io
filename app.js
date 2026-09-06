@@ -81,6 +81,7 @@ const translations = {
         hero_title: "Mr Robot <span>Systems</span>",
         type_text: "Diagnostic, Maintenance et Solutions Tech à Oran...",
         hero_cta: "Demander un diagnostic",
+        hero_cta_della: "🤖 Parler à Della (IA)",
         hero_cta_secondary: "Voir les services",
         info_addr_lbl: "Adresse", info_addr_val: "Oran, Miramar — Près du Lycée Lotfi",
         info_hours_lbl: "Horaires", info_hours_val: "Samedi – Jeudi, 08h00 – 17h00",
@@ -123,7 +124,20 @@ const translations = {
         footer_sec_title: "Sécurité",
         footer_sec_desc: "Infrastructure sécurisée et politique de signalement responsable.",
         footer_sec_policy: "Politique de Sécurité",
-        footer_copy: "© 2026 Mr Robot Systems — Yassin & Wahib Della. Tous droits réservés."
+        footer_copy: "© 2026 Mr Robot Systems — Yassin & Wahib Della. Tous droits réservés.",
+        bot_wa_export: "Continuer sur WhatsApp ↗",
+        ba_before: "AVANT",
+        ba_after: "APRÈS",
+        ba_hint: "↔ Glissez le curseur pour comparer Avant / Après",
+        est_tag: "// ESTIMATEUR EXPRESS & DIAGNOSTIC",
+        est_title: "DIAGNOSTIC RAPIDE EN 2 CLICS",
+        est_subtitle: "Sélectionnez votre type d'équipement et le symptôme pour obtenir une estimation immédiate.",
+        est_step1_lbl: "Équipement",
+        est_step2_lbl: "Symptôme constaté",
+        est_res_badge: "ESTIMATION MR ROBOT",
+        est_time_lbl: "Délai estimé :",
+        est_cost_lbl: "Diagnostic :",
+        est_btn_book: "Prendre en charge avec cette estimation ↗"
     },
     AR: {
         nav_services: "الخدمات", nav_process: "النظام", nav_securite: "الأمان", nav_portfolio: "الإنجازات", nav_team: "الفريق",
@@ -131,6 +145,7 @@ const translations = {
         hero_title: "مستر روبوت <span>للأنظمة</span>",
         type_text: "تشخيص، صيانة وحلول تكنولوجية متطورة في وهران...",
         hero_cta: "اطلب تشخيصاً",
+        hero_cta_della: "🤖 تحدث مع ديلا (الذكاء الاصطناعي)",
         hero_cta_secondary: "شاهد الخدمات",
         info_addr_lbl: "العنوان", info_addr_val: "وهران، ميرامار — بالقرب من ثانوية لطفي",
         info_hours_lbl: "ساعات العمل", info_hours_val: "السبت – الخميس، 08:00 – 17:00",
@@ -173,7 +188,20 @@ const translations = {
         footer_sec_title: "الأمان",
         footer_sec_desc: "بنية تحتية آمنة وسياسة إبلاغ مسؤولة.",
         footer_sec_policy: "سياسة الأمان",
-        footer_copy: "© 2026 مستر روبوت للأنظمة — ياسين ووهيب ديلا. جميع الحقوق محفوظة."
+        footer_copy: "© 2026 مستر روبوت للأنظمة — ياسين ووهيب ديلا. جميع الحقوق محفوظة.",
+        bot_wa_export: "متابعة المحادثة على واتساب ↗",
+        ba_before: "قبل",
+        ba_after: "بعد",
+        ba_hint: "↔ اسحب الشريط للمقارنة بين قبل وبعد الإصلاح",
+        est_tag: "// حاسبة التشخيص السريع",
+        est_title: "تشخيص سريع في خطوتين",
+        est_subtitle: "اختر نوع الجهاز والمشكلة للحصول على تقدير فوري لمدة وتفاصيل الإصلاح.",
+        est_step1_lbl: "نوع الجهاز",
+        est_step2_lbl: "العطل الملاحظ",
+        est_res_badge: "تقدير مستر روبوت",
+        est_time_lbl: "المدة التقديرية:",
+        est_cost_lbl: "التشخيص:",
+        est_btn_book: "طلب الخدمة بناءً على هذا التقدير ↗"
     },
     EN: {
         nav_services: "Services", nav_process: "System", nav_securite: "Security", nav_portfolio: "Portfolio", nav_team: "Team",
@@ -181,6 +209,7 @@ const translations = {
         hero_title: "Mr Robot <span>Systems</span>",
         type_text: "Diagnostics, Maintenance & Tech Solutions in Oran...",
         hero_cta: "Request a diagnosis",
+        hero_cta_della: "🤖 Chat with Della (AI)",
         hero_cta_secondary: "View services",
         info_addr_lbl: "Address", info_addr_val: "Oran, Miramar — Near Lotfi High School",
         info_hours_lbl: "Hours", info_hours_val: "Saturday – Thursday, 08:00 – 17:00",
@@ -223,7 +252,20 @@ const translations = {
         footer_sec_title: "Security",
         footer_sec_desc: "Secure infrastructure and responsible disclosure policy.",
         footer_sec_policy: "Security Policy",
-        footer_copy: "© 2026 Mr Robot Systems — Yassin & Wahib Della. All rights reserved."
+        footer_copy: "© 2026 Mr Robot Systems — Yassin & Wahib Della. All rights reserved.",
+        bot_wa_export: "Continue on WhatsApp ↗",
+        ba_before: "BEFORE",
+        ba_after: "AFTER",
+        ba_hint: "↔ Slide to compare Before / After",
+        est_tag: "// EXPRESS DIAGNOSTIC ESTIMATOR",
+        est_title: "QUICK 2-STEP DIAGNOSIS",
+        est_subtitle: "Select your device type and symptom for an immediate estimate.",
+        est_step1_lbl: "Equipment",
+        est_step2_lbl: "Observed Symptom",
+        est_res_badge: "MR ROBOT ESTIMATE",
+        est_time_lbl: "Estimated turnaround:",
+        est_cost_lbl: "Diagnosis:",
+        est_btn_book: "Request service with this estimate ↗"
     }
 };
 
@@ -246,10 +288,16 @@ function getElements() {
         badgeEmail: document.getElementById('badge-email'),
         badgeFb: document.getElementById('badge-fb'),
         contactForm: document.getElementById('contactForm'),
+        topNavDella: document.getElementById('topNavDella'),
+        heroBtnDella: document.getElementById('heroBtnDella'),
+        mActDella: document.getElementById('mActDella'),
         botToggle: document.getElementById('botToggle'),
         botBubble: document.getElementById('botBubble'),
+        botBubbleClose: document.getElementById('botBubbleClose'),
         botClose: document.getElementById('botClose'),
         botBtnSend: document.getElementById('botBtnSend'),
+        botBtnMic: document.getElementById('botBtnMic'),
+        botWaHandoff: document.getElementById('botWaHandoff'),
         botInput: document.getElementById('botInput'),
         toastContainer: document.getElementById('toastContainer'),
         sparksContainer: document.getElementById('sparks-container')
@@ -293,6 +341,10 @@ document.addEventListener('DOMContentLoaded', () => {
         els.contactForm.addEventListener('submit', handleFormSubmit);
     }
 
+    if (els.topNavDella) els.topNavDella.addEventListener('click', toggleBot);
+    if (els.heroBtnDella) els.heroBtnDella.addEventListener('click', toggleBot);
+    if (els.mActDella) els.mActDella.addEventListener('click', toggleBot);
+
     if (els.botToggle) {
         els.botToggle.addEventListener('click', (e) => {
             if (suppressNextClick) { 
@@ -305,8 +357,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     if (els.botBubble) els.botBubble.addEventListener('click', () => { toggleBot(); hideBotBubble(); });
+    if (els.botBubbleClose) {
+        els.botBubbleClose.addEventListener('click', (e) => {
+            e.stopPropagation();
+            hideBotBubble();
+        });
+    }
     if (els.botClose) els.botClose.addEventListener('click', toggleBot);
     if (els.botBtnSend) els.botBtnSend.addEventListener('click', botSend);
+    if (els.botWaHandoff) els.botWaHandoff.addEventListener('click', exportChatToWhatsApp);
     if (els.botInput) {
         els.botInput.addEventListener('keydown', (e) => { 
             if (e.key === 'Enter') botSend(); 
@@ -314,6 +373,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     makeDellaDraggable();
+    initVoiceInput();
+    initBeforeAfterSlider();
+    initEstimator();
     typeWriter(translations['FR'].type_text);
     initSparks();
 });
@@ -415,6 +477,15 @@ function switchLang(lang, element) {
     if (inpName) inpName.placeholder = t.name_ph || "Nom complet";
     if (inpPhone) inpPhone.placeholder = t.phone_ph || "0X XX XX XX XX";
     if (inpMsg) inpMsg.placeholder = t.msg_ph || "Décrivez le problème...";
+
+    const botInput = document.getElementById('botInput');
+    if (botInput) {
+        botInput.placeholder = lang === 'AR' ? "اكتب سؤالك هنا..." : (lang === 'EN' ? "Type your question..." : "Écrivez votre question...");
+    }
+
+    if (typeof renderEstimatorSymptoms === 'function') {
+        renderEstimatorSymptoms();
+    }
     
     typeWriter(t.type_text);
 }
@@ -647,6 +718,13 @@ function positionBotBubble() {
     const bubble = document.getElementById('botBubble');
     const btn = document.getElementById('botToggle');
     if (!bubble || !btn) return;
+    if (window.innerWidth <= 768) {
+        bubble.style.top = '';
+        bubble.style.left = '';
+        bubble.style.right = '';
+        bubble.style.bottom = '';
+        return;
+    }
     const rect = btn.getBoundingClientRect();
     const bubbleW = bubble.offsetWidth || 190;
     const bubbleH = bubble.offsetHeight || 50;
@@ -658,6 +736,8 @@ function positionBotBubble() {
     if (left + bubbleW > window.innerWidth - 10) left = window.innerWidth - bubbleW - 10;
     bubble.style.top = top + 'px';
     bubble.style.left = left + 'px';
+    bubble.style.bottom = 'auto';
+    bubble.style.right = 'auto';
 }
 
 function toggleBot(){
@@ -684,6 +764,13 @@ function positionBotPanel(){
     const btn = document.getElementById('botToggle');
     const panel = document.getElementById('botPanel');
     if(!btn || !panel) return;
+    if (window.innerWidth <= 768) {
+        panel.style.top = '';
+        panel.style.left = '';
+        panel.style.right = '';
+        panel.style.bottom = '';
+        return;
+    }
 
     const rect = btn.getBoundingClientRect();
     const panelW = panel.offsetWidth || 320;
@@ -706,6 +793,13 @@ function positionBotPanel(){
 
 window.addEventListener('resize', debounce(() => {
     const panel = document.getElementById('botPanel');
+    const btn = document.getElementById('botToggle');
+    if (window.innerWidth <= 768 && btn) {
+        btn.style.top = '';
+        btn.style.bottom = '';
+        btn.style.left = '';
+        btn.style.right = '';
+    }
     if(panel && panel.classList.contains('open')) positionBotPanel();
     positionBotBubble();
 }, 150));
@@ -738,6 +832,7 @@ function makeDellaDraggable(){
     }
 
     function startDrag(e){
+        if (window.innerWidth <= 768) return;
         const p = pointFromEvent(e);
         dragging = true; moved = false;
         const rect = btn.getBoundingClientRect();
@@ -913,7 +1008,401 @@ window.addEventListener('load', () => {
         if(bubble && panel && !panel.classList.contains('open')){
             bubble.classList.add('show');
             positionBotBubble();
-            setTimeout(hideBotBubble, 7000);
+            setTimeout(hideBotBubble, 12000);
         }
     }, 2200);
 });
+
+// ============================================================
+// 5. VOCAL INPUT (WEB SPEECH API)
+// ============================================================
+function initVoiceInput() {
+    const btnMic = document.getElementById('botBtnMic');
+    const input = document.getElementById('botInput');
+    if (!btnMic || !input) return;
+
+    const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRec) {
+        btnMic.addEventListener('click', () => {
+            showToast(currentActiveLang === 'AR' ? "خاصية التعرف على الصوت غير مدعومة في هذا المتصفح." : "La reconnaissance vocale n'est pas supportée sur ce navigateur.", 'error');
+        });
+        return;
+    }
+
+    const recognition = new SpeechRec();
+    recognition.continuous = false;
+    recognition.interimResults = false;
+
+    let isListening = false;
+
+    btnMic.addEventListener('click', () => {
+        if (isListening) {
+            recognition.stop();
+            return;
+        }
+        recognition.lang = currentActiveLang === 'AR' ? 'ar-DZ' : (currentActiveLang === 'EN' ? 'en-US' : 'fr-FR');
+        try {
+            recognition.start();
+            isListening = true;
+            btnMic.classList.add('listening');
+            input.placeholder = currentActiveLang === 'AR' ? "استماع... تكلم الآن 🎙️" : "Écoute en cours... parlez maintenant 🎙️";
+        } catch (e) {
+            isListening = false;
+            btnMic.classList.remove('listening');
+        }
+    });
+
+    recognition.onresult = (e) => {
+        const transcript = e.results?.[0]?.[0]?.transcript;
+        if (transcript) {
+            input.value = transcript;
+            botSend();
+        }
+    };
+
+    recognition.onerror = (e) => {
+        isListening = false;
+        btnMic.classList.remove('listening');
+        input.placeholder = currentActiveLang === 'AR' ? "اكتب سؤالك هنا..." : "Écrivez votre question...";
+        if (e.error === 'not-allowed') {
+            showToast(currentActiveLang === 'AR' ? "يرجى السماح بالوصول إلى الميكروفون." : "Veuillez autoriser l'accès au microphone.", 'error');
+        }
+    };
+
+    recognition.onend = () => {
+        isListening = false;
+        btnMic.classList.remove('listening');
+        input.placeholder = currentActiveLang === 'AR' ? "اكتب سؤالك هنا..." : "Écrivez votre question...";
+    };
+}
+
+// ============================================================
+// 6. WHATSAPP CHAT EXPORT
+// ============================================================
+function exportChatToWhatsApp() {
+    const msgs = document.getElementById('botMsgs');
+    let summary = "";
+    if (msgs) {
+        const userMsgs = Array.from(msgs.querySelectorAll('.bot-msg.user')).map(m => m.textContent.trim());
+        if (userMsgs.length > 0) {
+            summary = userMsgs.slice(-3).join(' | ');
+        }
+    }
+
+    let text;
+    if (currentActiveLang === 'AR') {
+        text = "مرحباً مستر روبوت ! تواصلت مع المساعد ديلا بخصوص المشكلة التالية:\n" + (summary ? "« " + summary + " »" : "طلب تشخيص وصيانة.");
+    } else {
+        text = "Bonjour Mr Robot ! J'ai échangé avec votre assistant Della pour la demande suivante :\n" + (summary ? "« " + summary + " »" : "Demande de diagnostic technique.");
+    }
+
+    const waUrl = `https://wa.me/213797202579?text=${encodeURIComponent(text)}`;
+    window.open(waUrl, '_blank', 'noopener,noreferrer');
+}
+
+// ============================================================
+// 7. BEFORE / AFTER INTERACTIVE SLIDER
+// ============================================================
+function initBeforeAfterSlider() {
+    const slider = document.getElementById('baSlider');
+    if (!slider) return;
+
+    let isSliding = false;
+
+    function setSliderPosition(clientX) {
+        const rect = slider.getBoundingClientRect();
+        let x = clientX - rect.left;
+        if (currentActiveLang === 'AR') {
+            x = rect.width - x;
+        }
+        let pct = (x / rect.width) * 100;
+        pct = Math.max(5, Math.min(95, pct));
+        slider.style.setProperty('--ba-pos', `${pct}%`);
+    }
+
+    function onPointerMove(e) {
+        if (!isSliding) return;
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        setSliderPosition(clientX);
+    }
+
+    function onPointerUp() {
+        isSliding = false;
+        window.removeEventListener('mousemove', onPointerMove);
+        window.removeEventListener('mouseup', onPointerUp);
+        window.removeEventListener('touchmove', onPointerMove);
+        window.removeEventListener('touchend', onPointerUp);
+    }
+
+    function onPointerDown(e) {
+        isSliding = true;
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        setSliderPosition(clientX);
+
+        window.addEventListener('mousemove', onPointerMove, { passive: true });
+        window.addEventListener('mouseup', onPointerUp, { passive: true });
+        window.addEventListener('touchmove', onPointerMove, { passive: true });
+        window.addEventListener('touchend', onPointerUp, { passive: true });
+    }
+
+    slider.addEventListener('mousedown', onPointerDown);
+    slider.addEventListener('touchstart', onPointerDown, { passive: true });
+}
+
+// ============================================================
+// 8. EXPRESS DIAGNOSTIC ESTIMATOR
+// ============================================================
+const estimatorData = {
+    laptop: {
+        symptoms: [
+            {
+                id: "power",
+                sKey: "s1",
+                label_fr: "Ne s'allume plus du tout",
+                label_ar: "لا يشتغل نهائياً",
+                label_en: "Won't turn on at all",
+                title_fr: "Diagnostic Carte Mère / Alimentation",
+                title_ar: "تشخيص اللوحة الأم ودارة الطاقة",
+                title_en: "Motherboard / Power Diagnostic",
+                desc_fr: "Court-circuit carte mère, composant MOSFET grillé ou contrôleur de charge défaillant.",
+                desc_ar: "احتمال دارة قصيرة في اللوحة الأم، عطب موسفت أو دائرة الشحن.",
+                desc_en: "Motherboard short circuit, blown MOSFET or charging controller failure.",
+                time_fr: "24h à 48h",
+                time_ar: "24 إلى 48 ساعة",
+                time_en: "24h to 48h"
+            },
+            {
+                id: "screen",
+                sKey: "s2",
+                label_fr: "Écran noir / Pas d'affichage",
+                label_ar: "شاشة سوداء دون إقلاع",
+                label_en: "Black screen / No display",
+                title_fr: "Panne Affichage / Puce Graphique",
+                title_ar: "عطب العرض / شريحة الرسومات",
+                title_en: "Display / GPU Issue",
+                desc_fr: "Vérification nappe écran, puce GPU ou banc de mémoire RAM.",
+                desc_ar: "فحص كابل الشاشة الداخلي، كرت الشاشة أو شرائح الرام.",
+                desc_en: "Checking display cable, GPU chip or RAM memory sticks.",
+                time_fr: "24h",
+                time_ar: "24 ساعة",
+                time_en: "24h"
+            },
+            {
+                id: "slow",
+                sKey: "s2",
+                label_fr: "Très lent / Virus / Crash Windows",
+                label_ar: "بطء شديد / فيروسات / تشنج",
+                label_en: "Very slow / Virus / OS crash",
+                title_fr: "Optimisation & Décontamination PC",
+                title_ar: "تحسين النظام وإزالة الفيروسات",
+                title_en: "System Optimization & Cleanup",
+                desc_fr: "Nettoyage système, suppression de menaces et installation de SSD haute vitesse.",
+                desc_ar: "تنظيف النظام، حذف البرمجيات الضارة وترقية قرص SSD فائق السرعة.",
+                desc_en: "System cleanup, malware removal and high-speed SSD upgrade.",
+                time_fr: "Même jour (3h-5h)",
+                time_ar: "نفس اليوم (3 إلى 5 ساعات)",
+                time_en: "Same day (3h-5h)"
+            }
+        ]
+    },
+    board: {
+        symptoms: [
+            {
+                id: "short",
+                sKey: "s1",
+                label_fr: "Court-circuit / Odeur de brûlé",
+                label_ar: "دارة قصيرة / رائحة احتراق",
+                label_en: "Short circuit / Burnt smell",
+                title_fr: "Micro-soudure & Réparation de Pistes",
+                title_ar: "لحام دقيق وإصلاح المسارات المحترقة",
+                title_en: "Micro-soldering & Trace Repair",
+                desc_fr: "Inspection haute précision sous microscope, remplacement de condensateurs et bobines CMS.",
+                desc_ar: "فحص مجهري عالي الدقة، تغيير المكثفات والمكونات السطحية SMD.",
+                desc_en: "High-precision microscope inspection, SMD capacitor and coil replacement.",
+                time_fr: "24h à 72h",
+                time_ar: "24 إلى 72 ساعة",
+                time_en: "24h to 72h"
+            },
+            {
+                id: "liquid",
+                sKey: "s1",
+                label_fr: "Oxydation / Liquide renversé",
+                label_ar: "أكسدة / تسرب سوائل",
+                label_en: "Oxidation / Liquid spill",
+                title_fr: "Bain Ultrasons & Désoxydation",
+                title_ar: "تنظيف بالأمواج فوق الصوتية وإزالة الأكسدة",
+                title_en: "Ultrasonic Bath & Deoxidation",
+                desc_fr: "Nettoyage chimique spécialisé pour neutraliser la corrosion et restaurer les soudures.",
+                desc_ar: "تنظيف كيميائي متخصص لإيقاف التآكل وترميم نقاط اللحام.",
+                desc_en: "Specialized chemical ultrasonic cleaning to neutralize corrosion and restore traces.",
+                time_fr: "48h",
+                time_ar: "48 ساعة",
+                time_en: "48h"
+            }
+        ]
+    },
+    network: {
+        symptoms: [
+            {
+                id: "wifi",
+                sKey: "s3",
+                label_fr: "Coupures WiFi / Portée insuffisante",
+                label_ar: "انقطاع الواي فاي / تغطية ضعيفة",
+                label_en: "WiFi drops / Weak coverage",
+                title_fr: "Optimisation Infrastructure WiFi Mesh",
+                title_ar: "تحسين شبكة الواي فاي الاحترافية",
+                title_en: "WiFi Mesh Infrastructure Optimization",
+                desc_fr: "Installation de bornes professionnelles, extension de couverture et câblage RJ45.",
+                desc_ar: "تركيب نقاط وصول احترافية، توسيع التغطية وتمديد كابلات الشبكة.",
+                desc_en: "Installation of professional APs, coverage extension and RJ45 cabling.",
+                time_fr: "Sur rendez-vous",
+                time_ar: "حسب الموعد",
+                time_en: "By appointment"
+            },
+            {
+                id: "sec",
+                sKey: "s3",
+                label_fr: "Sécurisation réseau & Pare-feu",
+                label_ar: "تأمين الشبكة وجدار الحماية",
+                label_en: "Network Security & Firewall",
+                title_fr: "Audit de Sécurité & Filtrage d'Accès",
+                title_ar: "تدقيق أمان الشبكة وعزل النطاقات",
+                title_en: "Security Audit & Access Control",
+                desc_fr: "Configuration de règles firewall, isolation VLAN et protection contre les intrusions.",
+                desc_ar: "ضبط قواعد جدار الحماية، عزل شبكات VLAN وحماية الخوادم.",
+                desc_en: "Firewall rules configuration, VLAN segmentation and intrusion prevention.",
+                time_fr: "Sur étude",
+                time_ar: "بعد الدراسة",
+                time_en: "Custom assessment"
+            }
+        ]
+    },
+    cctv: {
+        symptoms: [
+            {
+                id: "remote",
+                sKey: "s4",
+                label_fr: "Perte d'accès smartphone à distance",
+                label_ar: "انقطاع البث عبر الهاتف الذكي",
+                label_en: "Loss of remote phone access",
+                title_fr: "Configuration Cloud & Accès Distant NVR",
+                title_ar: "ضبط السحابة والبث المباشر للـ NVR",
+                title_en: "Cloud Setup & Remote NVR Access",
+                desc_fr: "Reconfiguration ports, DNS/P2P et mise à jour firmware pour accès temps réel.",
+                desc_ar: "إعادة ضبط المنافذ وخدمة P2P وتحديث نظام الـ NVR للمشاهدة الحية.",
+                desc_en: "Port reconfiguration, P2P/DNS setup and firmware update for real-time live view.",
+                time_fr: "Même jour (1h-2h)",
+                time_ar: "نفس اليوم (1 إلى 2 ساعة)",
+                time_en: "Same day (1h-2h)"
+            },
+            {
+                id: "install",
+                sKey: "s4",
+                label_fr: "Nouvelle installation ou caméra HS",
+                label_ar: "تركيب كاميرات جديدة أو كاميرا معطلة",
+                label_en: "New camera install or broken unit",
+                title_fr: "Installation Caméras IP & Câblage PoE",
+                title_ar: "تركيب كاميرات IP وتمديد كابلات PoE",
+                title_en: "IP Camera Installation & PoE Cabling",
+                desc_fr: "Pose soignée, étanchéité connecteurs et optimisation de l'angle de vision.",
+                desc_ar: "تثبيت احترافي، عزل الموصلات ضد الرطوبة وتوجيه دقيق للرؤية الليلية.",
+                desc_en: "Clean mounting, weatherproof connector sealing and night vision calibration.",
+                time_fr: "24h à 48h",
+                time_ar: "24 إلى 48 ساعة",
+                time_en: "24h to 48h"
+            }
+        ]
+    }
+};
+
+let currentSelectedDevice = 'laptop';
+let currentSelectedSymptomIdx = 0;
+
+function renderEstimatorSymptoms() {
+    const symptomContainer = document.getElementById('estSymptomOptions');
+    if (!symptomContainer) return;
+
+    const deviceData = estimatorData[currentSelectedDevice];
+    if (!deviceData || !deviceData.symptoms) return;
+
+    symptomContainer.innerHTML = '';
+    const langKey = currentActiveLang === 'AR' ? 'label_ar' : (currentActiveLang === 'EN' ? 'label_en' : 'label_fr');
+
+    deviceData.symptoms.forEach((sym, idx) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'est-btn' + (idx === currentSelectedSymptomIdx ? ' active' : '');
+        btn.textContent = sym[langKey];
+        btn.addEventListener('click', () => {
+            currentSelectedSymptomIdx = idx;
+            document.querySelectorAll('#estSymptomOptions .est-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            updateEstimatorResult();
+        });
+        symptomContainer.appendChild(btn);
+    });
+
+    updateEstimatorResult();
+}
+
+function updateEstimatorResult() {
+    const titleEl = document.getElementById('estResTitle');
+    const descEl = document.getElementById('estResDesc');
+    const timeEl = document.getElementById('estResTime');
+    if (!titleEl || !descEl || !timeEl) return;
+
+    const deviceData = estimatorData[currentSelectedDevice];
+    if (!deviceData) return;
+    const sym = deviceData.symptoms[currentSelectedSymptomIdx] || deviceData.symptoms[0];
+    if (!sym) return;
+
+    const langSuffix = currentActiveLang === 'AR' ? '_ar' : (currentActiveLang === 'EN' ? '_en' : '_fr');
+    titleEl.textContent = sym['title' + langSuffix] || sym.title_fr;
+    descEl.textContent = sym['desc' + langSuffix] || sym.desc_fr;
+    timeEl.textContent = sym['time' + langSuffix] || sym.time_fr;
+}
+
+function initEstimator() {
+    const deviceButtons = document.querySelectorAll('#estDeviceOptions .est-btn');
+    deviceButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            deviceButtons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentSelectedDevice = btn.getAttribute('data-device') || 'laptop';
+            currentSelectedSymptomIdx = 0;
+            renderEstimatorSymptoms();
+        });
+    });
+
+    const applyBtn = document.getElementById('estApplyBtn');
+    if (applyBtn) {
+        applyBtn.addEventListener('click', () => {
+            const deviceData = estimatorData[currentSelectedDevice];
+            const sym = deviceData ? (deviceData.symptoms[currentSelectedSymptomIdx] || deviceData.symptoms[0]) : null;
+            
+            if (sym && sym.sKey) {
+                selectService(sym.sKey);
+            }
+
+            const inpMsg = document.getElementById('inp_msg');
+            if (inpMsg && sym) {
+                const langSuffix = currentActiveLang === 'AR' ? '_ar' : (currentActiveLang === 'EN' ? '_en' : '_fr');
+                const symLabel = sym['label' + langSuffix] || sym.label_fr;
+                inpMsg.value = currentActiveLang === 'AR' 
+                    ? `استفسار بخصوص: ${symLabel}` 
+                    : `Demande de diagnostic pour : ${symLabel}`;
+            }
+
+            const contactSec = document.getElementById('contact');
+            if (contactSec) {
+                contactSec.scrollIntoView({ behavior: 'smooth' });
+                setTimeout(() => {
+                    const inpName = document.getElementById('inp_name');
+                    if (inpName) inpName.focus();
+                }, 600);
+            }
+        });
+    }
+
+    renderEstimatorSymptoms();
+}

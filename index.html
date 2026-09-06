@@ -137,6 +137,10 @@
                     Mr Robot
                 </div>
                 <div class="nav-right">
+                    <button type="button" class="top-nav-btn top-nav-della" id="topNavDella" title="Assistant Della IA" aria-label="Assistant Della IA">
+                        <span class="top-nav-della-dot"></span>
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="8" width="16" height="12" rx="2"/><path d="M12 8V4M9 4h6"/><circle cx="9" cy="14" r="1.2" fill="currentColor" stroke="none"/><circle cx="15" cy="14" r="1.2" fill="currentColor" stroke="none"/><path d="M2 13h2M20 13h2"/></svg>
+                    </button>
                     <a href="tel:0797202579" class="top-nav-btn top-nav-phone" title="Appeler 0797202579" aria-label="Appeler 0797202579">
                         <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
@@ -189,6 +193,10 @@
             </div>
             <div class="hero-cta-row">
                 <a href="#contact" class="hero-cta" data-i18n="hero_cta">Demander un diagnostic</a>
+                <button type="button" class="hero-cta hero-cta-della" id="heroBtnDella">
+                    <span class="della-pulse-led"></span>
+                    <span data-i18n="hero_cta_della">🤖 Parler à Della (IA)</span>
+                </button>
                 <a href="#services" class="hero-cta hero-cta-secondary" data-i18n="hero_cta_secondary">Voir les services</a>
             </div>
 
@@ -322,10 +330,21 @@
             <h2 class="services-title reveal" data-i18n="portfolio_title">NOS RÉALISATIONS</h2>
             <p style="color:var(--text-dim); font-size:0.9rem; margin-bottom:20px;" data-i18n="portfolio_desc">Quelques exemples de nos interventions techniques.</p>
             <div class="case-grid">
-                <div class="case-card circuit-frame">
-                    <div class="case-img-single">
-                        <img src="images/soudure.webp" alt="Soudure carte mère" loading="lazy" decoding="async" width="400" height="250">
+                <div class="case-card circuit-frame ba-showcase-card">
+                    <div class="ba-slider-container" id="baSlider" style="--ba-pos: 50%;">
+                        <img src="images/soudure.webp" alt="Après : Soudure carte mère réparée" class="ba-img ba-after" loading="lazy" decoding="async" width="400" height="250">
+                        <span class="ba-tag ba-tag-after" data-i18n="ba_after">APRÈS</span>
+                        <div class="ba-clip-wrap">
+                            <img src="images/soudure-avant.webp" alt="Avant : Carte mère endommagée" class="ba-img ba-before" loading="lazy" decoding="async" width="400" height="250">
+                            <span class="ba-tag ba-tag-before" data-i18n="ba_before">AVANT</span>
+                        </div>
+                        <div class="ba-handle">
+                            <div class="ba-handle-btn">
+                                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M8 5v14l-6-7 6-7zm8 0 6 7-6 7V5z"/></svg>
+                            </div>
+                        </div>
                     </div>
+                    <span class="ba-hint" data-i18n="ba_hint">↔ Glissez le curseur pour comparer Avant / Après</span>
                     <h4 data-i18n="port1_label">Soudure carte mère</h4>
                     <p data-i18n="port1_desc">Diagnostic de panne, remplacement de composants et remise en état complète.</p>
                 </div>
@@ -363,6 +382,66 @@
                     <span class="circuit-led"></span>
                     <div class="team-avatar" style="border-color:var(--amber); color:var(--amber); box-shadow: 0 0 15px rgba(255, 170, 0, 0.2);">W</div>
                     <div><h4 style="color:var(--white);">Wahib</h4><p style="color:var(--text-dim); font-size:0.8rem;" data-i18n="wahib_role">Opérations Terrain</p></div>
+                </div>
+            </div>
+        </section>
+
+        <div class="circuit-divider"><span></span></div>
+
+        <!-- Diagnostic Estimator Module -->
+        <section class="reveal circuit-frame estimator-section" id="estimator">
+            <div class="estimator-header">
+                <div class="contact-terminal-tag">
+                    <span class="sec-dot amber"></span>
+                    <span data-i18n="est_tag">// ESTIMATEUR EXPRESS & DIAGNOSTIC</span>
+                </div>
+                <h2 class="services-title" data-i18n="est_title">DIAGNOSTIC RAPIDE EN 2 CLICS</h2>
+                <p class="estimator-subtitle" data-i18n="est_subtitle">Sélectionnez votre type d'équipement et le symptôme pour obtenir une estimation immédiate.</p>
+            </div>
+
+            <div class="estimator-grid">
+                <!-- Step 1: Device -->
+                <div class="est-step">
+                    <div class="est-step-head">
+                        <span class="est-step-num">01</span>
+                        <h4 data-i18n="est_step1_lbl">Équipement</h4>
+                    </div>
+                    <div class="est-options" id="estDeviceOptions">
+                        <button type="button" class="est-btn active" data-device="laptop">💻 PC Portable / Bureau</button>
+                        <button type="button" class="est-btn" data-device="board">⚡ Carte Mère / Électronique</button>
+                        <button type="button" class="est-btn" data-device="network">🌐 Réseau / WiFi / Câblage</button>
+                        <button type="button" class="est-btn" data-device="cctv">📹 Caméra IP / NVR</button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Symptom -->
+                <div class="est-step">
+                    <div class="est-step-head">
+                        <span class="est-step-num">02</span>
+                        <h4 data-i18n="est_step2_lbl">Symptôme constaté</h4>
+                    </div>
+                    <div class="est-options" id="estSymptomOptions"></div>
+                </div>
+
+                <!-- Step 3: Result Card -->
+                <div class="est-result-card circuit-frame">
+                    <div class="est-res-badge">
+                        <span class="della-pulse-led"></span>
+                        <span data-i18n="est_res_badge">ESTIMATION MR ROBOT</span>
+                    </div>
+                    <h3 class="est-res-title" id="estResTitle">Diagnostic approfondi recommandé</h3>
+                    <p class="est-res-desc" id="estResDesc">Inspection sous microscope, test d'alimentation et diagnostic de court-circuit.</p>
+                    <div class="est-meta-row">
+                        <div class="est-meta-item">
+                            <span class="est-meta-lbl" data-i18n="est_time_lbl">Délai estimé :</span>
+                            <strong class="est-meta-val" id="estResTime">24h à 48h</strong>
+                        </div>
+                        <div class="est-meta-item">
+                            <span class="est-meta-lbl" data-i18n="est_cost_lbl">Diagnostic :</span>
+                            <strong class="est-meta-val green" data-i18n="price_quote">Devis gratuit</strong>
+                        </div>
+                    </div>
+                    <button type="button" class="hero-cta est-apply-btn" id="estApplyBtn" data-i18n="est_btn_book">Prendre en charge avec cette estimation ↗</button>
                 </div>
             </div>
         </section>
@@ -542,7 +621,10 @@
     <div class="toast-container" id="toastContainer"></div>
 
     <!-- Robot Della UI -->
-    <div class="bot-bubble" id="botBubble">👋 Besoin d'aide ? Posez-moi une question !</div>
+    <div class="bot-bubble" id="botBubble">
+        <span>👋 Besoin d'aide ? Posez-moi une question !</span>
+        <button type="button" class="bot-bubble-close" id="botBubbleClose" aria-label="Fermer la bulle">✕</button>
+    </div>
     <button class="bot-toggle" id="botToggle" aria-label="Della, l'assistant Mr Robot">
         <span class="bot-dot"></span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="4" y="8" width="16" height="12" rx="2"/><path d="M12 8V4M9 4h6"/><circle cx="9" cy="14" r="1.2" fill="currentColor" stroke="none"/><circle cx="15" cy="14" r="1.2" fill="currentColor" stroke="none"/><path d="M2 13h2M20 13h2"/></svg>
@@ -556,7 +638,21 @@
         </div>
         <div class="bot-msgs" id="botMsgs"></div>
         <div class="bot-suggest" id="botSuggest"></div>
+        <div class="bot-wa-handoff-row">
+            <button type="button" class="bot-wa-handoff-btn" id="botWaHandoff">
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.78 14.07c-.24.68-1.22 1.28-1.78 1.36-.53.08-1.22.12-3.56-.84-2.88-1.18-4.74-4.14-4.88-4.33-.14-.19-1.16-1.54-1.16-2.94 0-1.4.73-2.09 1-2.37.24-.26.54-.33.72-.33.18 0 .36 0 .52.01.17.01.4.07.61.56.24.58.82 2 .89 2.15.07.15.12.33.02.53-.1.19-.15.31-.3.49-.15.17-.31.39-.45.52-.15.15-.3.32-.13.62.17.3 1.09 1.8 2.34 2.91 1.61 1.43 2.96 1.88 3.38 2.08.42.2.67.17.92-.12.25-.29 1.07-1.25 1.36-1.68.29-.43.58-.36.97-.22.4.14 2.53 1.19 2.96 1.41.44.22.73.33.84.51.11.19.11 1.07-.13 1.75z"/></svg>
+                <span data-i18n="bot_wa_export">Continuer sur WhatsApp ↗</span>
+            </button>
+        </div>
         <div class="bot-input-row">
+            <button type="button" class="bot-btn-mic" id="botBtnMic" title="Parler (Microphone)" aria-label="Parler au micro">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                    <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                    <line x1="12" y1="19" x2="12" y2="23"/>
+                    <line x1="8" y1="23" x2="16" y2="23"/>
+                </svg>
+            </button>
             <input type="text" id="botInput" placeholder="Écrivez votre question...">
             <button id="botBtnSend" aria-label="Envoyer le message">➤</button>
         </div>
@@ -568,7 +664,7 @@
             <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
             </svg>
-            <span>Appeler</span>
+            <span>Appel</span>
         </a>
         <a href="https://wa.me/213797202579" target="_blank" rel="noopener noreferrer" class="m-act-btn m-act-wa" aria-label="WhatsApp Mr Robot">
             <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
@@ -576,6 +672,11 @@
             </svg>
             <span>WhatsApp</span>
         </a>
+        <button type="button" class="m-act-btn m-act-della" id="mActDella" aria-label="Ouvrir l'assistant Della IA">
+            <span class="m-act-della-badge">IA</span>
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="8" width="16" height="12" rx="2"/><path d="M12 8V4M9 4h6"/><circle cx="9" cy="14" r="1.2" fill="currentColor" stroke="none"/><circle cx="15" cy="14" r="1.2" fill="currentColor" stroke="none"/><path d="M2 13h2M20 13h2"/></svg>
+            <span>Della IA</span>
+        </button>
         <a href="https://www.facebook.com/profile.php?id=61594007523187" target="_blank" rel="noopener noreferrer" class="m-act-btn m-act-fb" aria-label="Facebook Mr Robot">
             <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
                 <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
