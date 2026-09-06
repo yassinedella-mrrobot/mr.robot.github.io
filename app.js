@@ -164,7 +164,10 @@ const translations = {
         pwa_title: "Installer l'Application Mr Robot",
         pwa_desc: "Accès instantané aux diagnostics, suivi et hotline directe sur votre écran d'accueil.",
         pwa_btn: "Installer",
-        track_not_found: "Ticket introuvable. Veuillez vérifier votre code (ex: MR-2401) ou contacter le 0797 20 25 79."
+        track_not_found: "Ticket introuvable. Veuillez vérifier votre code (ex: MR-2401) ou contacter le 0797 20 25 79.",
+        m_tab_home: "Accueil",
+        m_tab_services: "Services",
+        m_tab_tracker: "Suivi"
     },
     AR: {
         nav_services: "الخدمات", nav_process: "النظام", nav_securite: "الأمان", nav_portfolio: "الإنجازات", nav_team: "الفريق",
@@ -255,7 +258,10 @@ const translations = {
         pwa_title: "تثبيت تطبيق مستر روبوت",
         pwa_desc: "وصول سريع ومباشر للتشخيص، تتبع الصيانة والاتصال الفوري على شاشتك الرئيسية.",
         pwa_btn: "تثبيت",
-        track_not_found: "لم يتم العثور على التذكرة. يرجى التحقق من الرمز (مثال: MR-2401) أو الاتصال بـ 0797 20 25 79."
+        track_not_found: "لم يتم العثور على التذكرة. يرجى التحقق من الرمز (مثال: MR-2401) أو الاتصال بـ 0797 20 25 79.",
+        m_tab_home: "الرئيسية",
+        m_tab_services: "الخدمات",
+        m_tab_tracker: "التتبع"
     },
     EN: {
         nav_services: "Services", nav_process: "System", nav_securite: "Security", nav_portfolio: "Portfolio", nav_team: "Team",
@@ -346,7 +352,10 @@ const translations = {
         pwa_title: "Install Mr Robot Web App",
         pwa_desc: "Instant access to diagnostics, repair tracking and direct hotline right on your home screen.",
         pwa_btn: "Install",
-        track_not_found: "Ticket not found. Please verify your reference (e.g., MR-2401) or call 0797 20 25 79."
+        track_not_found: "Ticket not found. Please verify your reference (e.g., MR-2401) or call 0797 20 25 79.",
+        m_tab_home: "Home",
+        m_tab_services: "Services",
+        m_tab_tracker: "Track"
     }
 };
 
@@ -487,7 +496,64 @@ document.addEventListener('DOMContentLoaded', () => {
     setInterval(updateAtelierStatus, 60000);
     typeWriter(translations['FR'].type_text);
     initSparks();
+    initMobileNavigation();
 });
+
+function initMobileNavigation() {
+    const btnBackToTop = document.getElementById('btnBackToTop');
+    const quickChips = document.querySelectorAll('.mq-chip');
+    const tabHome = document.getElementById('mTabHome');
+    const tabServices = document.getElementById('mTabServices');
+    const tabTracker = document.getElementById('mTabTracker');
+
+    window.addEventListener('scroll', debounce(() => {
+        const scrollY = window.scrollY || window.pageYOffset;
+
+        if (btnBackToTop) {
+            if (scrollY > 380) {
+                btnBackToTop.classList.add('show');
+            } else {
+                btnBackToTop.classList.remove('show');
+            }
+        }
+
+        const servicesSec = document.getElementById('services');
+        const trackerSec = document.getElementById('tracker');
+
+        let currentSection = 'hero';
+        if (trackerSec && scrollY >= trackerSec.offsetTop - 200) {
+            currentSection = 'tracker';
+        } else if (servicesSec && scrollY >= servicesSec.offsetTop - 200) {
+            currentSection = 'services';
+        }
+
+        if (tabHome) tabHome.classList.toggle('active', currentSection === 'hero');
+        if (tabServices) tabServices.classList.toggle('active', currentSection === 'services');
+        if (tabTracker) tabTracker.classList.toggle('active', currentSection === 'tracker');
+
+        quickChips.forEach(chip => {
+            const href = chip.getAttribute('href');
+            if (!href) return;
+            const target = document.querySelector(href);
+            if (target) {
+                const top = target.offsetTop - 220;
+                const bottom = top + target.offsetHeight;
+                chip.classList.toggle('active', scrollY >= top && scrollY < bottom);
+            }
+        });
+    }, 50), { passive: true });
+
+    if (btnBackToTop) {
+        btnBackToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone) {
+        const pwaBtn = document.getElementById('topNavPwa');
+        if (pwaBtn) pwaBtn.style.display = 'none';
+    }
+}
 
 function showToast(message, type = 'info') {
     const container = document.getElementById('toastContainer');

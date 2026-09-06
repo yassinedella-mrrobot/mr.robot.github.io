@@ -870,7 +870,9 @@ html[dir="rtl"] .sec-launch-cli-btn {
     .sec-text .services-title { text-align: center !important; }
 }
 
-/* Mobile Quick Contact Action Bar */
+/* ============================================================
+   MOBILE APP BOTTOM NAVIGATION BAR (PWA & SMARTPHONE)
+============================================================ */
 .mobile-action-bar {
     display: none;
     position: fixed;
@@ -878,81 +880,200 @@ html[dir="rtl"] .sec-launch-cli-btn {
     left: 0;
     right: 0;
     z-index: 9990;
-    background: rgba(10, 15, 20, 0.96);
-    border-top: 1px solid var(--trace-dim);
-    padding: 8px 12px;
-    gap: 10px;
-    box-shadow: 0 -4px 20px rgba(0,0,0,0.6);
+    background: rgba(8, 12, 18, 0.94);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-top: 1px solid rgba(0, 255, 204, 0.25);
+    padding: 6px 8px calc(6px + env(safe-area-inset-bottom, 0px));
+    gap: 4px;
+    box-shadow: 0 -8px 25px rgba(0, 0, 0, 0.7);
+    justify-content: space-around;
+    align-items: center;
 }
 
-.m-act-btn {
+.m-tab-item {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    padding: 6px 4px;
+    border-radius: 8px;
+    background: transparent;
+    border: none;
+    color: var(--text-dim);
+    text-decoration: none;
+    font-family: 'Space Grotesk', 'Cairo', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    min-height: 48px;
+    touch-action: manipulation;
+}
+
+.m-tab-item svg {
+    transition: transform 0.2s ease, stroke 0.2s ease, fill 0.2s ease;
+}
+
+.m-tab-item:active svg,
+.m-tab-item.active svg {
+    transform: scale(1.15);
+}
+
+.m-tab-item.active {
+    color: var(--trace);
+}
+
+.m-tab-item.active svg {
+    stroke: var(--trace);
+}
+
+.m-tab-item.m-tab-wa {
+    color: #25d366;
+}
+
+.m-tab-item.m-tab-wa svg {
+    fill: #25d366;
+}
+
+/* Center Elevated Della Tab Button */
+.m-tab-item.m-tab-della {
+    position: relative;
+    top: -12px;
+    color: var(--trace);
+    padding-top: 0;
+}
+
+.m-della-orb {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #00ffcc, #008877);
+    border: 2px solid #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;
+    color: #05080b;
+    box-shadow: 0 4px 16px rgba(0, 255, 204, 0.6), inset 0 2px 4px rgba(255, 255, 255, 0.4);
+    position: relative;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.m-tab-item.m-tab-della:active .m-della-orb {
+    transform: scale(0.92);
+    box-shadow: 0 2px 8px rgba(0, 255, 204, 0.8);
+}
+
+.m-della-pulse {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #00ffcc;
+    border: 2px solid #080c12;
+    animation: pulseRing 1.8s infinite;
+}
+
+@keyframes pulseRing {
+    0% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(0, 255, 204, 0.7); }
+    70% { transform: scale(1.1); box-shadow: 0 0 0 8px rgba(0, 255, 204, 0); }
+    100% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(0, 255, 204, 0); }
+}
+
+/* Mobile Fast Navigation Hub (Horizontal Category Chips) */
+.mobile-quick-hub {
+    display: none;
+    overflow-x: auto;
+    white-space: nowrap;
     gap: 8px;
-    padding: 11px 14px;
-    border-radius: 8px;
+    padding: 10px 4px;
+    margin: 4px 0 14px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+}
+.mobile-quick-hub::-webkit-scrollbar {
+    display: none;
+}
+.mq-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px;
+    border-radius: 20px;
+    background: rgba(13, 21, 28, 0.8);
+    border: 1px solid var(--line);
+    color: var(--text-dim);
     font-family: 'Space Grotesk', 'Cairo', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 700;
+    font-size: 0.78rem;
+    font-weight: 600;
     text-decoration: none;
-    transition: transform 0.2s;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+.mq-chip:active, .mq-chip.active {
+    background: rgba(0, 255, 204, 0.15);
+    border-color: var(--trace);
+    color: var(--trace);
+    box-shadow: 0 0 10px rgba(0, 255, 204, 0.25);
 }
 
-.m-act-phone {
-    background: rgba(255, 170, 0, 0.15);
-    border: 1px solid var(--amber);
-    color: var(--amber);
-}
-
-.m-act-wa {
-    background: #25D366;
-    color: #000;
-}
-
-.m-act-della {
-    background: rgba(0, 255, 204, 0.14);
+/* Floating Back to Top Button */
+.btn-back-to-top {
+    position: fixed;
+    bottom: calc(74px + env(safe-area-inset-bottom, 0px));
+    right: 16px;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(10, 15, 22, 0.9);
     border: 1px solid var(--trace);
     color: var(--trace);
-    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
+    z-index: 9980;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(12px);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5), 0 0 10px rgba(0, 255, 204, 0.3);
 }
-.m-act-della:active {
-    background: var(--trace);
-    color: #05080b;
-    box-shadow: 0 0 15px var(--trace);
-}
-.m-act-della-badge {
-    position: absolute;
-    top: -6px;
-    right: 6px;
-    background: var(--trace);
-    color: #000;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.55rem;
-    font-weight: 800;
-    padding: 1px 4px;
-    border-radius: 4px;
-    box-shadow: 0 0 6px var(--trace);
-}
-html[dir="rtl"] .m-act-della-badge {
+html[dir="rtl"] .btn-back-to-top {
     right: auto;
-    left: 6px;
+    left: 16px;
 }
-
-.m-act-fb {
-    background: #1877F2;
-    color: #fff;
+.btn-back-to-top.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+.btn-back-to-top:active {
+    transform: scale(0.92);
 }
 
 /* Mobile Performance & UX Optimization */
 @media (max-width: 768px) {
     .mobile-action-bar { display: flex; }
-    body { padding-bottom: 64px; }
+    .mobile-quick-hub { display: flex; }
+    body { padding-bottom: calc(68px + env(safe-area-inset-bottom, 0px)); }
 
-    /* Top Nav Icons on Mobile */
-    .nav-right { gap: 8px; }
+    /* Top Nav on Mobile: Clean and Uncluttered */
+    .top-nav-desktop-only { display: none !important; }
+    .nav-right { gap: 6px; }
+    .top-nav-btn { width: 34px; height: 34px; }
+    .lang-switch-container { gap: 2px; }
+    .lang-btn { padding: 3px 6px; font-size: 0.72rem; }
+    .nav-burger { margin-left: 4px; }
+    html[dir="rtl"] .nav-burger { margin-left: 0; margin-right: 4px; }
+
+    /* Compact Sections for Comfortable Mobile Scrolling */
+    section { padding: 26px 0 !important; }
+    .circuit-divider { margin: 10px 0 16px !important; }
     .top-nav-btn { width: 34px; height: 34px; }
 
     /* Smartphone Image Solution: Horizontal Swipeable Portfolio Cards */
@@ -1101,44 +1222,57 @@ html[dir="rtl"] .m-act-della-badge {
         animation: none !important;
     }
 
-    /* Floating bot button position on mobile */
-    .bot-toggle {
-        position: fixed !important;
-        bottom: calc(72px + env(safe-area-inset-bottom, 0px)) !important;
-        left: 14px !important;
-        width: 52px !important;
-        height: 52px !important;
-        z-index: 9999 !important;
-    }
-    html[dir="rtl"] .bot-toggle {
-        left: auto !important;
-        right: 14px !important;
-    }
-    .bot-bubble {
-        position: fixed !important;
-        bottom: calc(134px + env(safe-area-inset-bottom, 0px)) !important;
-        left: 14px !important;
-        top: auto !important;
-        right: auto !important;
-        max-width: 250px !important;
-        font-size: 0.76rem !important;
-    }
-    html[dir="rtl"] .bot-bubble {
-        left: auto !important;
-        right: 14px !important;
+    /* Floating bot button hidden on mobile in favor of bottom app bar */
+    .bot-toggle, .bot-bubble {
+        display: none !important;
     }
     .bot-panel {
         position: fixed !important;
-        bottom: calc(68px + env(safe-area-inset-bottom, 0px)) !important;
-        left: 8px !important;
-        right: 8px !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
         top: auto !important;
-        width: auto !important;
-        max-width: calc(100vw - 16px) !important;
-        height: 72vh !important;
-        max-height: 520px !important;
-        border-radius: 14px !important;
+        width: 100% !important;
+        max-width: 100vw !important;
+        height: 80vh !important;
+        max-height: 560px !important;
+        border-radius: 20px 20px 0 0 !important;
         z-index: 10001 !important;
+        box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 255, 204, 0.3) !important;
+    }
+
+    /* Horizontal Swipeable Reviews on Smartphone */
+    .reviews-grid {
+        display: flex !important;
+        overflow-x: auto !important;
+        scroll-snap-type: x mandatory !important;
+        gap: 12px !important;
+        padding-bottom: 12px !important;
+        -webkit-overflow-scrolling: touch;
+    }
+    .review-card {
+        flex: 0 0 85% !important;
+        scroll-snap-align: center !important;
+        margin-bottom: 0 !important;
+    }
+
+    /* Horizontal Swipeable Team Cards on Smartphone */
+    .team-grid {
+        display: flex !important;
+        overflow-x: auto !important;
+        scroll-snap-type: x mandatory !important;
+        gap: 12px !important;
+        padding-bottom: 12px !important;
+        -webkit-overflow-scrolling: touch;
+    }
+    .team-card {
+        flex: 0 0 78% !important;
+        scroll-snap-align: center !important;
+    }
+
+    /* Compact Before/After Sliders on Smartphone */
+    .ba-slider-container {
+        height: 190px !important;
     }
 
     /* Ultra-Compact & Cyber Futuristic Mobile Contact Section */
@@ -2444,5 +2578,23 @@ html[dir="rtl"] .cli-close {
     }
 }
 
-
-
+/* ============================================================
+   PWA STANDALONE DISPLAY MODE OPTIMIZATIONS
+============================================================ */
+@media (display-mode: standalone) {
+    header {
+        padding-top: calc(8px + env(safe-area-inset-top, 0px));
+    }
+    #topNavPwa {
+        display: none !important;
+    }
+    body {
+        -webkit-user-select: none;
+        user-select: none;
+        overscroll-behavior-y: none;
+    }
+    input, textarea {
+        -webkit-user-select: text;
+        user-select: text;
+    }
+}
