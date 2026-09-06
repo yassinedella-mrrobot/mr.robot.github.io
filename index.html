@@ -6,7 +6,11 @@
     <title>Mr Robot — Future Tech & IT Solutions</title>
     <meta name="description" content="Mr Robot - Services techniques à Oran (Miramar) : électronique, informatique, réseaux, vidéosurveillance, programmation. Devis gratuit, intervention rapide.">
     
-    <!-- SEO CANONICAL & OPEN GRAPH -->
+    <meta name="theme-color" content="#05080b">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="alternate icon" href="favicon.ico">
+
+    <!-- SEO CANONICAL & OPEN GRAPH & TWITTER -->
     <link rel="canonical" href="https://mrrobot.qd.je/">
     <meta property="og:title" content="Mr Robot — Future Tech & IT Solutions">
     <meta property="og:description" content="Électronique, informatique, réseaux, vidéosurveillance et programmation à Oran. Devis gratuit.">
@@ -14,6 +18,10 @@
     <meta property="og:locale" content="fr_FR">
     <meta property="og:url" content="https://mrrobot.qd.je/">
     <meta property="og:image" content="https://mrrobot.qd.je/images/og-cover.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Mr Robot — Future Tech & IT Solutions">
+    <meta name="twitter:description" content="Électronique, informatique, réseaux, vidéosurveillance et programmation à Oran. Devis gratuit.">
+    <meta name="twitter:image" content="https://mrrobot.qd.je/images/og-cover.jpg">
 
     <!-- STRICT CSP IMPLEMENTATION -->
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; frame-src https://www.google.com; connect-src 'self' https://della-proxy.yassinedella.workers.dev; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; upgrade-insecure-requests;">
@@ -177,11 +185,11 @@
 
             <!-- Quick 1-Tap Service Bar for Mobile -->
             <div class="quick-service-bar">
-                <button type="button" class="q-chip" onclick="selectService('s1')">⚡ Électronique</button>
-                <button type="button" class="q-chip" onclick="selectService('s2')">💻 Informatique</button>
-                <button type="button" class="q-chip" onclick="selectService('s3')">🌐 Réseaux</button>
-                <button type="button" class="q-chip" onclick="selectService('s4')">📹 Vidéo</button>
-                <button type="button" class="q-chip" onclick="selectService('s5')">🖥️ Prog</button>
+                <button type="button" class="q-chip" data-service="s1">⚡ Électronique</button>
+                <button type="button" class="q-chip" data-service="s2">💻 Informatique</button>
+                <button type="button" class="q-chip" data-service="s3">🌐 Réseaux</button>
+                <button type="button" class="q-chip" data-service="s4">📹 Vidéo</button>
+                <button type="button" class="q-chip" data-service="s5">🖥️ Prog</button>
             </div>
         </section>
 
@@ -220,37 +228,37 @@
         <!-- Services -->
         <h2 class="services-title reveal" id="services" data-i18n="services_title">NOS SERVICES</h2>
         <div class="services-grid">
-            <div class="service-card reveal reveal-delay-1 circuit-frame" id="sc-1" onclick="selectService('s1')">
+            <div class="service-card reveal reveal-delay-1 circuit-frame" id="sc-1" data-service="s1">
                 <span class="circuit-led"></span>
                 <span class="price-badge" data-i18n="price_quote">Devis gratuit</span>
                 <div class="service-head"><span class="service-icon">⚡</span><h3 data-i18n="s1_title">Électronique</h3></div>
                 <p data-i18n="s1_desc">Diagnostic avancé et réparation de cartes mères.</p>
             </div>
-            <div class="service-card reveal reveal-delay-2 circuit-frame" id="sc-2" onclick="selectService('s2')">
+            <div class="service-card reveal reveal-delay-2 circuit-frame" id="sc-2" data-service="s2">
                 <span class="circuit-led"></span>
                 <span class="price-badge" data-i18n="price_quote">Devis gratuit</span>
                 <div class="service-head"><span class="service-icon">💻</span><h3 data-i18n="s2_title">Informatique</h3></div>
                 <p data-i18n="s2_desc">Maintenance, optimisation et dépannage matériel.</p>
             </div>
-            <div class="service-card reveal reveal-delay-3 circuit-frame" id="sc-3" onclick="selectService('s3')">
+            <div class="service-card reveal reveal-delay-3 circuit-frame" id="sc-3" data-service="s3">
                 <span class="circuit-led"></span>
                 <span class="price-badge" data-i18n="price_quote">Devis gratuit</span>
                 <div class="service-head"><span class="service-icon">🌐</span><h3 data-i18n="s3_title">Réseaux</h3></div>
                 <p data-i18n="s3_desc">Installation réseau et sécurisation d'infrastructure.</p>
             </div>
-            <div class="service-card reveal circuit-frame" id="sc-4" onclick="selectService('s4')">
+            <div class="service-card reveal circuit-frame" id="sc-4" data-service="s4">
                 <span class="circuit-led"></span>
                 <span class="price-badge" data-i18n="price_quote">Devis gratuit</span>
                 <div class="service-head"><span class="service-icon">📹</span><h3 data-i18n="s4_title">Vidéosurveillance</h3></div>
                 <p data-i18n="s4_desc">Caméras IP et configuration NVR à distance.</p>
             </div>
-            <div class="service-card reveal circuit-frame" id="sc-5" onclick="selectService('s5')">
+            <div class="service-card reveal circuit-frame" id="sc-5" data-service="s5">
                 <span class="circuit-led"></span>
                 <span class="price-badge" data-i18n="price_quote">Devis gratuit</span>
                 <div class="service-head"><span class="service-icon">🖥️</span><h3 data-i18n="s5_title">Programmation</h3></div>
                 <p data-i18n="s5_desc">Développement de logiciels, sites web et automatisation sur mesure.</p>
             </div>
-            <div class="service-card reveal circuit-frame" id="sc-6" onclick="selectService('s6')">
+            <div class="service-card reveal circuit-frame" id="sc-6" data-service="s6">
                 <span class="circuit-led"></span>
                 <span class="price-badge" data-i18n="price_quote">Devis gratuit</span>
                 <div class="service-head"><span class="service-icon">🛠️</span><h3 data-i18n="s6_title">Autres solutions</h3></div>
@@ -415,7 +423,7 @@
                     </div>
                     <div class="field">
                         <label data-i18n="lbl_msg">Log d'Erreur (Description)</label>
-                        <textarea rows="4" id="inp_msg" required placeholder="Décrivez le problème..."></textarea>
+                        <textarea rows="4" id="inp_msg" required placeholder="Décrivez le problème..." maxlength="500"></textarea>
                     </div>
                     <div class="submit-group">
                         <button type="submit" class="submit-btn wa" data-submit="wa" id="btn-submit-wa" aria-label="Envoyer via WhatsApp">
@@ -427,11 +435,11 @@
                         <button type="submit" class="submit-btn email" data-submit="email" id="btn-submit-email" aria-label="Envoyer via Email">
                             <span class="app-ic" style="background:#fff;">
                                 <svg viewBox="0 0 48 36" width="18" height="14">
-                                    <path fill="#4285F4" d="M5 4h38a5 5 0 0 1 5 5v18a5 5 0 0 1-5 5H5a5 5 0 0 1-5-5V9a5 5 0 0 1 5-5z"/>
-                                    <path fill="#34A853" d="M0 11v16a5 5 0 0 0 5 5h3V15z"/>
-                                    <path fill="#FBBC05" d="M48 11v16a5 5 0 0 1-5 5h-3V15z"/>
-                                    <path fill="#EA4335" d="M8 8v24h5V16.5l11 8.3 11-8.3V32h5V8l-16 12z"/>
-                                    <path fill="#C5221F" d="M8 8l16 12L40 8a5 5 0 0 0-3-1H11a5 5 0 0 0-3 1z"/>
+                                     <path fill="#4285F4" d="M5 4h38a5 5 0 0 1 5 5v18a5 5 0 0 1-5 5H5a5 5 0 0 1-5-5V9a5 5 0 0 1 5-5z"/>
+                                     <path fill="#34A853" d="M0 11v16a5 5 0 0 0 5 5h3V15z"/>
+                                     <path fill="#FBBC05" d="M48 11v16a5 5 0 0 1-5 5h-3V15z"/>
+                                     <path fill="#EA4335" d="M8 8v24h5V16.5l11 8.3 11-8.3V32h5V8l-16 12z"/>
+                                     <path fill="#C5221F" d="M8 8l16 12L40 8a5 5 0 0 0-3-1H11a5 5 0 0 0-3 1z"/>
                                 </svg>
                             </span>
                             <span data-i18n="btn_email">E-mail</span>
@@ -440,6 +448,53 @@
                 </form>
             </div>
         </section>
+
+        <!-- Site Footer -->
+        <footer class="site-footer circuit-frame">
+            <div class="footer-grid">
+                <div class="footer-col brand-col">
+                    <div class="logo">
+                        <div class="logo-ic">
+                            <img src="images/logo.webp" alt="Mr Robot logo" width="46" height="46" loading="lazy">
+                        </div>
+                        Mr Robot
+                    </div>
+                    <p class="footer-tagline" data-i18n="footer_tagline">Ingénierie, Micro-soudure &amp; Solutions Techniques Avancées à Oran.</p>
+                    <div class="footer-status">
+                        <span class="sec-dot green"></span>
+                        <span data-i18n="footer_status">Systèmes opérationnels — Support actif</span>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4 data-i18n="footer_nav_title">Navigation</h4>
+                    <ul class="footer-links">
+                        <li><a href="#services" data-i18n="nav_services">Services</a></li>
+                        <li><a href="#securite" data-i18n="nav_securite">Sécurité</a></li>
+                        <li><a href="#portfolio" data-i18n="nav_portfolio">Réalisations</a></li>
+                        <li><a href="#team" data-i18n="nav_team">Équipe</a></li>
+                        <li><a href="#contact" data-i18n="footer_contact_link">Contact &amp; Devis</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4 data-i18n="footer_coord_title">Coordonnées</h4>
+                    <p data-i18n="info_addr_val">Oran, Miramar — Près du Lycée Lotfi</p>
+                    <p data-i18n="info_hours_val">Samedi – Jeudi, 08h00 – 17h00</p>
+                    <p>Tél : <a href="tel:0797202579" class="footer-hotlink">0797 20 25 79</a></p>
+                </div>
+                <div class="footer-col">
+                    <h4 data-i18n="footer_sec_title">Sécurité</h4>
+                    <p data-i18n="footer_sec_desc">Infrastructure sécurisée et politique de signalement responsable.</p>
+                    <a href="SECURITY.md" target="_blank" rel="noopener noreferrer" class="footer-sec-link">
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        <span data-i18n="footer_sec_policy">Politique de Sécurité</span>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p data-i18n="footer_copy">© 2026 Mr Robot Systems — Yassin &amp; Wahib Della. Tous droits réservés.</p>
+                <div class="footer-sig">ORAN // DZ</div>
+            </div>
+        </footer>
     </div>
 
     <div class="toast-container" id="toastContainer"></div>

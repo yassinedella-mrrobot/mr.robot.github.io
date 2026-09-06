@@ -53,7 +53,7 @@ function escapeHtml(text) {
 const ValidationUtils = {
     email: (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email),
     phone: (phone) => /^[\+\d\s\-\(\)]{7,20}$/.test(phone),
-    message: (msg) => msg && msg.length > 0 && msg.length <= 250,
+    message: (msg) => msg && msg.length > 0 && msg.length <= 500,
     text: (text) => text && text.length > 0
 };
 
@@ -70,7 +70,8 @@ function setFieldError(element, hasError) {
 const _SECURE_DATA = {
     p: atob("MDc5NzIwMjU3OQ=="),
     w: atob("MjEzNzk3MjAyNTc5"),
-    e: atob("WWFzc2luZWRlbGxhQGdtYWlsLmNvbQ==")
+    e: atob("WWFzc2luZWRlbGxhQGdtYWlsLmNvbQ=="),
+    fb: "https://www.facebook.com"
 };
 
 const translations = {
@@ -97,7 +98,7 @@ const translations = {
         sec_li3: "Surveillance et détection d'anomalies", sec_li4: "Recommandations et mise en conformité",
         sec_cta: "Demander un audit",
         portfolio_title: "NOS RÉALISATIONS", portfolio_desc: "Quelques exemples de nos interventions techniques.",
-        port1_label: "Soudure carte mère", port2_label: "Installation réseau", port3_label: "Caméras de surveillance", port4_label: "Maintenance PC",
+        port1_label: "Soudure carte mère", port2_label: "Installation réseau", port3_label: "Vidéosurveillance",
         port1_desc: "Diagnostic de panne, remplacement de composants et remise en état complète.",
         port2_desc: "Câblage structuré, brassage et configuration WiFi professionnelle.",
         port3_desc: "Pose de caméras IP et configuration NVR pour un client à Oran.",
@@ -112,7 +113,16 @@ const translations = {
         wa_lbl_service: "Service requis:", wa_lbl_desc: "Description:",
         email_subject: "Demande de service Mr Robot",
         email_body: "Service: {service}\nDescription: {msg}",
-        pf_note: "📸 Galerie photo complète disponible sur demande via WhatsApp."
+        pf_note: "📸 Galerie photo complète disponible sur demande via WhatsApp.",
+        footer_tagline: "Ingénierie, Micro-soudure & Solutions Techniques Avancées à Oran.",
+        footer_status: "Systèmes opérationnels — Support actif",
+        footer_nav_title: "Navigation",
+        footer_contact_link: "Contact & Devis",
+        footer_coord_title: "Coordonnées",
+        footer_sec_title: "Sécurité",
+        footer_sec_desc: "Infrastructure sécurisée et politique de signalement responsable.",
+        footer_sec_policy: "Politique de Sécurité",
+        footer_copy: "© 2026 Mr Robot Systems — Yassin & Wahib Della. Tous droits réservés."
     },
     AR: {
         nav_services: "الخدمات", nav_process: "النظام", nav_securite: "الأمان", nav_portfolio: "الإنجازات", nav_team: "الفريق",
@@ -137,7 +147,7 @@ const translations = {
         sec_li3: "المراقبة وكشف الحالات الشاذة", sec_li4: "توصيات ومطابقة المعايير",
         sec_cta: "طلب تدقيق أمني",
         portfolio_title: "إنجازاتنا", portfolio_desc: "بعض الأمثلة على تدخلاتنا التقنية.",
-        port1_label: "لحام لوحة أم", port2_label: "تركيب شبكة", port3_label: "كاميرات مراقبة", port4_label: "صيانة حواسيب",
+        port1_label: "لحام لوحة أم", port2_label: "تركيب شبكة", port3_label: "كاميرات مراقبة",
         port1_desc: "تشخيص العطل، استبدال المكونات وإصلاح كامل.",
         port2_desc: "تمديد كابلات، تركيب لوحة توزيع وإعداد واي فاي احترافي.",
         port3_desc: "تركيب كاميرات IP وإعداد جهاز NVR لعميل في وهران.",
@@ -152,7 +162,16 @@ const translations = {
         wa_lbl_service: "الخدمة المطلوبة:", wa_lbl_desc: "الوصف:",
         email_subject: "طلب خدمة من مستر روبوت",
         email_body: "الخدمة: {service}\nالوصف: {msg}",
-        pf_note: "📸 الصور الكاملة متاحة بطلب عبر واتساب."
+        pf_note: "📸 الصور الكاملة متاحة بطلب عبر واتساب.",
+        footer_tagline: "هندسة، لحام دقيق وحلول تقنية متقدمة في وهران.",
+        footer_status: "الأنظمة تعمل — الدعم الفني نشط",
+        footer_nav_title: "التنقل",
+        footer_contact_link: "اتصال وعرض سعر",
+        footer_coord_title: "معلومات التواصل",
+        footer_sec_title: "الأمان",
+        footer_sec_desc: "بنية تحتية آمنة وسياسة إبلاغ مسؤولة.",
+        footer_sec_policy: "سياسة الأمان",
+        footer_copy: "© 2026 مستر روبوت للأنظمة — ياسين ووهيب ديلا. جميع الحقوق محفوظة."
     },
     EN: {
         nav_services: "Services", nav_process: "System", nav_securite: "Security", nav_portfolio: "Portfolio", nav_team: "Team",
@@ -177,7 +196,7 @@ const translations = {
         sec_li3: "Monitoring and anomaly detection", sec_li4: "Recommendations and compliance",
         sec_cta: "Request an audit",
         portfolio_title: "OUR WORK", portfolio_desc: "Some examples of our technical interventions.",
-        port1_label: "Motherboard soldering", port2_label: "Network installation", port3_label: "Surveillance cameras", port4_label: "PC maintenance",
+        port1_label: "Motherboard soldering", port2_label: "Network installation", port3_label: "Surveillance",
         port1_desc: "Fault diagnosis, component replacement and full repair.",
         port2_desc: "Structured cabling, patch panel setup and professional WiFi configuration.",
         port3_desc: "IP camera installation and NVR setup for a client in Oran.",
@@ -192,7 +211,16 @@ const translations = {
         wa_lbl_service: "Required Service:", wa_lbl_desc: "Description:",
         email_subject: "Service request from Mr Robot",
         email_body: "Service: {service}\nDescription: {msg}",
-        pf_note: "📸 Full photo gallery available on request via WhatsApp."
+        pf_note: "📸 Full photo gallery available on request via WhatsApp.",
+        footer_tagline: "Engineering, Micro-soldering & Advanced Technical Solutions in Oran.",
+        footer_status: "Systems operational — Active support",
+        footer_nav_title: "Navigation",
+        footer_contact_link: "Contact & Quote",
+        footer_coord_title: "Contact Info",
+        footer_sec_title: "Security",
+        footer_sec_desc: "Secure infrastructure and responsible disclosure policy.",
+        footer_sec_policy: "Security Policy",
+        footer_copy: "© 2026 Mr Robot Systems — Yassin & Wahib Della. All rights reserved."
     }
 };
 
@@ -213,6 +241,7 @@ function getElements() {
         badgeWa: document.getElementById('badge-wa'),
         badgePhone: document.getElementById('badge-phone'),
         badgeEmail: document.getElementById('badge-email'),
+        badgeFb: document.getElementById('badge-fb'),
         contactForm: document.getElementById('contactForm'),
         botToggle: document.getElementById('botToggle'),
         botBubble: document.getElementById('botBubble'),
@@ -243,7 +272,18 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     els.serviceCards.forEach((card, idx) => {
-        if (card) card.addEventListener('click', () => selectService(`s${idx + 1}`));
+        if (card) {
+            card.addEventListener('click', () => {
+                const s = card.getAttribute('data-service') || `s${idx + 1}`;
+                selectService(s);
+            });
+        }
+    });
+
+    document.querySelectorAll('.q-chip[data-service]').forEach(chip => {
+        chip.addEventListener('click', () => {
+            selectService(chip.getAttribute('data-service'));
+        });
     });
 
     if (els.badgeWa) {
@@ -261,6 +301,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (els.badgeEmail) {
         els.badgeEmail.addEventListener('click', () => {
             window.location.href = `mailto:${_SECURE_DATA.e}`;
+        });
+    }
+
+    if (els.badgeFb) {
+        els.badgeFb.addEventListener('click', () => {
+            window.open(_SECURE_DATA.fb, '_blank', 'noopener,noreferrer');
         });
     }
 
