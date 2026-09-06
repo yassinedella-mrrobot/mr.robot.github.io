@@ -29,6 +29,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="manifest" href="manifest.webmanifest">
+    <meta name="theme-color" content="#00ffcc">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Mr Robot">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -156,10 +161,15 @@
                             <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
                         </svg>
                     </a>
+                    <button type="button" class="top-nav-btn top-nav-cli" id="topNavCli" title="Terminal Cyberpunk Mr Robot" aria-label="Terminal CLI">
+                        <span class="cli-btn-prompt">&gt;_</span>
+                    </button>
                     <ul id="navLinks">
+                        <li><a href="#tracker" data-i18n="nav_tracker" id="menu-track">Suivi</a></li>
                         <li><a href="#services" data-i18n="nav_services" id="menu-serv">Services</a></li>
                         <li><a href="#securite" data-i18n="nav_securite" id="menu-sec">Sécurité</a></li>
                         <li><a href="#portfolio" data-i18n="nav_portfolio" id="menu-port">Réalisations</a></li>
+                        <li><a href="#reviews" data-i18n="nav_reviews" id="menu-rev">Avis</a></li>
                         <li><a href="#team" data-i18n="nav_team" id="menu-team">Équipe</a></li>
                     </ul>
                     <div class="lang-switch-container">
@@ -197,6 +207,9 @@
                     <span class="della-pulse-led"></span>
                     <span data-i18n="hero_cta_della">🤖 Parler à Della (IA)</span>
                 </button>
+                <a href="#tracker" class="hero-cta hero-cta-track" id="heroBtnTrack">
+                    <span data-i18n="hero_cta_track">📦 Suivi Réparation</span>
+                </a>
                 <a href="#services" class="hero-cta hero-cta-secondary" data-i18n="hero_cta_secondary">Voir les services</a>
             </div>
 
@@ -238,7 +251,94 @@
                 referrerpolicy="no-referrer-when-downgrade"
                 title="Localisation Mr Robot - Oran, Miramar">
             </iframe>
+            <div class="map-actions-bar">
+                <div class="map-status-pill" id="atelierStatusPill">
+                    <span class="status-dot green"></span>
+                    <span id="atelierStatusTxt" data-i18n="status_open">Atelier Ouvert (08h00 - 17h00)</span>
+                </div>
+                <div class="map-gps-buttons">
+                    <a href="https://www.google.com/maps/dir/?api=1&destination=35.7000,-0.6333" target="_blank" rel="noopener noreferrer" class="map-gps-btn gps-gmaps" aria-label="Itinéraire Google Maps">
+                        <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                        <span data-i18n="gps_gmaps">Itinéraire Google Maps ↗</span>
+                    </a>
+                    <a href="https://waze.com/ul?ll=35.7000,-0.6333&navigate=yes" target="_blank" rel="noopener noreferrer" class="map-gps-btn gps-waze" aria-label="Itinéraire Waze">
+                        <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M19.78 10.3c-.34-2.84-2.45-5.08-5.2-5.63-3.66-.73-6.9 1.63-7.51 5.09-.08.45-.11.9-.11 1.36 0 1.25.34 2.45.96 3.5.12.2.14.44.07.66l-.68 2.22c-.17.56.34 1.07.9 0.9l2.22-.68c.22-.07.46-.05.66.07 1.05.62 2.25.96 3.5.96 4.96 0 9-4.04 9-9 0-.46-.03-.91-.11-1.36-.08-.43-.37-.77-.79-.89l-2.92-.2zm-8.28 1.7c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm5 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+                        <span data-i18n="gps_waze">Waze ↗</span>
+                    </a>
+                </div>
+            </div>
         </div>
+
+        <div class="circuit-divider"><span></span></div>
+
+        <!-- Live Repair Tracker Section -->
+        <section class="reveal circuit-frame tracker-section" id="tracker">
+            <div class="tracker-head">
+                <div class="contact-terminal-tag">
+                    <span class="sec-dot green"></span>
+                    <span data-i18n="track_tag">// CENTRE DE SUIVI TECHNIQUE</span>
+                </div>
+                <h2 class="services-title" data-i18n="track_title">SUIVRE L'ÉTAT DE MA RÉPARATION</h2>
+                <p class="tracker-subtitle" data-i18n="track_subtitle">Saisissez votre N° de ticket (ex: MR-2401) ou votre téléphone pour voir l'avancement en atelier.</p>
+            </div>
+            <div class="tracker-search-row">
+                <div class="tracker-input-box">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                    <input type="text" id="trackInput" placeholder="N° Ticket (ex: MR-2401) ou 0797..." aria-label="Numéro de ticket">
+                </div>
+                <button type="button" class="hero-cta tracker-search-btn" id="trackBtn" data-i18n="track_btn">VÉRIFIER LE STATUT</button>
+            </div>
+            <div class="tracker-result-card" id="trackResult">
+                <div class="track-meta">
+                    <span class="track-id" id="trackId">TICKET : #MR-2401</span>
+                    <span class="track-badge-status" id="trackBadge">EN COURS DE TEST</span>
+                </div>
+                <h3 class="track-device-name" id="trackDevice">MacBook Pro M1 — Réparation Court-circuit Carte Mère</h3>
+                <div class="track-timeline" id="trackTimeline">
+                    <div class="track-step completed" data-step="1">
+                        <div class="track-step-dot">✓</div>
+                        <div class="track-step-info">
+                            <strong data-i18n="step1_title">Réception</strong>
+                            <span data-i18n="step1_desc">Enregistré à l'atelier</span>
+                        </div>
+                    </div>
+                    <div class="track-step completed" data-step="2">
+                        <div class="track-step-dot">✓</div>
+                        <div class="track-step-info">
+                            <strong data-i18n="step2_title">Diagnostic</strong>
+                            <span data-i18n="step2_desc">Microscope & Test d'alim</span>
+                        </div>
+                    </div>
+                    <div class="track-step completed" data-step="3">
+                        <div class="track-step-dot">✓</div>
+                        <div class="track-step-info">
+                            <strong data-i18n="step3_title">Intervention</strong>
+                            <span data-i18n="step3_desc">Micro-soudure & CMS</span>
+                        </div>
+                    </div>
+                    <div class="track-step active" data-step="4">
+                        <div class="track-step-dot"><span class="della-pulse-led"></span></div>
+                        <div class="track-step-info">
+                            <strong data-i18n="step4_title">Banc de test</strong>
+                            <span data-i18n="step4_desc">Contrôle thermique & charge</span>
+                        </div>
+                    </div>
+                    <div class="track-step" data-step="5">
+                        <div class="track-step-dot">5</div>
+                        <div class="track-step-info">
+                            <strong data-i18n="step5_title">Prêt au retrait</strong>
+                            <span data-i18n="step5_desc">Disponible à Miramar</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="track-footer-row">
+                    <span class="track-tech-note" id="trackTechNote">🔧 <em>Note technicien :</em> Composant d'alimentation remplacé. Phase de banc d'essai et stabilité en cours.</span>
+                    <a href="https://wa.me/213797202579" id="trackWaBtn" target="_blank" rel="noopener noreferrer" class="hero-cta hero-cta-secondary track-wa-btn">
+                        <span data-i18n="track_wa_btn">Échanger avec le technicien sur WhatsApp ↗</span>
+                    </a>
+                </div>
+            </div>
+        </section>
 
         <div class="circuit-divider"><span></span></div>
 
@@ -364,6 +464,62 @@
                 </div>
             </div>
             <p class="pf-note" data-i18n="pf_note">📸 Galerie photo complète disponible sur demande via WhatsApp.</p>
+        </section>
+
+        <!-- Customer Reviews Section -->
+        <section class="reveal reviews-section circuit-frame" id="reviews">
+            <div class="reviews-head">
+                <div class="contact-terminal-tag">
+                    <span class="sec-dot amber"></span>
+                    <span data-i18n="rev_tag">// RETOURS D'EXPÉRIENCE VÉRIFIÉS</span>
+                </div>
+                <h2 class="services-title" data-i18n="rev_title">ILS FONT CONFIANCE À MR ROBOT</h2>
+                <div class="rev-rating-summary">
+                    <span class="rev-stars">★★★★★</span>
+                    <span class="rev-score"><strong>5.0 / 5</strong> — <span data-i18n="rev_stat">+450 réparations réussies à Oran</span></span>
+                </div>
+            </div>
+            <div class="reviews-grid">
+                <div class="review-card circuit-frame">
+                    <div class="review-card-head">
+                        <div class="rev-avatar">AK</div>
+                        <div>
+                            <h4>Amine K.</h4>
+                            <span class="rev-loc">Oran, Miramar</span>
+                        </div>
+                        <span class="rev-badge-verified">✓ Vérifié</span>
+                    </div>
+                    <div class="rev-card-stars">★★★★★</div>
+                    <p class="rev-text">"Carte mère de mon PC ASUS gamer déclarée irréparable ailleurs. Yassin a trouvé le court-circuit au microscope et remis en état en 48h. Une vraie pointure !"</p>
+                    <span class="rev-tag-service">⚡ Micro-soudure carte mère</span>
+                </div>
+                <div class="review-card circuit-frame">
+                    <div class="review-card-head">
+                        <div class="rev-avatar amber">DB</div>
+                        <div>
+                            <h4>Dr. Benali</h4>
+                            <span class="rev-loc">Clinique — Oran Centre</span>
+                        </div>
+                        <span class="rev-badge-verified">✓ Vérifié</span>
+                    </div>
+                    <div class="rev-card-stars">★★★★★</div>
+                    <p class="rev-text">"Installation de 14 caméras IP avec serveur NVR et réseau WiFi médical sécurisé. Travail soigné, câbles parfaitement intégrés et visionnage smartphone impeccable."</p>
+                    <span class="rev-tag-service">📹 Vidéosurveillance & Réseau</span>
+                </div>
+                <div class="review-card circuit-frame">
+                    <div class="review-card-head">
+                        <div class="rev-avatar">RM</div>
+                        <div>
+                            <h4>Riyad M.</h4>
+                            <span class="rev-loc">Akid Lotfi</span>
+                        </div>
+                        <span class="rev-badge-verified">✓ Vérifié</span>
+                    </div>
+                    <div class="rev-card-stars">★★★★★</div>
+                    <p class="rev-text">"Dépannage express de mon Mac avec récupération intégrale de mes données comptables. Honnêtes, rapides et explications limpides. Je recommande les yeux fermés."</p>
+                    <span class="rev-tag-service">💻 Récupération de données & PC</span>
+                </div>
+            </div>
         </section>
 
         <div class="circuit-divider"><span></span></div>
@@ -545,6 +701,21 @@
                         <label data-i18n="lbl_msg">Log d'Erreur (Description)</label>
                         <textarea rows="4" id="inp_msg" required placeholder="Décrivez le problème..." maxlength="500"></textarea>
                     </div>
+
+                    <!-- Photo Attachment -->
+                    <div class="photo-attach-zone">
+                        <label for="photoInput" class="photo-attach-btn" id="photoAttachBtn">
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                            <span data-i18n="photo_attach_lbl">📷 Joindre une photo de la panne (optionnel)</span>
+                        </label>
+                        <input type="file" id="photoInput" accept="image/*" style="display:none;">
+                        <div class="photo-preview-box" id="photoPreviewBox" style="display:none;">
+                            <img id="photoPreviewImg" src="" alt="Aperçu panne">
+                            <span class="photo-name" id="photoName"></span>
+                            <button type="button" class="photo-remove-btn" id="photoRemoveBtn" aria-label="Supprimer la photo">✕</button>
+                        </div>
+                    </div>
+
                     <div class="submit-group">
                         <button type="submit" class="submit-btn wa" data-submit="wa" id="btn-submit-wa" aria-label="Envoyer via WhatsApp">
                             <span class="app-ic" style="background:#25D366;">
@@ -683,6 +854,42 @@
             </svg>
             <span>Facebook</span>
         </a>
+    </div>
+
+    <!-- Cyber Terminal CLI Modal -->
+    <div class="cyber-cli-modal" id="cyberTerminal">
+        <div class="cli-window circuit-frame">
+            <div class="cli-titlebar">
+                <span class="sec-dot red" id="cliCloseDot"></span>
+                <span class="sec-dot amber"></span>
+                <span class="sec-dot green"></span>
+                <span class="cli-title">root@mrrobot:~$ /bin/bash (v3.2)</span>
+                <button type="button" class="cli-close" id="cliCloseBtn">✕</button>
+            </div>
+            <div class="cli-body" id="cliBody">
+                <div class="cli-line banner">MR ROBOT SYSTEMS [CYBER TERMINAL v3.2]</div>
+                <div class="cli-line dim">Tapez 'help' pour afficher les commandes système disponibles.</div>
+            </div>
+            <div class="cli-input-row">
+                <span class="cli-prompt">mrrobot@root:~$</span>
+                <input type="text" id="cliInput" autocomplete="off" spellcheck="false" aria-label="Commande terminal">
+            </div>
+        </div>
+    </div>
+
+    <!-- PWA Install Prompt Banner -->
+    <div class="pwa-install-banner" id="pwaBanner" style="display:none;">
+        <div class="pwa-info">
+            <img src="images/logo.webp" alt="Mr Robot App" width="36" height="36">
+            <div>
+                <strong data-i18n="pwa_title">Installer l'application Mr Robot</strong>
+                <p data-i18n="pwa_desc">Accès rapide 1-clic à Della et au suivi sans navigateur.</p>
+            </div>
+        </div>
+        <div class="pwa-actions">
+            <button type="button" class="hero-cta pwa-btn" id="pwaInstallBtn" data-i18n="pwa_btn">Installer</button>
+            <button type="button" class="pwa-close" id="pwaCloseBtn">✕</button>
+        </div>
     </div>
 
     <script src="app.js"></script>

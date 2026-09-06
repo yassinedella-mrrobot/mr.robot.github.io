@@ -1,0 +1,24 @@
+{
+  "name": "Mr Robot Systems — Solutions Tech Oran",
+  "short_name": "Mr Robot",
+  "description": "Diagnostic, Micro-soudure, Maintenance Informatique, Réseaux & Vidéosurveillance à Oran Miramar.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#05080b",
+  "theme_color": "#00ffcc",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "images/logo.webp",
+      "sizes": "192x192 512x512",
+      "type": "image/webp",
+      "purpose": "any maskable"
+    }
+  ]
+}

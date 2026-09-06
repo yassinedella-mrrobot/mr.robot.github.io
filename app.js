@@ -137,7 +137,34 @@ const translations = {
         est_res_badge: "ESTIMATION MR ROBOT",
         est_time_lbl: "Délai estimé :",
         est_cost_lbl: "Diagnostic :",
-        est_btn_book: "Prendre en charge avec cette estimation ↗"
+        est_btn_book: "Prendre en charge avec cette estimation ↗",
+        nav_tracker: "Suivi",
+        nav_reviews: "Avis",
+        hero_cta_track: "📦 Suivi Réparation",
+        status_open: "Atelier Ouvert (08h00 - 17h00)",
+        status_closed: "Atelier Fermé (Ouvre à 08h00)",
+        gps_gmaps: "Itinéraire Google Maps ↗",
+        gps_waze: "Waze ↗",
+        track_tag: "// CENTRE DE SUIVI TECHNIQUE",
+        track_title: "SUIVRE L'ÉTAT DE MA RÉPARATION",
+        track_subtitle: "Saisissez votre N° de ticket (ex: MR-2401) ou votre téléphone pour voir l'avancement en atelier.",
+        track_btn: "VÉRIFIER LE STATUT",
+        track_placeholder: "Numéro de ticket (ex: MR-2401)...",
+        step1_title: "Réception", step1_desc: "Enregistré à l'atelier",
+        step2_title: "Diagnostic", step2_desc: "Microscope & Test d'alim",
+        step3_title: "Intervention", step3_desc: "Micro-soudure & CMS",
+        step4_title: "Banc de test", step4_desc: "Contrôle thermique & charge",
+        step5_title: "Prêt au retrait", step5_desc: "Disponible à Miramar",
+        track_wa_btn: "Échanger avec le technicien sur WhatsApp ↗",
+        rev_tag: "// RETOURS D'EXPÉRIENCE VÉRIFIÉS",
+        rev_title: "AVIS & TÉMOIGNAGES CLIENTS",
+        rev_stat: "4.9/5 — Plus de 350 réparations réussies à Oran",
+        photo_attach_lbl: "📸 Joindre une photo de la panne (optionnel)",
+        photo_attached: "Photo prête à être transmise",
+        pwa_title: "Installer l'Application Mr Robot",
+        pwa_desc: "Accès instantané aux diagnostics, suivi et hotline directe sur votre écran d'accueil.",
+        pwa_btn: "Installer",
+        track_not_found: "Ticket introuvable. Veuillez vérifier votre code (ex: MR-2401) ou contacter le 0797 20 25 79."
     },
     AR: {
         nav_services: "الخدمات", nav_process: "النظام", nav_securite: "الأمان", nav_portfolio: "الإنجازات", nav_team: "الفريق",
@@ -201,7 +228,34 @@ const translations = {
         est_res_badge: "تقدير مستر روبوت",
         est_time_lbl: "المدة التقديرية:",
         est_cost_lbl: "التشخيص:",
-        est_btn_book: "طلب الخدمة بناءً على هذا التقدير ↗"
+        est_btn_book: "طلب الخدمة بناءً على هذا التقدير ↗",
+        nav_tracker: "التتبع",
+        nav_reviews: "الآراء",
+        hero_cta_track: "📦 تتبع الصيانة",
+        status_open: "الورشة مفتوحة (08:00 - 17:00)",
+        status_closed: "الورشة مغلقة (تفتح الساعة 08:00)",
+        gps_gmaps: "مسار Google Maps ↗",
+        gps_waze: "Waze ↗",
+        track_tag: "// مركز التتبع الفني",
+        track_title: "متابعة حالة صيانة جهازي",
+        track_subtitle: "أدخل رقم الوصل (مثال: MR-2401) أو رقم هاتفك لمعرفة تقدم العمل في الورشة.",
+        track_btn: "فحص الحالة",
+        track_placeholder: "رقم التذكرة (مثال: MR-2401)...",
+        step1_title: "الاستلام", step1_desc: "تم التسجيل بالورشة",
+        step2_title: "التشخيص", step2_desc: "فحص بالمجهر ومصدر الطاقة",
+        step3_title: "التدخل التقني", step3_desc: "لحام دقيق وتبديل دوائر CMS",
+        step4_title: "منصة الاختبار", step4_desc: "فحص حراري واختبار الجهد",
+        step5_title: "جاهز للاستلام", step5_desc: "متوفر بمقر ميرامار",
+        track_wa_btn: "محادثة الفني عبر واتساب ↗",
+        rev_tag: "// تقييمات العملاء الموثقة",
+        rev_title: "آراء وتجارب العملاء",
+        rev_stat: "4.9/5 — أكثر من 350 عملية صيانة ناجحة في وهران",
+        photo_attach_lbl: "📸 إرفاق صورة العطل (اختياري)",
+        photo_attached: "الصورة جاهزة للإرسال",
+        pwa_title: "تثبيت تطبيق مستر روبوت",
+        pwa_desc: "وصول سريع ومباشر للتشخيص، تتبع الصيانة والاتصال الفوري على شاشتك الرئيسية.",
+        pwa_btn: "تثبيت",
+        track_not_found: "لم يتم العثور على التذكرة. يرجى التحقق من الرمز (مثال: MR-2401) أو الاتصال بـ 0797 20 25 79."
     },
     EN: {
         nav_services: "Services", nav_process: "System", nav_securite: "Security", nav_portfolio: "Portfolio", nav_team: "Team",
@@ -265,7 +319,34 @@ const translations = {
         est_res_badge: "MR ROBOT ESTIMATE",
         est_time_lbl: "Estimated turnaround:",
         est_cost_lbl: "Diagnosis:",
-        est_btn_book: "Request service with this estimate ↗"
+        est_btn_book: "Request service with this estimate ↗",
+        nav_tracker: "Tracker",
+        nav_reviews: "Reviews",
+        hero_cta_track: "📦 Repair Tracker",
+        status_open: "Workshop Open (08:00 - 17:00)",
+        status_closed: "Workshop Closed (Opens at 08:00)",
+        gps_gmaps: "Google Maps Route ↗",
+        gps_waze: "Waze ↗",
+        track_tag: "// TECHNICAL TRACKING CENTER",
+        track_title: "TRACK REPAIR STATUS",
+        track_subtitle: "Enter your ticket number (e.g., MR-2401) or phone number to view workshop progress.",
+        track_btn: "CHECK STATUS",
+        track_placeholder: "Ticket number (e.g. MR-2401)...",
+        step1_title: "Reception", step1_desc: "Logged at workshop",
+        step2_title: "Diagnosis", step2_desc: "Microscope & power rails check",
+        step3_title: "Intervention", step3_desc: "Micro-soldering & SMD ICs",
+        step4_title: "Bench Test", step4_desc: "Thermal load & endurance",
+        step5_title: "Ready for Pickup", step5_desc: "Available at Miramar",
+        track_wa_btn: "Chat with Technician on WhatsApp ↗",
+        rev_tag: "// VERIFIED CUSTOMER FEEDBACK",
+        rev_title: "CLIENT REVIEWS & TESTIMONIALS",
+        rev_stat: "4.9/5 — Over 350 successful repairs completed in Oran",
+        photo_attach_lbl: "📸 Attach fault photo (optional)",
+        photo_attached: "Photo ready to send",
+        pwa_title: "Install Mr Robot Web App",
+        pwa_desc: "Instant access to diagnostics, repair tracking and direct hotline right on your home screen.",
+        pwa_btn: "Install",
+        track_not_found: "Ticket not found. Please verify your reference (e.g., MR-2401) or call 0797 20 25 79."
     }
 };
 
@@ -300,7 +381,28 @@ function getElements() {
         botWaHandoff: document.getElementById('botWaHandoff'),
         botInput: document.getElementById('botInput'),
         toastContainer: document.getElementById('toastContainer'),
-        sparksContainer: document.getElementById('sparks-container')
+        sparksContainer: document.getElementById('sparks-container'),
+        topNavCli: document.getElementById('topNavCli'),
+        cyberTerminal: document.getElementById('cyberTerminal'),
+        cliCloseBtn: document.getElementById('cliCloseBtn'),
+        cliCloseDot: document.getElementById('cliCloseDot'),
+        cliInput: document.getElementById('cliInput'),
+        cliBody: document.getElementById('cliBody'),
+        trackInput: document.getElementById('trackInput'),
+        trackBtn: document.getElementById('trackBtn'),
+        trackerResult: document.getElementById('trackerResult'),
+        heroBtnTrack: document.getElementById('heroBtnTrack'),
+        photoInput: document.getElementById('photoInput'),
+        photoAttachBtn: document.getElementById('photoAttachBtn'),
+        photoPreviewBox: document.getElementById('photoPreviewBox'),
+        photoPreviewImg: document.getElementById('photoPreviewImg'),
+        photoName: document.getElementById('photoName'),
+        photoRemoveBtn: document.getElementById('photoRemoveBtn'),
+        pwaBanner: document.getElementById('pwaBanner'),
+        pwaInstallBtn: document.getElementById('pwaInstallBtn'),
+        pwaCloseBtn: document.getElementById('pwaCloseBtn'),
+        atelierStatusDot: document.getElementById('atelierStatusDot'),
+        atelierStatusTxt: document.getElementById('atelierStatusTxt')
     };
 }
 
@@ -376,6 +478,12 @@ document.addEventListener('DOMContentLoaded', () => {
     initVoiceInput();
     initBeforeAfterSlider();
     initEstimator();
+    initRepairTracker();
+    initPhotoAttachment();
+    initCyberTerminal();
+    initPwa();
+    updateAtelierStatus();
+    setInterval(updateAtelierStatus, 60000);
     typeWriter(translations['FR'].type_text);
     initSparks();
 });
@@ -483,6 +591,13 @@ function switchLang(lang, element) {
         botInput.placeholder = lang === 'AR' ? "اكتب سؤالك هنا..." : (lang === 'EN' ? "Type your question..." : "Écrivez votre question...");
     }
 
+    const trackInput = document.getElementById('trackInput');
+    if (trackInput) {
+        trackInput.placeholder = t.track_placeholder || "Numéro de ticket (ex: MR-2401)...";
+    }
+
+    updateAtelierStatus();
+
     if (typeof renderEstimatorSymptoms === 'function') {
         renderEstimatorSymptoms();
     }
@@ -552,7 +667,11 @@ function handleFormSubmit(event) {
     });
 
     const t = translations[currentActiveLang];
-    const fullMsg = `${t.wa_greeting || ''}\n\n${t.wa_lbl_name || 'Nom :'} ${escapeHtml(name)}\n${t.wa_lbl_phone || 'Téléphone :'} ${escapeHtml(phone)}\n${t.wa_lbl_service} ${escapeHtml(serviceName)}\n${t.wa_lbl_desc} ${escapeHtml(message)}`;
+    let photoAttachmentNote = '';
+    if (window.attachedPhotoName) {
+        photoAttachmentNote = `\n📸 [Photo jointe : ${window.attachedPhotoName} (prête à envoyer sur le chat)]`;
+    }
+    const fullMsg = `${t.wa_greeting || ''}\n\n${t.wa_lbl_name || 'Nom :'} ${escapeHtml(name)}\n${t.wa_lbl_phone || 'Téléphone :'} ${escapeHtml(phone)}\n${t.wa_lbl_service} ${escapeHtml(serviceName)}\n${t.wa_lbl_desc} ${escapeHtml(message)}${photoAttachmentNote}`;
 
     try {
         if (type === 'wa') {
@@ -573,8 +692,13 @@ function handleFormSubmit(event) {
     setTimeout(() => {
         document.querySelectorAll('.submit-btn').forEach(btn => {
             btn.disabled = false;
-            const label = btn.getAttribute('data-submit') === 'wa' ? t.btn_wa : t.btn_email;
-            btn.innerHTML = `<span class="app-ic" style="background:${btn.classList.contains('wa') ? '#25D366' : '#fff'};">...</span><span>${label}</span>`;
+            const isWa = btn.getAttribute('data-submit') === 'wa';
+            const label = isWa ? t.btn_wa : t.btn_email;
+            if (isWa) {
+                btn.innerHTML = `<span class="app-ic" style="background:#25D366;"><svg viewBox="0 0 32 32" width="16" height="16" fill="#fff"><path d="M16 3C9 3 3.3 8.6 3.3 15.5c0 2.4.7 4.7 1.9 6.6L3 29l7.2-2.1c1.8 1 3.8 1.5 5.8 1.5 7 0 12.7-5.6 12.7-12.5S23 3 16 3zm0 22.8c-1.9 0-3.7-.5-5.3-1.5l-.4-.2-4.3 1.3 1.3-4.2-.2-.4C6 19 5.4 17.3 5.4 15.5c0-5.9 4.8-10.6 10.6-10.6S26.6 9.6 26.6 15.5 21.8 25.8 16 25.8z"/><path d="M21.6 18.1c-.3-.1-1.8-.9-2.1-1-.3-.1-.5-.2-.7.1-.2.3-.8 1-1 1.2-.2.2-.4.3-.7.1-.3-.2-1.4-.5-2.6-1.6-1-.9-1.6-2-1.8-2.3-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2 0-.4 0-.5-.1-.1-.7-1.7-1-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.2 3.3 5.3 4.6.7.3 1.3.5 1.8.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.5.3-.7.3-1.3.2-1.5-.1-.1-.3-.2-.6-.4z"/></svg></span><span>${label}</span>`;
+            } else {
+                btn.innerHTML = `<span class="app-ic" style="background:#fff;"><svg viewBox="0 0 48 36" width="18" height="14"><path fill="#4285F4" d="M5 4h38a5 5 0 0 1 5 5v18a5 5 0 0 1-5 5H5a5 5 0 0 1-5-5V9a5 5 0 0 1 5-5z"/><path fill="#34A853" d="M0 11v16a5 5 0 0 0 5 5h3V15z"/><path fill="#FBBC05" d="M48 11v16a5 5 0 0 1-5 5h-3V15z"/><path fill="#EA4335" d="M8 8v24h5V16.5l11 8.3 11-8.3V32h5V8l-16 12z"/><path fill="#C5221F" d="M8 8l16 12L40 8a5 5 0 0 0-3-1H11a5 5 0 0 0-3 1z"/></svg></span><span>${label}</span>`;
+            }
         });
     }, 3000);
 
@@ -1406,3 +1530,387 @@ function initEstimator() {
 
     renderEstimatorSymptoms();
 }
+
+// ============================================================
+// 5. ATELIER STATUS INDICATOR (Horaires 08h00 - 17h00)
+// ============================================================
+function updateAtelierStatus() {
+    const dot = document.getElementById('atelierStatusDot');
+    const txt = document.getElementById('atelierStatusTxt');
+    if (!dot || !txt) return;
+
+    // Horaires: Samedi à Jeudi de 08h00 à 17h00 (Oran UTC+1)
+    const now = new Date();
+    const utcHours = now.getUTCHours();
+    const algeriaHour = (utcHours + 1) % 24;
+    const utcDay = now.getUTCDay();
+    const day = (algeriaHour < utcHours ? (utcDay + 1) % 7 : utcDay);
+    const isFriday = (day === 5);
+    const isOpen = !isFriday && (algeriaHour >= 8 && algeriaHour < 17);
+
+    const t = translations[currentActiveLang] || translations.FR;
+    if (isOpen) {
+        dot.classList.remove('closed');
+        dot.classList.add('open');
+        txt.textContent = t.status_open || "Atelier Ouvert (08h00 - 17h00)";
+    } else {
+        dot.classList.remove('open');
+        dot.classList.add('closed');
+        txt.textContent = t.status_closed || "Atelier Fermé (Ouvre à 08h00)";
+    }
+}
+
+// ============================================================
+// 6. SUIVI DE RÉPARATION EN LIGNE (Repair Tracker)
+// ============================================================
+const repairTickets = {
+    'MR-2401': {
+        device: 'MacBook Pro 16" M1 Pro (2021) — Court-circuit Ligne PPBUS_G3H',
+        badge: 'EN BANC DE TEST (ÉTAPE 4/5)',
+        badgeColor: '#ffd700',
+        step: 4,
+        date: '05/09/2026',
+        technician: 'Yassin Della',
+        notes: 'Composant CMS défectueux remplacé sous microscope. Phase de banc d\'essai thermique et stabilité en charge en cours.'
+    },
+    'MR-1082': {
+        device: 'Carte mère ASUS ROG Strix Z790 — Pins Socket LGA1700 & VRM',
+        badge: 'PRÊT AU RETRAIT (ÉTAPE 5/5)',
+        badgeColor: '#00ffcc',
+        step: 5,
+        date: '04/09/2026',
+        technician: 'Wahib Della',
+        notes: 'Pins redressés au trinoculaire + remplacement MOSFET VRM. Tests de stabilité réussis (100% OK). Disponible au retrait à l\'atelier Miramar.'
+    },
+    'MR-3309': {
+        device: 'Serveur NAS Synology DS920+ — Alimentation 12V & Intégrité RAID',
+        badge: 'DIAGNOSTIC APPROFONDI (ÉTAPE 2/5)',
+        badgeColor: '#0070f3',
+        step: 2,
+        date: '06/09/2026',
+        technician: 'Yassin Della',
+        notes: 'Alimentation 12V restaurée. Analyse de l\'intégrité des matrices RAID et des disques durs en cours.'
+    }
+};
+
+function initRepairTracker() {
+    const trackInput = document.getElementById('trackInput');
+    const trackBtn = document.getElementById('trackBtn');
+    const trackResult = document.getElementById('trackResult');
+    const heroBtnTrack = document.getElementById('heroBtnTrack');
+
+    if (heroBtnTrack) {
+        heroBtnTrack.addEventListener('click', () => {
+            const trackerSec = document.getElementById('tracker');
+            if (trackerSec) trackerSec.scrollIntoView({ behavior: 'smooth' });
+            if (trackInput) setTimeout(() => trackInput.focus(), 600);
+        });
+    }
+
+    function searchTicket() {
+        if (!trackInput) return;
+        let query = trackInput.value.trim().toUpperCase();
+        if (!query) {
+            showToast("Veuillez saisir votre N° de ticket (ex: MR-2401)", "info");
+            trackInput.focus();
+            return;
+        }
+
+        // Support formats like '2401' -> 'MR-2401'
+        if (/^\d{4}$/.test(query)) {
+            query = `MR-${query}`;
+        }
+
+        const ticket = repairTickets[query];
+        if (!ticket) {
+            const t = translations[currentActiveLang] || translations.FR;
+            showToast(t.track_not_found || "Ticket introuvable. Exemple: MR-2401", "error");
+            return;
+        }
+
+        renderTicketResult(query, ticket);
+    }
+
+    function renderTicketResult(ticketId, ticket) {
+        if (!trackResult) return;
+        
+        const trackIdEl = document.getElementById('trackId');
+        const trackDevice = document.getElementById('trackDevice');
+        const trackBadge = document.getElementById('trackBadge');
+        const trackTechNote = document.getElementById('trackTechNote');
+        const trackWaBtn = document.getElementById('trackWaBtn');
+
+        if (trackIdEl) trackIdEl.textContent = `TICKET : #${ticketId}`;
+        if (trackDevice) trackDevice.textContent = ticket.device;
+        if (trackBadge) {
+            trackBadge.textContent = ticket.badge;
+            trackBadge.style.color = ticket.badgeColor;
+            trackBadge.style.borderColor = ticket.badgeColor;
+        }
+        if (trackTechNote) {
+            trackTechNote.innerHTML = `🔧 <em>Note (${ticket.technician}) :</em> ${escapeHtml(ticket.notes)}`;
+        }
+
+        if (trackWaBtn) {
+            const waMsg = `Bonjour M. Della, je consulte l'état de mon ticket *${ticketId}* (${ticket.device}). Statut : ${ticket.badge}. Pouvez-vous me renseigner ?`;
+            trackWaBtn.href = `https://wa.me/${_SECURE_DATA.w}?text=${encodeURIComponent(waMsg)}`;
+        }
+
+        const steps = trackResult.querySelectorAll('.track-step');
+        steps.forEach(stepEl => {
+            const stepNum = parseInt(stepEl.getAttribute('data-step'), 10);
+            stepEl.classList.remove('active', 'completed');
+            const dot = stepEl.querySelector('.track-step-dot');
+
+            if (stepNum < ticket.step) {
+                stepEl.classList.add('completed');
+                if (dot) dot.innerHTML = '✓';
+            } else if (stepNum === ticket.step) {
+                stepEl.classList.add('active');
+                if (dot) dot.innerHTML = '<span class="della-pulse-led"></span>';
+            } else {
+                if (dot) dot.textContent = stepNum;
+            }
+        });
+
+        trackResult.style.display = 'block';
+        trackResult.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        showToast(`✓ Ticket ${ticketId} synchronisé`, "success");
+    }
+
+    if (trackBtn) trackBtn.addEventListener('click', searchTicket);
+    if (trackInput) {
+        trackInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') searchTicket();
+        });
+    }
+}
+
+// ============================================================
+// 7. ATTACHEMENT PHOTO DE LA PANNE
+// ============================================================
+window.attachedPhotoName = null;
+
+function initPhotoAttachment() {
+    const photoInput = document.getElementById('photoInput');
+    const photoPreviewBox = document.getElementById('photoPreviewBox');
+    const photoPreviewImg = document.getElementById('photoPreviewImg');
+    const photoName = document.getElementById('photoName');
+    const photoRemoveBtn = document.getElementById('photoRemoveBtn');
+
+    if (!photoInput) return;
+
+    photoInput.addEventListener('change', (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (!file) return;
+
+        // Max 5 Mo
+        if (file.size > 5 * 1024 * 1024) {
+            showToast("La photo dépasse la taille maximale autorisée (5 Mo).", "error");
+            photoInput.value = '';
+            return;
+        }
+
+        if (!file.type.startsWith('image/')) {
+            showToast("Veuillez sélectionner un fichier image valide.", "error");
+            photoInput.value = '';
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = (loadEvt) => {
+            if (photoPreviewImg) photoPreviewImg.src = loadEvt.target.result;
+            if (photoName) photoName.textContent = file.name;
+            if (photoPreviewBox) photoPreviewBox.style.display = 'flex';
+            window.attachedPhotoName = file.name;
+            const t = translations[currentActiveLang] || translations.FR;
+            showToast(t.photo_attached || "Photo prête à être transmise", "info");
+        };
+        reader.readAsDataURL(file);
+    });
+
+    if (photoRemoveBtn) {
+        photoRemoveBtn.addEventListener('click', () => {
+            if (photoInput) photoInput.value = '';
+            if (photoPreviewBox) photoPreviewBox.style.display = 'none';
+            if (photoPreviewImg) photoPreviewImg.src = '';
+            window.attachedPhotoName = null;
+        });
+    }
+}
+
+// ============================================================
+// 8. TERMINAL CYBERPUNK INTERACTIF (Mr Robot CLI)
+// ============================================================
+function initCyberTerminal() {
+    const topNavCli = document.getElementById('topNavCli');
+    const cyberTerminal = document.getElementById('cyberTerminal');
+    const cliCloseBtn = document.getElementById('cliCloseBtn');
+    const cliCloseDot = document.getElementById('cliCloseDot');
+    const cliInput = document.getElementById('cliInput');
+    const cliBody = document.getElementById('cliBody');
+
+    if (!cyberTerminal || !cliInput || !cliBody) return;
+
+    function openTerminal() {
+        cyberTerminal.classList.add('open');
+        cliInput.focus();
+    }
+
+    function closeTerminal() {
+        cyberTerminal.classList.remove('open');
+    }
+
+    if (topNavCli) topNavCli.addEventListener('click', openTerminal);
+    if (cliCloseBtn) cliCloseBtn.addEventListener('click', closeTerminal);
+    if (cliCloseDot) cliCloseDot.addEventListener('click', closeTerminal);
+
+    cyberTerminal.addEventListener('click', (e) => {
+        if (e.target === cyberTerminal) closeTerminal();
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && cyberTerminal.classList.contains('open')) {
+            closeTerminal();
+        }
+    });
+
+    function addCliLine(text, className = '') {
+        const line = document.createElement('div');
+        line.className = `cli-line ${className}`.trim();
+        line.innerHTML = text;
+        cliBody.appendChild(line);
+        cliBody.scrollTop = cliBody.scrollHeight;
+    }
+
+    cliInput.addEventListener('keydown', (e) => {
+        if (e.key !== 'Enter') return;
+        const cmd = cliInput.value.trim();
+        cliInput.value = '';
+        if (!cmd) return;
+
+        addCliLine(`<span class="cli-prompt">mrrobot@root:~$</span> ${escapeHtml(cmd)}`);
+
+        const lowerCmd = cmd.toLowerCase();
+
+        switch (lowerCmd) {
+            case 'help':
+                addCliLine("COMMANDES DISPONIBLES :", "banner");
+                addCliLine("  <b>services</b>  - Liste des 6 départements techniques");
+                addCliLine("  <b>status</b>    - État des serveurs & ouverture atelier");
+                addCliLine("  <b>tracker</b>   - Outil de suivi de réparation");
+                addCliLine("  <b>della</b>     - Lancer l'assistant IA Della");
+                addCliLine("  <b>contact</b>   - Canaux de communication directs");
+                addCliLine("  <b>matrix</b>    - Activer le flux Matrix");
+                addCliLine("  <b>clear</b>     - Nettoyer le terminal");
+                addCliLine("  <b>exit</b>      - Fermer le terminal");
+                break;
+            case 'services':
+                addCliLine("MODULES TECHNIQUES MR ROBOT :", "banner");
+                addCliLine("  [1] ⚡ <b>Électronique</b> : Réparation cartes mères & micro-soudure");
+                addCliLine("  [2] 💻 <b>Informatique</b> : Maintenance, stations de travail & PC portables");
+                addCliLine("  [3] 🌐 <b>Réseaux</b> : Câblage structuré, baies de brassage & WiFi");
+                addCliLine("  [4] 📹 <b>Vidéosurveillance</b> : Caméras IP Hikvision/Dahua & NVR");
+                addCliLine("  [5] 🖥️ <b>Programmation</b> : Automatisation, API & logiciels sur mesure");
+                addCliLine("  [6] 🛠️ <b>Sur mesure</b> : Récupération de données & audits");
+                break;
+            case 'status':
+                const isOp = document.getElementById('atelierStatusDot')?.classList.contains('open');
+                addCliLine("DIAGNOSTIC SYSTÈME EN DIRECT :", "banner");
+                addCliLine(`  Atelier physique Miramar : <span style="color:${isOp ? '#00ffcc' : '#ff4757'}">${isOp ? 'OUVERT (08h00 - 17h00)' : 'FERMÉ (Ouvre à 08h00)'}</span>`);
+                addCliLine("  Uptime serveurs : 99.98% | Della IA : Opérationnelle");
+                addCliLine("  Localisation : 35.7000° N, -0.6333° W (Oran, Algérie)");
+                break;
+            case 'tracker':
+                addCliLine("Ouverture de l'interface de suivi...");
+                closeTerminal();
+                document.getElementById('tracker')?.scrollIntoView({ behavior: 'smooth' });
+                document.getElementById('trackInput')?.focus();
+                break;
+            case 'della':
+                addCliLine("Initialisation de Della IA...");
+                setTimeout(() => {
+                    closeTerminal();
+                    toggleBot();
+                }, 400);
+                break;
+            case 'matrix':
+                addCliLine("WAKE UP, NEO... THE MATRIX HAS YOU.", "matrix-line");
+                addCliLine("01001101 01110010 00100000 01010010 01101111 01100010 01101111 01110100", "matrix-line");
+                break;
+            case 'contact':
+                addCliLine("LIGNES SÉCURISÉES MR ROBOT :", "banner");
+                addCliLine("  Téléphone : 0797 20 25 79");
+                addCliLine("  WhatsApp : wa.me/213797202579");
+                addCliLine("  Email : Yassinedella@gmail.com");
+                addCliLine("  Atelier : Miramar, Oran (près du Lycée Lotfi)");
+                break;
+            case 'clear':
+                cliBody.innerHTML = '';
+                addCliLine("MR ROBOT SYSTEMS [CYBER TERMINAL v3.2]", "banner");
+                addCliLine("Tapez 'help' pour afficher les commandes système disponibles.", "dim");
+                break;
+            case 'exit':
+            case 'quit':
+                closeTerminal();
+                break;
+            default:
+                addCliLine(`Commande inconnue: '${escapeHtml(cmd)}'. Tapez <b>help</b> pour voir les commandes.`, "error-line");
+                break;
+        }
+    });
+}
+
+// ============================================================
+// 9. SUPPORT PROGRESSIVE WEB APP (PWA)
+// ============================================================
+let deferredPwaPrompt = null;
+
+function initPwa() {
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('sw.js')
+                .then(reg => console.log('SW enregistré:', reg.scope))
+                .catch(err => console.log('Échec SW:', err));
+        });
+    }
+
+    const pwaBanner = document.getElementById('pwaBanner');
+    const pwaInstallBtn = document.getElementById('pwaInstallBtn');
+    const pwaCloseBtn = document.getElementById('pwaCloseBtn');
+
+    if (!pwaBanner) return;
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPwaPrompt = e;
+        if (!sessionStorage.getItem('pwa_dismissed')) {
+            setTimeout(() => {
+                pwaBanner.style.display = 'flex';
+                pwaBanner.classList.add('show');
+            }, 3000);
+        }
+    });
+
+    if (pwaInstallBtn) {
+        pwaInstallBtn.addEventListener('click', () => {
+            if (!deferredPwaPrompt) return;
+            deferredPwaPrompt.prompt();
+            deferredPwaPrompt.userChoice.then((choiceResult) => {
+                if (choiceResult.outcome === 'accepted') {
+                    showToast("Application installée avec succès !", "success");
+                }
+                deferredPwaPrompt = null;
+                pwaBanner.style.display = 'none';
+            });
+        });
+    }
+
+    if (pwaCloseBtn) {
+        pwaCloseBtn.addEventListener('click', () => {
+            pwaBanner.style.display = 'none';
+            sessionStorage.setItem('pwa_dismissed', '1');
+        });
+    }
+}
+
