@@ -295,86 +295,109 @@ nav ul a:hover { color: var(--trace); text-shadow: 0 0 8px var(--trace); }
 }
 
 .cyber-contact-bar {
-    display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 25px;
+    display: flex; flex-direction: column; gap: 10px; margin-bottom: 25px; width: 100%;
 }
 
 .cyber-badge {
-    display: flex; align-items: center; gap: 12px;
-    background: rgba(10, 18, 26, 0.85);
-    border: 1px solid rgba(255, 255, 255, 0.09);
-    border-radius: 10px; padding: 12px 14px;
+    display: flex; align-items: center; gap: 14px;
+    background: rgba(13, 21, 28, 0.75);
+    border: 1px solid rgba(0, 255, 204, 0.15);
+    border-left: 3px solid var(--trace);
+    border-radius: 8px; padding: 12px 16px;
     text-decoration: none; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative; overflow: hidden;
     backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
-    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    cursor: pointer; width: 100%;
 }
-.cyber-badge::before {
-    content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
-    background: transparent; transition: 0.25s;
+html[dir="rtl"] .cyber-badge {
+    border-left: 1px solid rgba(0, 255, 204, 0.15);
+    border-right: 3px solid var(--trace);
 }
-html[dir="rtl"] .cyber-badge::before { left: auto; right: 0; }
 
 .cb-icon-box {
     width: 38px; height: 38px; border-radius: 8px; display: flex; align-items: center;
     justify-content: center; flex-shrink: 0; transition: all 0.25s ease;
-    background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(0, 255, 204, 0.06); border: 1px solid rgba(0, 255, 204, 0.22);
+    color: var(--trace);
 }
 .cb-icon-box svg { display: block; flex-shrink: 0; transition: transform 0.25s ease; }
 
 .cb-content { display: flex; flex-direction: column; min-width: 0; }
 .cb-label {
-    font-family: 'Space Grotesk', 'Cairo', sans-serif; font-size: 0.92rem; font-weight: 600;
-    color: #fff; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    font-family: 'Space Grotesk', 'Cairo', sans-serif; font-size: 0.95rem; font-weight: 600;
+    color: var(--white); line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .cb-status {
-    font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; letter-spacing: 0.5px;
-    line-height: 1.3; margin-top: 3px; font-weight: 500;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; letter-spacing: 0.6px;
+    line-height: 1.3; margin-top: 3px; font-weight: 500; color: var(--trace);
 }
 
-/* WhatsApp Badge */
-.cyber-badge-wa::before { background: #25D366; }
-.cyber-badge-wa .cb-icon-box { background: rgba(37, 211, 102, 0.12); border-color: rgba(37, 211, 102, 0.35); color: #25D366; }
-.cyber-badge-wa .cb-status { color: #25D366; }
+.cb-action {
+    margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 0.72rem;
+    letter-spacing: 0.8px; padding: 5px 12px; border-radius: 4px;
+    border: 1px solid rgba(0, 255, 204, 0.3); color: var(--trace);
+    background: rgba(0, 255, 204, 0.05); transition: all 0.25s ease;
+    white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;
+    font-weight: 600; flex-shrink: 0;
+}
+html[dir="rtl"] .cb-action { margin-left: 0; margin-right: auto; }
+
+/* WhatsApp Badge — Cyber Cyan */
+.cyber-badge-wa { border-left-color: var(--trace); }
+.cyber-badge-wa .cb-icon-box { background: rgba(0, 255, 204, 0.08); border-color: rgba(0, 255, 204, 0.3); color: var(--trace); }
+.cyber-badge-wa .cb-status { color: var(--trace); }
+.cyber-badge-wa .cb-action { color: var(--trace); border-color: rgba(0, 255, 204, 0.3); background: rgba(0, 255, 204, 0.05); }
 .cyber-badge-wa:hover {
-    border-color: rgba(37, 211, 102, 0.6); transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.25); background: rgba(37, 211, 102, 0.08);
+    border-color: var(--trace); background: rgba(0, 255, 204, 0.08);
+    box-shadow: 0 4px 20px rgba(0, 255, 204, 0.25); transform: translateX(6px);
 }
-.cyber-badge-wa:hover .cb-icon-box { background: #25D366; color: #05080b; box-shadow: 0 0 12px #25D366; }
+.cyber-badge-wa:hover .cb-icon-box { background: var(--trace); color: #05080b; box-shadow: 0 0 12px var(--trace); }
 .cyber-badge-wa:hover .cb-icon-box svg { transform: scale(1.1); }
+.cyber-badge-wa:hover .cb-action { background: var(--trace); color: #05080b; box-shadow: 0 0 10px var(--trace); }
 
-/* Phone Badge */
-.cyber-badge-phone::before { background: var(--amber); }
-.cyber-badge-phone .cb-icon-box { background: rgba(255, 170, 0, 0.12); border-color: rgba(255, 170, 0, 0.35); color: var(--amber); }
+/* Phone Badge — Cyber Amber */
+.cyber-badge-phone { border-left-color: var(--amber); }
+html[dir="rtl"] .cyber-badge-phone { border-left-color: rgba(255, 170, 0, 0.15); border-right-color: var(--amber); }
+.cyber-badge-phone .cb-icon-box { background: rgba(255, 170, 0, 0.08); border-color: rgba(255, 170, 0, 0.3); color: var(--amber); }
 .cyber-badge-phone .cb-status { color: var(--amber); }
+.cyber-badge-phone .cb-action { color: var(--amber); border-color: rgba(255, 170, 0, 0.3); background: rgba(255, 170, 0, 0.05); }
 .cyber-badge-phone:hover {
-    border-color: rgba(255, 170, 0, 0.6); transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(255, 170, 0, 0.25); background: rgba(255, 170, 0, 0.08);
+    border-color: var(--amber); background: rgba(255, 170, 0, 0.08);
+    box-shadow: 0 4px 20px rgba(255, 170, 0, 0.25); transform: translateX(6px);
 }
 .cyber-badge-phone:hover .cb-icon-box { background: var(--amber); color: #05080b; box-shadow: 0 0 12px var(--amber); }
 .cyber-badge-phone:hover .cb-icon-box svg { transform: scale(1.1); }
+.cyber-badge-phone:hover .cb-action { background: var(--amber); color: #05080b; box-shadow: 0 0 10px var(--amber); }
 
-/* Email Badge */
-.cyber-badge-email::before { background: var(--trace); }
-.cyber-badge-email .cb-icon-box { background: rgba(0, 255, 204, 0.12); border-color: rgba(0, 255, 204, 0.35); color: var(--trace); }
+/* Email Badge — Cyber Cyan */
+.cyber-badge-email { border-left-color: var(--trace); }
+.cyber-badge-email .cb-icon-box { background: rgba(0, 255, 204, 0.08); border-color: rgba(0, 255, 204, 0.3); color: var(--trace); }
 .cyber-badge-email .cb-status { color: var(--trace); }
+.cyber-badge-email .cb-action { color: var(--trace); border-color: rgba(0, 255, 204, 0.3); background: rgba(0, 255, 204, 0.05); }
 .cyber-badge-email:hover {
-    border-color: rgba(0, 255, 204, 0.6); transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 255, 204, 0.25); background: rgba(0, 255, 204, 0.08);
+    border-color: var(--trace); background: rgba(0, 255, 204, 0.08);
+    box-shadow: 0 4px 20px rgba(0, 255, 204, 0.25); transform: translateX(6px);
 }
 .cyber-badge-email:hover .cb-icon-box { background: var(--trace); color: #05080b; box-shadow: 0 0 12px var(--trace); }
 .cyber-badge-email:hover .cb-icon-box svg { transform: scale(1.1); }
+.cyber-badge-email:hover .cb-action { background: var(--trace); color: #05080b; box-shadow: 0 0 10px var(--trace); }
 
-/* Facebook Badge */
-.cyber-badge-fb::before { background: #1877F2; }
-.cyber-badge-fb .cb-icon-box { background: rgba(24, 119, 242, 0.15); border-color: rgba(24, 119, 242, 0.4); color: #4b96f7; }
-.cyber-badge-fb .cb-status { color: #4b96f7; }
+/* Facebook Badge — Cyber Electric Blue */
+.cyber-badge-fb { border-left-color: #00d2ff; }
+html[dir="rtl"] .cyber-badge-fb { border-left-color: rgba(0, 210, 255, 0.15); border-right-color: #00d2ff; }
+.cyber-badge-fb .cb-icon-box { background: rgba(0, 210, 255, 0.08); border-color: rgba(0, 210, 255, 0.3); color: #00d2ff; }
+.cyber-badge-fb .cb-status { color: #00d2ff; }
+.cyber-badge-fb .cb-action { color: #00d2ff; border-color: rgba(0, 210, 255, 0.3); background: rgba(0, 210, 255, 0.05); }
 .cyber-badge-fb:hover {
-    border-color: rgba(24, 119, 242, 0.6); transform: translateY(-2px);
-    box-shadow: 0 6px 22px rgba(24, 119, 242, 0.3); background: rgba(24, 119, 242, 0.1);
+    border-color: #00d2ff; background: rgba(0, 210, 255, 0.08);
+    box-shadow: 0 4px 20px rgba(0, 210, 255, 0.25); transform: translateX(6px);
 }
-.cyber-badge-fb:hover .cb-icon-box { background: #1877F2; color: #ffffff; box-shadow: 0 0 12px #1877F2; }
+.cyber-badge-fb:hover .cb-icon-box { background: #00d2ff; color: #05080b; box-shadow: 0 0 12px #00d2ff; }
 .cyber-badge-fb:hover .cb-icon-box svg { transform: scale(1.1); }
+.cyber-badge-fb:hover .cb-action { background: #00d2ff; color: #05080b; box-shadow: 0 0 10px #00d2ff; }
+
+html[dir="rtl"] .cyber-badge:hover { transform: translateX(-6px); }
 
 .field { margin-bottom: 15px; }
 .field label { display: block; font-family: 'JetBrains Mono', 'Cairo', monospace; font-size: 0.75rem; color: var(--trace); margin-bottom: 6px; }
@@ -897,14 +920,15 @@ html[dir="rtl"] .bot-toggle, html[dir="rtl"] .bot-panel { left: auto; right: 24p
         color: var(--text-dim) !important;
     }
     .cyber-contact-bar {
-        display: grid !important;
-        grid-template-columns: repeat(2, 1fr) !important;
+        display: flex !important;
+        flex-direction: column !important;
         gap: 8px !important;
         margin-bottom: 16px !important;
+        width: 100% !important;
     }
     .cyber-badge {
-        padding: 8px 10px !important;
-        gap: 8px !important;
+        padding: 10px 12px !important;
+        gap: 10px !important;
         border-radius: 8px !important;
     }
     .cb-icon-box {
@@ -917,11 +941,15 @@ html[dir="rtl"] .bot-toggle, html[dir="rtl"] .bot-panel { left: auto; right: 24p
         height: 16px !important;
     }
     .cb-label {
-        font-size: 0.78rem !important;
+        font-size: 0.82rem !important;
     }
     .cb-status {
-        font-size: 0.58rem !important;
+        font-size: 0.6rem !important;
         letter-spacing: 0.2px !important;
+    }
+    .cb-action {
+        font-size: 0.64rem !important;
+        padding: 3px 8px !important;
     }
     .contact-section .field {
         margin-bottom: 8px !important;
